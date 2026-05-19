@@ -43,6 +43,21 @@ export const Services: CollectionConfig = {
       },
     },
     {
+      name: "dashboardBadge",
+      type: "text",
+      label: "Badge Dashboard",
+    },
+    {
+      name: "dashboardTitle",
+      type: "text",
+      label: "Judul Dashboard",
+    },
+    {
+      name: "dashboardSubtitle",
+      type: "textarea",
+      label: "Sub-judul / Deskripsi Dashboard",
+    },
+    {
       type: "tabs",
       tabs: [
         {

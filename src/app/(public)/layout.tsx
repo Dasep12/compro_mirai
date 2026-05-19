@@ -50,29 +50,55 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const payload = await getPayload({ config });
-  const [services, products] = await Promise.all([
-    payload.find({
-      collection: "services",
-      depth: 1,
-      limit: 10,
-    }),
-    payload.find({
-      collection: "products",
-      depth: 1,
-      limit: 10,
-    }),
-  ]);
+
+  const services = await payload.find({
+    collection: "services",
+    depth: 1,
+    limit: 10,
+  });
+
+  const products = await payload.find({
+    collection: "products",
+    depth: 1,
+    limit: 10,
+  });
 
   return (
     <html lang="id" className={`${jakarta.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <AppBar services={services.docs} products={products.docs} />
+        <Suspense
+          fallback={
+            <div className="w-full flex-1 flex flex-col items-center justify-center min-h-[50vh] gap-3">
+              <style
+                dangerouslySetInnerHTML={{
+                  __html: `
+                      @keyframes loading-slide {
+                        0% { transform: translateX(-100%); }
+                        100% { transform: translateX(200%); }
+                      }
+                      .animate-loading-slide {
+                        animation: loading-slide 1.5s infinite ease-in-out;
+                      }
+                    `,
+                }}
+              />
 
-        <main className="grow pt-[70px] w-full">
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-        </main>
+              <div className="w-[200px] md:w-[300px] h-[6px] bg-base-100/30 rounded-full overflow-hidden relative">
+                <div className="absolute top-0 left-0 h-full w-1/2 bg-linear-to-r from-[#0451bf] to-secondary-300 rounded-full animate-loading-slide"></div>
+              </div>
 
-        <Footer services={services.docs} products={products.docs} />
+              <span className="text-[13px] font-medium text-primary animate-pulse tracking-wide">
+                Memuat halaman...
+              </span>
+            </div>
+          }
+        >
+          <AppBar services={services.docs} products={products.docs} />
+
+          <main className="grow w-full">{children}</main>
+
+          <Footer services={services.docs} products={products.docs} />
+        </Suspense>
       </body>
     </html>
   );

@@ -11,6 +11,8 @@ import { Partnership } from "./src/collections/Partnership.ts";
 import { Career } from "./src/collections/Career.ts";
 import { Products } from "./src/collections/Products.ts";
 import { Faqs } from "./src/collections/Faqs.ts";
+import { Portfolios } from "./src/collections/Portfolios.ts";
+import { Visitors } from "./src/collections/Visitors.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -28,6 +30,8 @@ export default buildConfig({
     Career,
     Products,
     Faqs,
+    Portfolios,
+    Visitors,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

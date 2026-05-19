@@ -75,6 +75,8 @@ export interface Config {
     careers: Career;
     products: Product;
     faqs: Faq;
+    portfolios: Portfolio;
+    visitors: Visitor;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,6 +92,8 @@ export interface Config {
     careers: CareersSelect<false> | CareersSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
+    portfolios: PortfoliosSelect<false> | PortfoliosSelect<true>;
+    visitors: VisitorsSelect<false> | VisitorsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -210,6 +214,9 @@ export interface Service {
    * Gunakan gambar berformat SVG atau PNG dengan rasio 1:1.
    */
   iconTitle: number | Media;
+  dashboardBadge?: string | null;
+  dashboardTitle?: string | null;
+  dashboardSubtitle?: string | null;
   heroBadge?: string | null;
   heroDescription?: string | null;
   heroImage?: (number | null) | Media;
@@ -429,6 +436,53 @@ export interface Faq {
   createdAt: string;
 }
 /**
+ * Daftar rekam jejak / portofolio proyek klien.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolios".
+ */
+export interface Portfolio {
+  id: number;
+  clientName: string;
+  /**
+   * Pilih data customer dari tabel Customers jika ada.
+   */
+  customer?: (number | null) | Customer;
+  relatedServices?: (number | Service)[] | null;
+  description: string;
+  achievements?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  tags?:
+    | {
+        label: string;
+        theme?: ('software' | 'hardware') | null;
+        id?: string | null;
+      }[]
+    | null;
+  image: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Data leads/pengunjung yang mengisi form kontak web.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "visitors".
+ */
+export interface Visitor {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -483,6 +537,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'faqs';
         value: number | Faq;
+      } | null)
+    | ({
+        relationTo: 'portfolios';
+        value: number | Portfolio;
+      } | null)
+    | ({
+        relationTo: 'visitors';
+        value: number | Visitor;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -599,6 +661,9 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   subtitle?: T;
   iconTitle?: T;
+  dashboardBadge?: T;
+  dashboardTitle?: T;
+  dashboardSubtitle?: T;
   heroBadge?: T;
   heroDescription?: T;
   heroImage?: T;
@@ -788,6 +853,44 @@ export interface FaqsSelect<T extends boolean = true> {
         answer?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "portfolios_select".
+ */
+export interface PortfoliosSelect<T extends boolean = true> {
+  clientName?: T;
+  customer?: T;
+  relatedServices?: T;
+  description?: T;
+  achievements?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  tags?:
+    | T
+    | {
+        label?: T;
+        theme?: T;
+        id?: T;
+      };
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "visitors_select".
+ */
+export interface VisitorsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  message?: T;
   updatedAt?: T;
   createdAt?: T;
 }

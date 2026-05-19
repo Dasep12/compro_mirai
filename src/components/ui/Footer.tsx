@@ -24,8 +24,7 @@ export default function Footer({ services, products }: FooterProps) {
 
           <p className="leading-[140%] font-medium mt-2">
             Vasanta Innopark No T-51, Jl. Kalimantan, Gandamekar, Kec. Cikarang
-            Barat, Kab. Bekasi, <br />
-            Jawa Barat 17530
+            Barat, Kab. Bekasi, Jawa Barat 17530
           </p>
 
           <div className="flex flex-col gap-1 mt-2">
