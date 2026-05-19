@@ -1,0 +1,94 @@
+﻿
+> miraisoftnet-compro@0.1.0 generate:types
+> cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload generate:types
+
+node.exe : Error: unexpected top-level await at 
+file:///D:/BIT/miraisoftnet-compro/node_modules/@lexical/rich-text/LexicalRichText.node.mjs:9
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\bit19\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error: unexpect...Text.node.mjs:9:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+const mod = await (process.env.NODE_ENV !== 'production' ? import('./LexicalRichText.dev.mjs') : 
+import('./LexicalRichText.prod.mjs'));
+            ^
+
+
+
+Error: unexpected top-level await at 
+file:///D:/BIT/miraisoftnet-compro/node_modules/@lexical/utils/LexicalUtils.node.mjs:9
+const mod = await (process.env.NODE_ENV !== 'production' ? import('./LexicalUtils.dev.mjs') : 
+import('./LexicalUtils.prod.mjs'));
+            ^
+
+
+
+Error: unexpected top-level await at file:///D:/BIT/miraisoftnet-compro/node_modules/lexical/Lexical.node.mjs:9
+const mod = await (process.env.NODE_ENV !== 'production' ? import('./Lexical.dev.mjs') : import('./Lexical.prod.mjs'));
+            ^
+
+
+
+Error: unexpected top-level await at 
+file:///D:/BIT/miraisoftnet-compro/node_modules/@lexical/list/LexicalList.node.mjs:9
+const mod = await (process.env.NODE_ENV !== 'production' ? import('./LexicalList.dev.mjs') : 
+import('./LexicalList.prod.mjs'));
+            ^
+
+
+
+Error: unexpected top-level await at 
+file:///D:/BIT/miraisoftnet-compro/node_modules/@lexical/react/LexicalDecoratorBlockNode.node.mjs:9
+const mod = await (process.env.NODE_ENV !== 'production' ? import('./LexicalDecoratorBlockNode.dev.mjs') : 
+import('./LexicalDecoratorBlockNode.prod.mjs'));
+            ^
+
+
+
+Error: unexpected top-level await at 
+file:///D:/BIT/miraisoftnet-compro/node_modules/@lexical/headless/LexicalHeadless.node.mjs:9
+const mod = await (process.env.NODE_ENV !== 'production' ? import('./LexicalHeadless.dev.mjs') : 
+import('./LexicalHeadless.prod.mjs'));
+            ^
+
+
+
+Error: unexpected top-level await at 
+file:///D:/BIT/miraisoftnet-compro/node_modules/@lexical/html/LexicalHtml.node.mjs:9
+const mod = await (process.env.NODE_ENV !== 'production' ? import('./LexicalHtml.dev.mjs') : 
+import('./LexicalHtml.prod.mjs'));
+            ^
+
+
+
+Error: unexpected top-level await at 
+file:///D:/BIT/miraisoftnet-compro/node_modules/@lexical/table/LexicalTable.node.mjs:9
+const mod = await (process.env.NODE_ENV !== 'production' ? import('./LexicalTable.dev.mjs') : 
+import('./LexicalTable.prod.mjs'));
+            ^
+
+
+
+node:internal/modules/esm/module_job:517
+      const namespace = this.module.evaluateSync(filename, parentFilename);
+                                    ^
+
+Error: require() cannot be used on an ESM graph with top-level await. Use import() instead. To see where the top-level 
+await comes from, use --experimental-print-required-tla.
+  Requiring D:\BIT\miraisoftnet-compro\payload.config.ts
+    at ModuleJobSync.runSync (node:internal/modules/esm/module_job:517:37)
+    at ModuleLoader.importSyncForRequire (node:internal/modules/esm/loader:388:47)
+    at loadESMFromCJS (node:internal/modules/cjs/loader:1578:24)
+    at Module._compile (node:internal/modules/cjs/loader:1743:5)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.transformer [as .js] 
+(file:///D:/BIT/miraisoftnet-compro/node_modules/tsx/dist/register-CFH5oNdT.mjs:3:587)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24) {
+  code: 'ERR_REQUIRE_ASYNC_MODULE'
+}
+
+Node.js v24.12.0
