@@ -55,6 +55,7 @@ export default function Contact() {
           <h2 className="text-[36px] md:text-[46px] font-bold leading-[125%]">
             Mari Mulai Transformasi Digital Anda
           </h2>
+
           <p className="text-[15px] md:text-[16px] leading-[180%] font-medium text-[#fdfdfd]/90">
             Diskusikan kebutuhan teknologi perusahaan Anda dengan tim ahli kami.
             Kami siap memberikan solusi yang presisi dan berdampak nyata bagi
@@ -77,6 +78,7 @@ export default function Contact() {
                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
               />
             </svg>
+
             <span>info@miraisoftnet.com</span>
           </div>
           <div className="flex items-center gap-4">
@@ -93,6 +95,7 @@ export default function Contact() {
                 d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
               />
             </svg>
+
             <span>+62 (021) 50 666 222</span>
           </div>
           <div className="flex items-center gap-4">
@@ -109,8 +112,10 @@ export default function Contact() {
                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
               />
             </svg>
+
             <span>Saputro Dwi Novianto (+62 852 1802 6895)</span>
           </div>
+
           <div className="flex items-start gap-4">
             <svg
               className="w-5 h-5 shrink-0 mt-1"
@@ -130,6 +135,7 @@ export default function Contact() {
                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
+
             <span>
               Vasanta Innopark No T-51, Jl. Kalimantan, Gandamekar, Kec.
               Cikarang Barat, Bekasi.
@@ -162,6 +168,7 @@ export default function Contact() {
             placeholder="Email Perusahaan"
             className="flex-1 w-full bg-[#fdfdfd] text-[#010101] rounded-[4px] px-[22px] py-[14px] outline-none placeholder-[#53938b]/70 focus:ring-2 focus:ring-[#fa9f29] transition-all"
           />
+
           <input
             type="tel"
             name="phone"

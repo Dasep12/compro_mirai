@@ -95,7 +95,7 @@ export default async function RootLayout({
         >
           <AppBar services={services.docs} products={products.docs} />
 
-          <main className="grow w-full">{children}</main>
+          <main className="grow w-full mt-[70px]">{children}</main>
 
           <Footer services={services.docs} products={products.docs} />
         </Suspense>

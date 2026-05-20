@@ -7,6 +7,7 @@ import ServiceShowcase from "@/components/views/home/ServiceShowcase";
 import ProductShowcase from "@/components/views/home/ProductShowcase";
 import PortfolioShowcase from "@/components/views/home/PortfolioShowcase";
 import Contact from "@/components/views/home/Contact";
+import FaqShowcase from "@/components/views/home/FaqShowcase";
 
 export default async function Home() {
   const payload = await getPayload({ config });
@@ -39,6 +40,12 @@ export default async function Home() {
     limit: 10,
   });
 
+  const faqs = await payload.find({
+    collection: "faqs",
+    depth: 1,
+    limit: 10,
+  });
+
   return (
     <>
       <Hero />
@@ -57,6 +64,8 @@ export default async function Home() {
       <PortfolioShowcase portfolios={portfolios.docs} />
 
       <Contact />
+
+      <FaqShowcase faqs={faqs.docs} />
     </>
   );
 }

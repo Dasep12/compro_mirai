@@ -117,7 +117,11 @@ export default function AppBar({ services, products }: AppBarProps) {
             />
           </svg>
 
-          <div className="absolute top-[70px] left-1/2 -translate-x-1/2 hidden group-hover:grid grid-cols-2 w-max gap-x-2.5 gap-y-1 p-2 bg-[#fdfdfd] rounded-xl shadow-[4px_4px_10px_1px_rgba(0,0,0,0.1)]">
+          <div
+            className={`absolute top-[70px] left-1/2 -translate-x-1/2 hidden group-hover:grid w-max gap-x-2.5 gap-y-1 p-2 bg-[#fdfdfd] rounded-xl shadow-[4px_4px_10px_1px_rgba(0,0,0,0.1)] ${
+              services && services.length === 1 ? "grid-cols-1" : "grid-cols-2"
+            }`}
+          >
             {services.map((service) => {
               const iconUrl =
                 service.iconTitle && typeof service.iconTitle === "object"
@@ -160,7 +164,7 @@ export default function AppBar({ services, products }: AppBarProps) {
                     <span className="font-semibold text-[15px] text-[#010101] leading-tight">
                       {service.title}
                     </span>
-                    <span className="text-[12px] text-[#010101] leading-snug">
+                    <span className="text-[12px] text-[#010101]/70 leading-snug line-clamp-2">
                       {service.subtitle}
                     </span>
                   </div>
@@ -178,7 +182,7 @@ export default function AppBar({ services, products }: AppBarProps) {
         </Link>
 
         {/* <Link
-          href="/career"
+          href="/careers"
           className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
         >
           Karir
