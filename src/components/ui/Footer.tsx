@@ -37,7 +37,7 @@ export default function Footer({ services, products }: FooterProps) {
             </span>
           </div>
 
-          <div className="flex items-center gap-3 mt-4">
+          {/* <div className="flex items-center gap-3 mt-4">
             <Link href="#" className="hover:opacity-80 transition-opacity">
               <Image
                 src="/api/media/file/playstore-button.svg"
@@ -57,7 +57,7 @@ export default function Footer({ services, products }: FooterProps) {
                 className="w-auto h-[46px]"
               />
             </Link>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex-1 flex flex-col gap-3">
@@ -96,7 +96,7 @@ export default function Footer({ services, products }: FooterProps) {
             Sumber Daya
           </h3>
           <Link
-            href="/help"
+            href="#"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
           >
             Pusat Bantuan
@@ -123,21 +123,21 @@ export default function Footer({ services, products }: FooterProps) {
           </h3>
 
           <Link
-            href="/about"
+            href="/about-us"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
           >
             Tentang Kami
           </Link>
 
           <Link
-            href="/terms"
+            href="#"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
           >
             Terms of Use
           </Link>
 
           <Link
-            href="/privacy"
+            href="#"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
           >
             Privacy Policy

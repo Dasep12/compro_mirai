@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Portfolio } from "../../../../payload-types";
 
@@ -40,7 +40,7 @@ export default function PortfolioShowcase({
 
   return (
     <section className="w-full relative flex flex-col items-center bg-[#7eb2fc]/5 px-4 lg:px-[120px] 2xl:px-[240px] py-[50px] gap-10 text-[#010101]">
-      <div className="flex flex-col items-center gap-4 max-w-[900px] text-center">
+      <div className="flex flex-col items-center gap-4 text-center">
         <div className="bg-primary text-[#fdfdfd] rounded-full px-[14px] py-[5px] text-[14px] font-medium leading-[180%] tracking-wide uppercase">
           PORTOFOLIO
         </div>

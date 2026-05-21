@@ -34,7 +34,7 @@ export default function ServiceProcess({
             </p>
           </div>
 
-          <div className="relative w-full max-w-[1000px] flex flex-col gap-8 md:gap-16 pb-10">
+          <div className="relative w-full flex flex-col gap-8 md:gap-16 pb-10">
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1.5px] bg-primary -translate-x-1/2 z-0" />
 
             {processData.steps.map((step, index) => {

@@ -77,6 +77,7 @@ export interface Config {
     faqs: Faq;
     portfolios: Portfolio;
     visitors: Visitor;
+    'pricing-faqs': PricingFaq;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +95,7 @@ export interface Config {
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     portfolios: PortfoliosSelect<false> | PortfoliosSelect<true>;
     visitors: VisitorsSelect<false> | VisitorsSelect<true>;
+    'pricing-faqs': PricingFaqsSelect<false> | PricingFaqsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -103,8 +105,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'about-us': AboutUs;
+  };
+  globalsSelect: {
+    'about-us': AboutUsSelect<false> | AboutUsSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -484,6 +490,17 @@ export interface Visitor {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-faqs".
+ */
+export interface PricingFaq {
+  id: number;
+  question: string;
+  answer: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -545,6 +562,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'visitors';
         value: number | Visitor;
+      } | null)
+    | ({
+        relationTo: 'pricing-faqs';
+        value: number | PricingFaq;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -896,6 +917,16 @@ export interface VisitorsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-faqs_select".
+ */
+export interface PricingFaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -933,6 +964,130 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Pengaturan konten halaman Tentang Kami (Company Profile).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-us".
+ */
+export interface AboutUs {
+  id: number;
+  heroHeadline: string;
+  heroDescription: string;
+  heroImage?: (number | null) | Media;
+  visionText: string;
+  missionList: {
+    missionText: string;
+    id?: string | null;
+  }[];
+  coreValues: {
+    icon?: (number | null) | Media;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  milestoneHeadline?: string | null;
+  milestones?:
+    | {
+        year: string;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  strengths: {
+    title: string;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  industries: {
+    icon?: (number | null) | Media;
+    name: string;
+    id?: string | null;
+  }[];
+  teamHeadline: string;
+  teamDescription?: string | null;
+  teamMembers?:
+    | {
+        photo?: (number | null) | Media;
+        name: string;
+        position: string;
+        linkedin?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaHeadline: string;
+  ctaDescription?: string | null;
+  ctaButtonText: string;
+  ctaButtonLink: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-us_select".
+ */
+export interface AboutUsSelect<T extends boolean = true> {
+  heroHeadline?: T;
+  heroDescription?: T;
+  heroImage?: T;
+  visionText?: T;
+  missionList?:
+    | T
+    | {
+        missionText?: T;
+        id?: T;
+      };
+  coreValues?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  milestoneHeadline?: T;
+  milestones?:
+    | T
+    | {
+        year?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  strengths?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  industries?:
+    | T
+    | {
+        icon?: T;
+        name?: T;
+        id?: T;
+      };
+  teamHeadline?: T;
+  teamDescription?: T;
+  teamMembers?:
+    | T
+    | {
+        photo?: T;
+        name?: T;
+        position?: T;
+        linkedin?: T;
+        id?: T;
+      };
+  ctaHeadline?: T;
+  ctaDescription?: T;
+  ctaButtonText?: T;
+  ctaButtonLink?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

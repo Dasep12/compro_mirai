@@ -13,6 +13,8 @@ import { Products } from "./src/collections/Products.ts";
 import { Faqs } from "./src/collections/Faqs.ts";
 import { Portfolios } from "./src/collections/Portfolios.ts";
 import { Visitors } from "./src/collections/Visitors.ts";
+import { PricingFaq } from "./src/collections/PricingFaq.ts";
+import { AboutUs } from "./src/collections/AboutUs.ts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -32,7 +34,9 @@ export default buildConfig({
     Faqs,
     Portfolios,
     Visitors,
+    PricingFaq,
   ],
+  globals: [AboutUs],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   db: postgresAdapter({

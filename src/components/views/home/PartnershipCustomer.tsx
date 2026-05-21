@@ -107,6 +107,13 @@ export default function PartnershipCustomer({
   customers,
   partnerships,
 }: PartnershipCustomerProps) {
+  const hasCustomers = customers && customers.length > 0;
+  const hasPartnerships = partnerships && partnerships.length > 0;
+
+  if (!hasCustomers && !hasPartnerships) {
+    return null;
+  }
+
   return (
     <section className="w-full relative flex flex-col items-center px-4 lg:px-[120px] 2xl:px-[240px] py-10 gap-10 text-[#010101]">
       <style
@@ -127,23 +134,27 @@ export default function PartnershipCustomer({
         }}
       />
 
-      <div className="w-full flex flex-col items-center gap-2.5">
-        <h2 className="text-[15px] md:text-[18px] font-bold leading-[180%] text-center">
-          Our Existing Customers
-        </h2>
-        <div className="w-full mt-2">
-          <MarqueeRow items={customers} isPartner={false} />
+      {hasCustomers && (
+        <div className="w-full flex flex-col items-center gap-2.5">
+          <h2 className="text-[15px] md:text-[18px] font-bold leading-[180%] text-center">
+            Our Existing Customers
+          </h2>
+          <div className="w-full mt-2">
+            <MarqueeRow items={customers} isPartner={false} />
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="w-full flex flex-col items-center gap-2.5 mt-4 md:mt-8">
-        <h2 className="text-[15px] md:text-[18px] font-bold leading-[180%] text-center">
-          Our Trusted Partnership
-        </h2>
-        <div className="w-full mt-2">
-          <MarqueeRow items={partnerships} isPartner={true} />
+      {hasPartnerships && (
+        <div className="w-full flex flex-col items-center gap-2.5 mt-4 md:mt-8">
+          <h2 className="text-[15px] md:text-[18px] font-bold leading-[180%] text-center">
+            Our Trusted Partnership
+          </h2>
+          <div className="w-full mt-2">
+            <MarqueeRow items={partnerships} isPartner={true} />
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

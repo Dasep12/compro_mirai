@@ -19,7 +19,7 @@ export default function Hero() {
 
         <div className="flex flex-wrap items-start gap-2.5 mt-2">
           <Link
-            href="/contact"
+            href="#"
             className="bg-primary text-[#fdfdfd] font-semibold px-5 py-3 rounded-mirai hover:bg-brand-600 transition-colors no-underline flex items-center justify-center"
           >
             Konsultasi Sekarang

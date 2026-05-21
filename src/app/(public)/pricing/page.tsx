@@ -3,6 +3,7 @@ import config from "../../../../payload.config";
 import PricingHero from "@/components/views/pricing/PricingHero";
 import PricingPerks from "@/components/views/pricing/PricingPerks";
 import PartnershipCustomer from "@/components/views/home/PartnershipCustomer";
+import PricingFaq from "@/components/views/pricing/PricingFaq";
 
 export default async function PricingPage() {
   const payload = await getPayload({ config });
@@ -23,6 +24,11 @@ export default async function PricingPage() {
     limit: 20,
   });
 
+  const faqs = await payload.find({
+    collection: "pricing-faqs",
+    limit: 20,
+  });
+
   return (
     <>
       <PricingHero />
@@ -33,6 +39,8 @@ export default async function PricingPage() {
         customers={customers.docs}
         partnerships={partnerships.docs}
       />
+
+      <PricingFaq faqs={faqs.docs} />
     </>
   );
 }
