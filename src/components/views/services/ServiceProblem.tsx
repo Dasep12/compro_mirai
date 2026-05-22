@@ -31,7 +31,7 @@ export default function ServiceProblem({
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-4">
-        {problemData.cards?.map((card, index) => {
+        {(problemData.cards ?? []).map((card, index) => {
           const iconUrl =
             card.icon && typeof card.icon === "object" ? card.icon.url : null;
           const iconAlt =

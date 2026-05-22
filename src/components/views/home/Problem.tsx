@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { Problem } from "../../../../payload-types";
+import { Problem as ProblemType } from "../../../../payload-types";
 
 interface ProblemProps {
-  data: Problem[];
+  data: ProblemType[];
 }
 
 export default function Problem({ data }: ProblemProps) {
@@ -29,7 +29,7 @@ export default function Problem({ data }: ProblemProps) {
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-        {data?.map((card, index) => {
+        {(data ?? []).map((card, index) => {
           const iconUrl =
             card.icon && typeof card.icon === "object"
               ? card.icon.url

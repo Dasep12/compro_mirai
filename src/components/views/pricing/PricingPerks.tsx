@@ -28,7 +28,7 @@ export default function PricingPerks({ services }: PricingPerksProps) {
     <section className="w-full flex flex-col items-center px-4 lg:px-[120px] xl:px-[240px] py-[40px] gap-[22px] text-[#010101] text-center font-sans">
       <div className="w-full overflow-x-auto pb-4 flex justify-center">
         <div className="flex items-start p-1 gap-[12px] rounded-[16px] bg-[#fdfdfd] border border-brandbg-brand-100/50 w-max">
-          {pricingServices.map((service, index) => {
+          {(pricingServices ?? []).map((service, index) => {
             const isActive = activeIndex === index;
             return (
               <button
@@ -58,7 +58,7 @@ export default function PricingPerks({ services }: PricingPerksProps) {
       </div>
 
       <div className="w-full grid grid-cols-1 xl:grid-cols-3 gap-[20px] mt-[20px] text-left">
-        {pricingData.tiers.map((tier, index) => {
+        {(pricingData.tiers ?? []).map((tier, index) => {
           const {
             isPopular,
             tierName,
@@ -105,7 +105,7 @@ export default function PricingPerks({ services }: PricingPerksProps) {
                 </p>
 
                 <div className="w-full flex flex-col items-start gap-[10px]">
-                  {features?.map((feat, i) => (
+                  {(features ?? []).map((feat, i) => (
                     <div
                       key={feat.id || i}
                       className="w-full flex items-center gap-[12px]"

@@ -5,7 +5,7 @@ interface AboutMilestonesProps {
 }
 
 export default function AboutMilestones({ data }: AboutMilestonesProps) {
-  if (!data?.milestones || data.milestones.length === 0) {
+  if (!data?.milestones || (data.milestones ?? []).length === 0) {
     return null;
   }
 
@@ -24,7 +24,7 @@ export default function AboutMilestones({ data }: AboutMilestonesProps) {
         <div className="flex flex-col gap-8 relative lg:hidden">
           <div className="absolute top-4 bottom-4 left-[19px] w-[2px] border-l-2 border-dashed border-primary/40 z-0" />
 
-          {data.milestones.map((item, index) => (
+          {(data.milestones ?? []).map((item, index) => (
             <div
               key={item.id || index}
               className="flex items-start gap-6 relative z-10 group"
@@ -54,7 +54,7 @@ export default function AboutMilestones({ data }: AboutMilestonesProps) {
         </div>
 
         <div className="hidden lg:grid grid-cols-3 gap-y-[60px] gap-x-[40px] w-full relative">
-          {data.milestones.map((item, i) => {
+          {(data.milestones ?? []).map((item, i) => {
             const row = Math.floor(i / 3);
             const isEvenRow = row % 2 === 0;
             const col = isEvenRow ? i % 3 : 2 - (i % 3);

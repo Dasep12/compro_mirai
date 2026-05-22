@@ -58,7 +58,7 @@ export default function ServiceShowcase({ services }: ServiceShowcaseProps) {
 
       <div className="w-full flex flex-col lg:flex-row items-start gap-6 lg:gap-[22px] mt-2">
         <div className="w-full lg:w-[273px] flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-3 shrink-0 pb-4 lg:pb-0 scrollbar-hide">
-          {services.map((service, index) => {
+          {(services ?? []).map((service, index) => {
             const isActive = activeIndex === index;
             const iconUrl =
               service.iconTitle && typeof service.iconTitle === "object"

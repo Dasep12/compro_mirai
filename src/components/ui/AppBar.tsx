@@ -46,7 +46,7 @@ export default function AppBar({ services, products }: AppBarProps) {
           </svg>
 
           <div className="absolute top-[70px] left-1/2 -translate-x-1/2 hidden group-hover:grid grid-cols-1 w-max gap-y-1 p-2 bg-[#fdfdfd] rounded-xl shadow-[4px_4px_10px_1px_rgba(0,0,0,0.1)]">
-            {products?.map((product) => {
+            {(products ?? []).map((product) => {
               const iconUrl =
                 product.iconTitle && typeof product.iconTitle === "object"
                   ? product.iconTitle.url
@@ -122,7 +122,7 @@ export default function AppBar({ services, products }: AppBarProps) {
               services && services.length === 1 ? "grid-cols-1" : "grid-cols-2"
             }`}
           >
-            {services.map((service) => {
+            {(services ?? []).map((service) => {
               const iconUrl =
                 service.iconTitle && typeof service.iconTitle === "object"
                   ? service.iconTitle.url

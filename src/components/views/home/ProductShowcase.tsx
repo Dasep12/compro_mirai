@@ -47,7 +47,7 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
 
       <div className="w-full flex flex-col items-center gap-[23px]">
         <div className="flex items-center justify-center flex-wrap gap-3 bg-[#fdfdfd] border border-primary/30 p-1.5 rounded-2xl">
-          {products.map((product, index) => {
+          {(products ?? []).map((product, index) => {
             const isActive = activeIndex === index;
             return (
               <button
@@ -84,7 +84,7 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
             </div>
 
             <div className="flex flex-col gap-5 w-full mt-2">
-              {activeProduct.features?.map((feature, idx) => {
+              {(activeProduct.features ?? []).map((feature, idx) => {
                 const iconUrl =
                   feature.icon && typeof feature.icon === "object"
                     ? feature.icon.url

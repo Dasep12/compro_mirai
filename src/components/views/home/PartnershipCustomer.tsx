@@ -36,7 +36,7 @@ const MarqueeRow = ({ items, isPartner = false }: MarqueeRowProps) => {
 
   const renderItems = () => (
     <>
-      {items.map((item, index) => {
+      {(items ?? []).map((item, index) => {
         const logoUrl =
           item.logo && typeof item.logo === "object" ? item.logo.url : null;
         const logoAlt =

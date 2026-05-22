@@ -6,7 +6,7 @@ interface AboutCoreValuesProps {
 }
 
 export default function AboutCoreValues({ data }: AboutCoreValuesProps) {
-  if (!data?.coreValues || data.coreValues.length === 0) {
+  if (!data?.coreValues || (data.coreValues ?? []).length === 0) {
     return null;
   }
 
@@ -29,7 +29,7 @@ export default function AboutCoreValues({ data }: AboutCoreValuesProps) {
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-        {data.coreValues.map((value, index) => {
+        {(data.coreValues ?? []).map((value, index) => {
           const iconUrl =
             value.icon && typeof value.icon === "object" && "url" in value.icon
               ? (value.icon.url as string)

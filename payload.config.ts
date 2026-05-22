@@ -16,6 +16,7 @@ import { Visitors } from "./src/collections/Visitors.ts";
 import { PricingFaq } from "./src/collections/PricingFaq.ts";
 import { AboutUs } from "./src/collections/AboutUs.ts";
 import { Problems } from "./src/collections/Problem.ts";
+import sharp from "sharp";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -49,4 +50,5 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
+  sharp,
 });

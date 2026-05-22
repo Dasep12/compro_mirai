@@ -64,7 +64,7 @@ export default function Footer({ services, products }: FooterProps) {
           <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase mb-2">
             Produk
           </h3>
-          {products?.map((product) => (
+          {(products ?? []).map((product) => (
             <Link
               href={`${product.productUrl}`}
               key={product.id}
@@ -80,7 +80,7 @@ export default function Footer({ services, products }: FooterProps) {
           <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase mb-2">
             Layanan & Jasa
           </h3>
-          {services?.map((service) => (
+          {(services ?? []).map((service) => (
             <Link
               href={`/services/${service.slug}`}
               key={service.id}

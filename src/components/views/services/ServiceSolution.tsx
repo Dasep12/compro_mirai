@@ -27,7 +27,7 @@ export default function ServiceSolution({
       </div>
 
       <div className="w-full flex flex-col gap-16 lg:gap-[80px]">
-        {solutionData.list.map((item, index) => {
+        {(solutionData.list ?? []).map((item, index) => {
           const isReversed = index % 2 !== 0;
 
           const imageUrl =

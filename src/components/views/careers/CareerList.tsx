@@ -32,7 +32,7 @@ export default function CareerList({ careers }: CareerListProps) {
   return (
     <section className="w-full flex flex-col items-center px-4 lg:px-[120px] 2xl:px-[240px] py-[40px] gap-[22px] text-[#010101] bg-[#fdfdfd]">
       <div className="w-full flex flex-wrap items-center justify-start gap-[12px] mb-4">
-        {categories.map((cat) => {
+        {(categories ?? []).map((cat) => {
           const isActive = activeCategory === cat;
           return (
             <button
@@ -59,7 +59,7 @@ export default function CareerList({ careers }: CareerListProps) {
 
       {urgentJobs.length > 0 && (
         <div className="w-full flex flex-col gap-[20px]">
-          {urgentJobs.map((job) => {
+          {(urgentJobs ?? []).map((job) => {
             const imageUrl =
               job.image && typeof job.image === "object" ? job.image.url : null;
             return (
@@ -149,7 +149,7 @@ export default function CareerList({ careers }: CareerListProps) {
 
       {regularJobs.length > 0 && (
         <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[20px]">
-          {regularJobs.map((job) => {
+          {(regularJobs ?? []).map((job) => {
             const imageUrl =
               job.image && typeof job.image === "object" ? job.image.url : null;
             return (

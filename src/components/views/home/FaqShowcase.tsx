@@ -45,7 +45,7 @@ export default function FaqShowcase({ faqs }: FaqShowcaseProps) {
 
       <div className="w-full flex flex-col lg:flex-row items-start gap-6 lg:gap-8 mt-2">
         <div className="w-full lg:w-[280px] flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-3 shrink-0 pb-4 lg:pb-0 scrollbar-hide">
-          {faqs.map((faq, index) => {
+          {(faqs ?? []).map((faq, index) => {
             const isActive = activeCategoryIndex === index;
             const iconUrl =
               faq.icon && typeof faq.icon === "object" ? faq.icon.url : null;
@@ -88,7 +88,7 @@ export default function FaqShowcase({ faqs }: FaqShowcaseProps) {
         </div>
 
         <div className="flex-1 w-full bg-[#fdfdfd] shadow-[2px_4px_10px_1px_rgba(0,0,0,0.05)] rounded-[20px] p-6 lg:p-8 xl:p-[32px_40px] flex flex-col gap-4 animate-in fade-in slide-in-from-right-4 duration-500">
-          {activeCategory?.qnaList?.map((qna, idx) => {
+          {(activeCategory?.qnaList ?? []).map((qna, idx) => {
             const isExpanded = expandedQnaIndex === idx;
             const displayNumber = String(idx + 1).padStart(2, "0");
 

@@ -7,7 +7,7 @@ interface AboutTeamProps {
 }
 
 export default function AboutTeam({ data }: AboutTeamProps) {
-  if (!data?.teamMembers || data.teamMembers.length === 0) {
+  if (!data?.teamMembers || (data.teamMembers ?? []).length === 0) {
     return null;
   }
 
@@ -32,7 +32,7 @@ export default function AboutTeam({ data }: AboutTeamProps) {
       </div>
 
       <div className="w-full flex flex-wrap justify-center gap-[24px] md:gap-[32px] relative z-10">
-        {data.teamMembers.map((member, index) => {
+        {(data.teamMembers ?? []).map((member, index) => {
           const photoUrl =
             member.photo &&
             typeof member.photo === "object" &&

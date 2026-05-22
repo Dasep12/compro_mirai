@@ -31,7 +31,7 @@ export default function ServiceBenefit({
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
-        {benefitData.cards.map((card, index) => {
+        {(benefitData.cards ?? []).map((card, index) => {
           const iconUrl =
             card.icon && typeof card.icon === "object" ? card.icon.url : null;
           const iconAlt =

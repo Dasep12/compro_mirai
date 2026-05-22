@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { PricingFaq } from "../../../../payload-types";
+import { PricingFaq as PricingFaqType } from "../../../../payload-types";
 
 interface PricingFaqProps {
-  faqs: PricingFaq[];
+  faqs: PricingFaqType[];
 }
 
 export default function PricingFaq({ faqs }: PricingFaqProps) {
@@ -35,7 +35,7 @@ export default function PricingFaq({ faqs }: PricingFaqProps) {
       </div>
 
       <div className="w-[80%] bg-[#fdfdfd] shadow-[2px_4px_10px_1px_rgba(0,0,0,0.05)] rounded-[20px] p-6 lg:p-8 xl:p-[32px_40px] flex flex-col gap-4 animate-in fade-in slide-in-from-right-4 duration-500">
-        {faqs.map((faq, idx) => {
+        {(faqs ?? []).map((faq, idx) => {
           const isExpanded = expandedQnaIndex === idx;
           const displayNumber = String(idx + 1).padStart(2, "0");
 

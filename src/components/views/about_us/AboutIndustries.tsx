@@ -6,7 +6,7 @@ interface AboutIndustriesProps {
 }
 
 export default function AboutIndustries({ data }: AboutIndustriesProps) {
-  if (!data?.industries || data.industries.length === 0) {
+  if (!data?.industries || (data.industries ?? []).length === 0) {
     return null;
   }
 
@@ -28,7 +28,7 @@ export default function AboutIndustries({ data }: AboutIndustriesProps) {
       </div>
 
       <div className="w-full flex flex-wrap justify-center gap-4 md:gap-6">
-        {data.industries.map((item, index) => {
+        {(data.industries ?? []).map((item, index) => {
           const iconUrl =
             item.icon && typeof item.icon === "object" && "url" in item.icon
               ? (item.icon.url as string)

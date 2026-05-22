@@ -5,7 +5,7 @@ interface AboutStrengthsProps {
 }
 
 export default function AboutStrengths({ data }: AboutStrengthsProps) {
-  if (!data?.strengths || data.strengths.length === 0) {
+  if (!data?.strengths || (data.strengths ?? []).length === 0) {
     return null;
   }
 

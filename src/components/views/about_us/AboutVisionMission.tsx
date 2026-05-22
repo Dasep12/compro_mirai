@@ -6,7 +6,10 @@ interface AboutVisionMissionProps {
 }
 
 export default function AboutVisionMission({ data }: AboutVisionMissionProps) {
-  if (data?.visionText.length === 0 || data.missionList.length === 0) {
+  if (
+    (data?.visionText ?? "").length === 0 ||
+    (data.missionList ?? []).length === 0
+  ) {
     return null;
   }
 
@@ -45,7 +48,7 @@ export default function AboutVisionMission({ data }: AboutVisionMissionProps) {
         </h3>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-[20px] md:gap-[24px]">
-          {data?.missionList?.map(
+          {(data?.missionList ?? []).map(
             (item: { missionText: string }, index: number) => {
               const displayNumber = String(index + 1).padStart(2, "0");
 

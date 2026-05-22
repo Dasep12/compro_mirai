@@ -73,7 +73,7 @@ export default function PortfolioShowcase({
             {activePortfolio.achievements &&
               activePortfolio.achievements.length > 0 && (
                 <ol className="list-decimal pl-5 flex flex-col gap-1.5 w-full text-[16px] md:text-[18px] leading-[180%] font-medium text-[#010101]/90">
-                  {activePortfolio.achievements.map((item, idx) => (
+                  {(activePortfolio.achievements ?? []).map((item, idx) => (
                     <li key={idx} className="pl-1.5">
                       {item.text}
                     </li>
@@ -83,7 +83,7 @@ export default function PortfolioShowcase({
 
             {activePortfolio.tags && activePortfolio.tags.length > 0 && (
               <div className="flex flex-wrap items-center gap-2 mt-2">
-                {activePortfolio.tags.map((tag, idx) => {
+                {(activePortfolio.tags ?? []).map((tag, idx) => {
                   const isHardware = tag.theme === "hardware";
                   const colorClass = isHardware
                     ? "bg-[#fde4c3]/50 text-[#fa9f29]"
@@ -121,7 +121,7 @@ export default function PortfolioShowcase({
         </div>
 
         <div className="flex items-center gap-2.5 mt-2">
-          {portfolios.map((_, index) => (
+          {(portfolios ?? []).map((_, index) => (
             <button
               key={index}
               onClick={() => setActiveIndex(index)}
