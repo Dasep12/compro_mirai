@@ -55,7 +55,7 @@ export default async function ServicePage({ params }: PageProps) {
         frameworkData={service.framework}
       />
 
-      <ServiceCTA />
+      <ServiceCTA service={service} />
 
       <ServiceBenefit
         showBenefit={service.showBenefit}

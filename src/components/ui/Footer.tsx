@@ -8,154 +8,130 @@ interface FooterProps {
 }
 
 export default function Footer({ services, products }: FooterProps) {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="w-full bg-base-800 text-[15px] text-[#fdfdfd] px-4 lg:px-[120px] 2xl:px-[240px] pt-10 pb-5 flex flex-col gap-10">
-      <div className="flex flex-col md:flex-row items-start gap-10 w-full">
-        <div className="flex-[1.5] flex flex-col gap-4">
-          <Link href="/">
+    <footer className="w-full bg-base-800 text-[15px] text-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] pt-12 pb-6 flex flex-col gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10 w-full">
+        <div className="flex flex-col gap-4 sm:col-span-2 lg:col-span-2">
+          <Link href="/" className="inline-block w-max">
             <Image
               src="/api/media/file/mirai-white.png"
               alt="Mirai Softnet Logo"
               width={201}
               height={70}
-              className="object-contain w-auto h-[70px]"
+              className="object-contain w-auto h-[60px] lg:h-[70px]"
+              priority
             />
           </Link>
 
-          <p className="leading-[140%] font-medium mt-2">
+          <p className="leading-[150%] font-medium mt-2 text-[#fdfdfd]/90 max-w-md text-[14px] lg:text-[15px]">
             Vasanta Innopark No T-51, Jl. Kalimantan, Gandamekar, Kec. Cikarang
             Barat, Kab. Bekasi, Jawa Barat 17530
           </p>
 
-          <div className="flex flex-col gap-1 mt-2">
-            <span className="leading-[140%] font-medium">
-              Email: info@miraisoftnet.com
+          <div className="flex flex-col gap-1.5 mt-2 text-[14px] text-[#fdfdfd]/80">
+            <span className="flex items-center gap-2">
+              <span className="font-semibold text-[#74e0d3]">Email:</span>{" "}
+              info@miraisoftnet.com
             </span>
-
-            <span className="leading-[140%] font-medium">
-              Telp : +62 (021) 50 666 222
+            <span className="flex items-center gap-2">
+              <span className="font-semibold text-[#74e0d3]">Jam Kerja:</span>{" "}
+              Senin - Jumat (09:00 - 18:00)
             </span>
           </div>
-
-          {/* <div className="flex items-center gap-3 mt-4">
-            <Link href="#" className="hover:opacity-80 transition-opacity">
-              <Image
-                src="/api/media/file/playstore-button.svg"
-                alt="Get it on Google Play"
-                width={136}
-                height={46}
-                className="w-auto h-[46px]"
-              />
-            </Link>
-
-            <Link href="#" className="hover:opacity-80 transition-opacity">
-              <Image
-                src="/api/media/file/appstore-button.svg"
-                alt="Download on the App Store"
-                width={129}
-                height={46}
-                className="w-auto h-[46px]"
-              />
-            </Link>
-          </div> */}
         </div>
 
-        <div className="flex-1 flex flex-col gap-3">
-          <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase mb-2">
+        <div className="flex flex-col gap-3">
+          <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
             Produk
           </h3>
-          {(products ?? []).map((product) => (
+          {(products ?? []).slice(0, 5).map((product) => (
             <Link
-              href={`${product.productUrl}`}
               key={product.id}
+              href={`${product.productUrl}`}
               target="_blank"
-              className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
+              className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
             >
               {product.name}
             </Link>
           ))}
         </div>
 
-        <div className="flex-1 flex flex-col gap-3">
-          <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase mb-2">
-            Layanan & Jasa
+        <div className="flex flex-col gap-3">
+          <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
+            Layanan
           </h3>
-          {(services ?? []).map((service) => (
+          {(services ?? []).slice(0, 5).map((service) => (
             <Link
-              href={`/services/${service.slug}`}
               key={service.id}
-              className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
+              href={`/services/${service.slug}`}
+              className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
             >
               {service.title}
             </Link>
           ))}
         </div>
 
-        <div className="flex-1 flex flex-col gap-3">
-          <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase mb-2">
-            Sumber Daya
+        <div className="flex flex-col gap-3">
+          <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
+            Akses Cepat
           </h3>
           <Link
-            href="#"
-            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
+            href="/pricing"
+            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
-            Pusat Bantuan
+            Harga
           </Link>
-
-          {/* <Link
-            href="/career"
-            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
-          >
-            Karir
-          </Link> */}
-
           <Link
             href="#"
-            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
+            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Katalog
           </Link>
         </div>
 
-        <div className="flex-1 flex flex-col gap-3">
-          <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase mb-2">
+        <div className="flex flex-col gap-3">
+          <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
             Perusahaan
           </h3>
-
           <Link
             href="/about-us"
-            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
+            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Tentang Kami
           </Link>
-
           <Link
             href="#"
-            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
+            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Terms of Use
           </Link>
-
           <Link
             href="#"
-            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
+            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Privacy Policy
           </Link>
-
           <Link
             href="#"
-            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline"
+            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Hubungi Kami
           </Link>
         </div>
       </div>
 
-      <div className="w-full border-t border-[#fdfdfd]/30 flex items-center justify-end pt-5 px-2.5">
-        <span className="leading-[140%] font-medium text-right text-sm md:text-[15px]">
-          © Copyright 2026 PT Mirai Softnet Technology. All rights reserved.
-        </span>
+      <div className="w-full border-t border-[#fdfdfd]/20 flex flex-col sm:flex-row items-center justify-between pt-5 gap-4 text-[13px] text-[#fdfdfd]/70">
+        <p className="text-center sm:text-left order-2 sm:order-1">
+          &copy; {currentYear} PT Mirai Softnet Teknologi. Hak Cipta Dilindungi
+          Undang-Undang.
+        </p>
+        <div className="flex items-center gap-6 order-1 sm:order-2">
+          <span className="text-[#74e0d3]/90 font-medium">
+            Build for Acceleration
+          </span>
+        </div>
       </div>
     </footer>
   );

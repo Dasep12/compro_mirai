@@ -34,7 +34,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
         <div className="flex flex-wrap items-center gap-3 mt-2">
           {service.heroBtn1Text && (
             <Link
-              href={service.heroBtn1Link || "#contact"}
+              href={service.heroBtn1Link || "#"}
               className="px-5 py-3 bg-primary text-[#fdfdfd] font-semibold text-[16px] rounded-mirai hover:bg-brand-600 transition-colors"
             >
               {service.heroBtn1Text}
@@ -43,7 +43,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
 
           {service.heroBtn2Text && (
             <Link
-              href={service.heroBtn2Link || "#catalog"}
+              href={service.heroBtn2Link || "#"}
               className="px-5 py-3 bg-[#fdfdfd] text-primary border-[1.5px] border-primary font-semibold text-[16px] rounded-mirai hover:bg-brand-100 transition-colors"
             >
               {service.heroBtn2Text}

@@ -49,8 +49,8 @@ const MarqueeRow = ({ items, isPartner = false }: MarqueeRowProps) => {
             key={`${item.id}-${index}`}
             className={`${
               isPartner
-                ? "h-[50px] md:h-[72px]"
-                : "h-[60px] w-[120px] md:w-[200px]"
+                ? "h-[36px] sm:h-[48px] lg:h-[72px]"
+                : "h-[36px] sm:h-[48px] lg:h-[60px] w-[100px] sm:w-[140px] lg:w-[200px]"
             } flex items-center justify-center shrink-0`}
           >
             {logoUrl ? (
@@ -62,7 +62,7 @@ const MarqueeRow = ({ items, isPartner = false }: MarqueeRowProps) => {
                 className="object-contain w-auto h-full"
               />
             ) : (
-              <div className="w-[100px] h-full bg-gray-100 animate-pulse rounded-mirai" />
+              <div className="w-[80%] h-full bg-base-100/10 animate-pulse rounded-mirai" />
             )}
           </div>
         );
@@ -79,8 +79,8 @@ const MarqueeRow = ({ items, isPartner = false }: MarqueeRowProps) => {
     >
       <div
         ref={trackRef}
-        className={`flex items-center shrink-0 gap-8 md:gap-[50px] ${
-          isOverflowing ? "animate-marquee pr-8 md:pr-[50px]" : ""
+        className={`flex items-center shrink-0 gap-6 sm:gap-8 lg:gap-[50px] ${
+          isOverflowing ? "animate-marquee pr-6 sm:pr-8 lg:pr-[50px]" : ""
         }`}
       >
         {renderItems()}
@@ -88,7 +88,7 @@ const MarqueeRow = ({ items, isPartner = false }: MarqueeRowProps) => {
 
       {isOverflowing && (
         <div
-          className="flex items-center shrink-0 gap-8 md:gap-[50px] animate-marquee pr-8 md:pr-[50px]"
+          className="flex items-center shrink-0 gap-6 sm:gap-8 lg:gap-[50px] animate-marquee pr-6 sm:pr-8 lg:pr-[50px]"
           aria-hidden="true"
         >
           {renderItems()}
@@ -115,7 +115,7 @@ export default function PartnershipCustomer({
   }
 
   return (
-    <section className="w-full relative flex flex-col items-center px-4 lg:px-[120px] 2xl:px-[240px] py-10 gap-10 text-[#010101]">
+    <section className="w-full relative flex flex-col items-center px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 gap-10 text-[#010101]">
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -150,7 +150,7 @@ export default function PartnershipCustomer({
           <h2 className="text-[15px] md:text-[18px] font-bold leading-[180%] text-center">
             Our Trusted Partnership
           </h2>
-          <div className="w-full mt-2">
+          <div className="w-full">
             <MarqueeRow items={partnerships} isPartner={true} />
           </div>
         </div>

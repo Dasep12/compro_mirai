@@ -55,12 +55,14 @@ export default async function RootLayout({
     collection: "services",
     depth: 1,
     limit: 10,
+    sort: "createdAt",
   });
 
   const products = await payload.find({
     collection: "products",
     depth: 1,
     limit: 10,
+    sort: "createdAt",
   });
 
   return (
