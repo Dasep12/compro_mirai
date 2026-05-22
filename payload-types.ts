@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    problems: Problem;
     media: Media;
     services: Service;
     customers: Customer;
@@ -86,6 +87,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    problems: ProblemsSelect<false> | ProblemsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     customers: CustomersSelect<false> | CustomersSelect<true>;
@@ -163,6 +165,18 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "problems".
+ */
+export interface Problem {
+  id: number;
+  title: string;
+  description: string;
+  icon: number | Media;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -528,6 +542,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'problems';
+        value: number | Problem;
+      } | null)
+    | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
@@ -630,6 +648,17 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "problems_select".
+ */
+export interface ProblemsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

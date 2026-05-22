@@ -11,7 +11,7 @@ export default function AboutCta({ data }: AboutCtaProps) {
   }
 
   return (
-    <section className="w-full relative overflow-hidden bg-[#0451bf] px-4 lg:px-[120px] 2xl:px-[240px] py-[80px] lg:py-[100px] font-sans">
+    <section className="w-full relative overflow-hidden bg-primary px-4 lg:px-[120px] 2xl:px-[240px] py-[80px] lg:py-[100px] font-sans">
       <div className="w-full relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-4">
           <h2 className="text-[32px] md:text-[42px] lg:text-[48px] font-bold leading-[120%] text-[#fdfdfd] tracking-tight">

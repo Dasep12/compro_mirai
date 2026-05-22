@@ -6,6 +6,10 @@ interface AboutVisionMissionProps {
 }
 
 export default function AboutVisionMission({ data }: AboutVisionMissionProps) {
+  if (data?.visionText.length === 0 || data.missionList.length === 0) {
+    return null;
+  }
+
   return (
     <section className="w-full relative flex flex-col items-center px-4 md:px-[120px] xl:px-[240px] py-[80px] gap-[80px] bg-[#fdfdfd] font-sans">
       <div className="w-full flex flex-col items-center justify-center text-center gap-[24px] max-w-[900px]">

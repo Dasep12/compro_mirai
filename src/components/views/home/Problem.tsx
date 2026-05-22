@@ -1,45 +1,13 @@
 import Image from "next/image";
+import { Problem } from "../../../../payload-types";
 
-const data = [
-  {
-    title: "Keamanan & Keandalan",
-    description:
-      "Menghadirkan solusi dan layanan IT yang terjamin aman, andal, dan mematuhi standar enterprise untuk melindungi aset digital Anda.",
-    icon: "/api/media/file/globe-shield-20-regular.svg",
-  },
-  {
-    title: "Solusi Kustom & Terintegrasi",
-    description:
-      "Kami merancang dan mengintegrasikan sistem (termasuk ERP, WMS, dan modul SAP) yang disesuaikan secara presisi dengan alur kerja spesifik perusahaan.",
-    icon: "/api/media/file/app-generic-20-regular.svg",
-  },
-  {
-    title: "Skalabilitas Fleksibel",
-    description:
-      "Mengembangkan infrastruktur dan aplikasi yang dirancang untuk dapat diskalakan (scalable) dengan mudah seiring dengan percepatan pertumbuhan bisnis Anda.",
-    icon: "/api/media/file/chart-dashboard.svg",
-  },
-  {
-    title: "Keahlian Teknis Terpadu",
-    description:
-      "Menggabungkan keahlian teknis yang mendalam, desain kreatif (UI/UX), dan wawasan strategis untuk memecahkan berbagai kompleksitas operasional.",
-    icon: "/api/media/file/person-24-regular.svg",
-  },
-  {
-    title: "Inovasi yang Berkelanjutan",
-    description:
-      "Selalu selangkah di depan dalam mengadopsi teknologi mutakhir guna memastikan bisnis Anda tetap adaptif di era lanskap digital yang dinamis.",
-    icon: "/api/media/file/chart-person-24-regular.svg",
-  },
-  {
-    title: "Kemitraan Jangka Panjang",
-    description:
-      "Kami bukan sekadar vendor, melainkan mitra strategis yang membangun kolaborasi jangka panjang berdasarkan kepercayaan, kualitas, dan kesuksesan bersama.",
-    icon: "/api/media/file/calendar-arrow-counterclockwise-24-regular.svg",
-  },
-];
+interface ProblemProps {
+  data: Problem[];
+}
 
-export default function Problem() {
+export default function Problem({ data }: ProblemProps) {
+  if (data?.length === 0) return null;
+
   return (
     <section className="w-full relative overflow-hidden flex flex-col items-center bg-[#7eb2fc]/5 px-4 lg:px-[120px] 2xl:px-[240px] py-[50px] gap-10 text-[#010101]">
       <div className="flex flex-col items-center gap-4 text-center">
@@ -61,31 +29,44 @@ export default function Problem() {
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-        {data.map((card, index) => (
-          <div
-            key={index}
-            className="bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-xl flex flex-col items-start p-6 lg:p-[24px_28px] gap-4 transition-transform hover:-translate-y-1 hover:shadow-lg duration-300"
-          >
-            <div className="bg-[#7eb2fc]/10 rounded-xl p-2 shrink-0 flex items-center justify-center">
-              <Image
-                src={card.icon}
-                alt={`${card.title} Icon`}
-                width={48}
-                height={48}
-                className="w-12 h-12 object-contain"
-              />
-            </div>
+        {data?.map((card, index) => {
+          const iconUrl =
+            card.icon && typeof card.icon === "object"
+              ? card.icon.url
+              : undefined;
 
-            <div className="flex flex-col gap-2 mt-1">
-              <h3 className="text-[20px] font-bold leading-[125%]">
-                {card.title}
-              </h3>
-              <p className="text-[15px] font-medium leading-[180%] text-[#010101]/80">
-                {card.description}
-              </p>
+          return (
+            <div
+              key={index}
+              className="bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-xl flex flex-col items-start p-6 lg:p-[24px_28px] gap-4 transition-transform hover:-translate-y-1 hover:shadow-lg duration-300"
+            >
+              <div className="bg-[#7eb2fc]/10 rounded-xl p-2 shrink-0 flex items-center justify-center">
+                {iconUrl ? (
+                  <Image
+                    src={iconUrl}
+                    alt={`${card.title} Icon`}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 object-contain"
+                  />
+                ) : (
+                  <div className="w-12 h-12 flex items-center justify-center text-gray-400">
+                    #
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2 mt-1">
+                <h3 className="text-[20px] font-bold leading-[125%]">
+                  {card.title}
+                </h3>
+                <p className="text-[15px] font-medium leading-[180%] text-[#010101]/80">
+                  {card.description}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

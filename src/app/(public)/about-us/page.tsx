@@ -20,11 +20,13 @@ export default async function AboutUsPage() {
   const customers = await payload.find({
     collection: "customers",
     limit: 20,
+    sort: "createdAt",
   });
 
   const partnerships = await payload.find({
     collection: "partnerships",
     limit: 20,
+    sort: "createdAt",
   });
 
   return (

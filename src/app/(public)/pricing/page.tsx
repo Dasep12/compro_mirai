@@ -12,21 +12,25 @@ export default async function PricingPage() {
     collection: "services",
     depth: 1,
     limit: 10,
+    sort: "createdAt",
   });
 
   const customers = await payload.find({
     collection: "customers",
     limit: 20,
+    sort: "createdAt",
   });
 
   const partnerships = await payload.find({
     collection: "partnerships",
     limit: 20,
+    sort: "createdAt",
   });
 
   const faqs = await payload.find({
     collection: "pricing-faqs",
     limit: 20,
+    sort: "createdAt",
   });
 
   return (

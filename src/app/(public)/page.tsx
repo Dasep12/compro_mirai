@@ -15,35 +15,48 @@ export default async function Home() {
   const customers = await payload.find({
     collection: "customers",
     limit: 20,
+    sort: "createdAt",
   });
 
   const partnerships = await payload.find({
     collection: "partnerships",
     limit: 20,
+    sort: "createdAt",
   });
 
   const services = await payload.find({
     collection: "services",
     depth: 1,
     limit: 10,
+    sort: "createdAt",
   });
 
   const products = await payload.find({
     collection: "products",
     depth: 1,
     limit: 10,
+    sort: "createdAt",
   });
 
   const portfolios = await payload.find({
     collection: "portfolios",
     depth: 1,
     limit: 10,
+    sort: "createdAt",
   });
 
   const faqs = await payload.find({
     collection: "faqs",
     depth: 1,
     limit: 10,
+    sort: "createdAt",
+  });
+
+  const problems = await payload.find({
+    collection: "problems",
+    depth: 1,
+    limit: 10,
+    sort: "createdAt",
   });
 
   return (
@@ -55,7 +68,7 @@ export default async function Home() {
         partnerships={partnerships.docs}
       />
 
-      <Problem />
+      <Problem data={problems.docs} />
 
       <ServiceShowcase services={services.docs} />
 
