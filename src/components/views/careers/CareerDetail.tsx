@@ -23,10 +23,10 @@ export default function CareerDetail({ job }: CareerDetailProps) {
   };
 
   return (
-    <article className="w-full relative overflow-hidden flex flex-col items-start px-4 md:px-[120px] xl:px-[240px] py-[40px] gap-[22px] text-[#010101] bg-[#fdfdfd] font-sans">
+    <article className="w-full relative overflow-hidden flex flex-col items-start px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-8 sm:py-10 lg:py-14 gap-6 sm:gap-8 lg:gap-[22px] text-[#010101] bg-[#fdfdfd] font-sans">
       <Link
         href="/careers"
-        className="rounded-[10px] bg-[#fdfdfd] border border-gray-200 xl:border-none flex items-center gap-[10px] p-2 text-[#0451bf] font-semibold text-[16px] leading-[175%] no-underline hover:opacity-80 transition-opacity"
+        className="rounded-[10px] bg-[#fdfdfd] border border-gray-200 lg:border-none flex items-center gap-[10px] p-2 text-[#0451bf] font-semibold text-[15px] sm:text-[16px] leading-[175%] no-underline hover:opacity-80 transition-opacity"
       >
         <svg
           className="w-[23px] h-[23px]"
@@ -44,8 +44,8 @@ export default function CareerDetail({ job }: CareerDetailProps) {
         <span>Kembali</span>
       </Link>
 
-      <div className="w-full flex flex-col xl:flex-row items-start gap-[20px]">
-        <div className="w-full xl:w-[630px] h-[350px] md:h-[500px] xl:h-[630px] shrink-0 rounded-[20px] overflow-hidden relative bg-gray-50 p-4 shadow-sm">
+      <div className="w-full flex flex-col lg:flex-row items-start gap-6 sm:gap-8 lg:gap-12 xl:gap-[20px]">
+        <div className="w-full lg:w-5/12 xl:w-[630px] h-[240px] sm:h-[350px] md:h-[500px] xl:h-[630px] shrink-0 rounded-[20px] overflow-hidden relative bg-gray-50 p-4 shadow-sm">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -63,16 +63,16 @@ export default function CareerDetail({ job }: CareerDetailProps) {
           )}
         </div>
 
-        <div className="flex-1 w-full flex flex-col items-start gap-[20px]">
-          <div className="bg-[#7eb2fc]/25 text-[#0451bf] rounded-[99px] flex items-center justify-center px-[14px] py-[5px] text-[14px] font-semibold leading-[180%] capitalize">
+        <div className="flex-1 w-full flex flex-col items-start gap-4 sm:gap-5 xl:gap-[20px]">
+          <div className="bg-[#7eb2fc]/25 text-[#0451bf] rounded-[99px] flex items-center justify-center px-[14px] py-[5px] text-[13px] sm:text-[14px] font-semibold leading-[180%] capitalize">
             {job.category === "developer" ? "Software Developer" : job.category}
           </div>
 
-          <h1 className="text-[34px] font-bold leading-[125%] text-[#010101]">
+          <h1 className="text-[28px] sm:text-[34px] lg:text-[40px] font-bold leading-[130%] sm:leading-[125%] text-[#010101]">
             {job.title}
           </h1>
 
-          <p className="w-full text-[16px] leading-[200%] font-medium text-[#010101] text-justify">
+          <p className="w-full text-[14px] sm:text-[15px] lg:text-[16px] leading-[180%] sm:leading-[200%] font-medium text-[#010101] text-left sm:text-justify">
             {job.shortDescription}
           </p>
 

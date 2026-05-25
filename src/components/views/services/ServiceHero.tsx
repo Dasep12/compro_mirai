@@ -17,25 +17,25 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
       : service.title;
 
   return (
-    <section className="w-full relative overflow-hidden flex flex-col xl:flex-row items-center justify-between px-4 lg:px-[120px] 2xl:px-[240px] py-[50px] md:py-[80px] gap-10 xl:gap-[20px] bg-[#fdfdfd] text-[#010101]">
-      <div className="w-full xl:w-[629px] flex flex-col items-start gap-5 shrink-0 z-10">
-        <div className="bg-brand-100/25 text-primary rounded-full px-[14px] py-[5px] text-[14px] font-semibold leading-[180%] tracking-wide uppercase">
+    <section className="w-full relative overflow-hidden flex flex-col lg:flex-row items-center justify-between px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-[50px] gap-10 lg:gap-8 bg-[#fdfdfd] text-[#010101]">
+      <div className="flex flex-col items-start gap-4 sm:gap-5 w-full flex-1 lg:max-w-[500px] xl:max-w-[629px] shrink-0 z-10">
+        <div className="bg-brand-100/25 text-primary rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-semibold leading-[120%] tracking-wide uppercase">
           {service.title}
         </div>
 
-        <h1 className="text-[36px] md:text-[48px] font-bold leading-[130%] md:leading-[140%] text-left">
+        <h1 className="text-[28px] sm:text-[36px] lg:text-[40px] xl:text-[48px] font-bold leading-[130%] sm:leading-[140%] text-left">
           {service.heroBadge || "Solusi Teknologi Terintegrasi"}
         </h1>
 
-        <p className="text-[16px] leading-[180%] font-medium text-[#010101]/90">
+        <p className="text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[18px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90">
           {service.heroDescription}
         </p>
 
-        <div className="flex flex-wrap items-center gap-3 mt-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-2 w-full sm:w-auto">
           {service.heroBtn1Text && (
             <Link
               href={service.heroBtn1Link || "#"}
-              className="px-5 py-3 bg-primary text-[#fdfdfd] font-semibold text-[16px] rounded-mirai hover:bg-brand-600 transition-colors"
+              className="bg-primary text-[#fdfdfd] font-semibold px-6 py-3 rounded-mirai hover:bg-brand-600 transition-colors no-underline flex items-center justify-center w-full sm:w-auto text-center"
             >
               {service.heroBtn1Text}
             </Link>
@@ -44,7 +44,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
           {service.heroBtn2Text && (
             <Link
               href={service.heroBtn2Link || "#"}
-              className="px-5 py-3 bg-[#fdfdfd] text-primary border-[1.5px] border-primary font-semibold text-[16px] rounded-mirai hover:bg-brand-100 transition-colors"
+              className="bg-[#fdfdfd] text-primary border-[1.5px] border-primary font-semibold px-6 py-3 rounded-mirai hover:bg-brand-100 hover:border-brand-600 transition-colors no-underline flex items-center justify-center w-full sm:w-auto text-center"
             >
               {service.heroBtn2Text}
             </Link>
@@ -52,7 +52,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
         </div>
       </div>
 
-      <div className="w-full xl:w-[720px] h-[300px] md:h-[450px] xl:h-[600px] relative shrink-0 flex items-center justify-center">
+      <div className="w-full flex-1 relative flex items-center justify-center lg:justify-end mt-4 lg:mt-0 h-[300px] sm:h-[400px] lg:h-[450px] xl:h-[600px] shrink-0">
         {heroImageUrl ? (
           <Image
             src={heroImageUrl}
@@ -60,7 +60,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
             fill
             priority
             quality={100}
-            sizes="(max-width: 1280px) 100vw, 720px"
+            sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-contain"
           />
         ) : (

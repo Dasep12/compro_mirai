@@ -142,8 +142,8 @@ export default function ServiceShowcase({ services }: ServiceShowcaseProps) {
           })}
         </div>
 
-        <div className="flex-1 flex flex-col xl:flex-row bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-mirai border border-black/5 overflow-hidden">
-          <div className="w-full xl:w-[45%] h-[200px] sm:h-[300px] xl:h-auto relative shrink-0 bg-gray-50">
+        <div className="flex-1 w-full lg:w-auto flex flex-col xl:flex-row bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-mirai border border-black/5 overflow-hidden h-[480px] sm:h-[560px] lg:h-[600px] xl:h-[420px]">
+          <div className="w-full xl:w-[45%] h-[200px] sm:h-[300px] lg:h-[320px] xl:h-full relative shrink-0 bg-gray-50">
             {heroImageUrl ? (
               <Image
                 key={heroImageUrl}
@@ -159,16 +159,16 @@ export default function ServiceShowcase({ services }: ServiceShowcaseProps) {
             )}
           </div>
 
-          <div className="flex flex-col items-start p-5 sm:p-6 lg:p-8 xl:p-[40px] gap-4 xl:gap-5 flex-1">
-            <h3 className="text-[20px] sm:text-[24px] xl:text-[28px] font-bold leading-[125%] transition-opacity duration-300">
+          <div className="flex flex-col items-start p-5 sm:p-6 lg:p-8 xl:p-[40px] gap-3 sm:gap-4 xl:gap-5 flex-1 h-full">
+            <h3 className="text-[20px] sm:text-[24px] xl:text-[28px] font-bold leading-[125%] transition-opacity duration-300 line-clamp-2 w-full text-left shrink-0">
               {activeService?.dashboardTitle || activeService?.title}
             </h3>
 
-            <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/80 line-clamp-6 transition-opacity duration-300">
+            <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/80 line-clamp-4 sm:line-clamp-5 xl:line-clamp-6 transition-opacity duration-300 w-full text-left">
               {activeService?.dashboardSubtitle || activeService?.subtitle}
             </p>
 
-            <div className="mt-auto pt-4 w-full flex justify-end">
+            <div className="mt-auto pt-4 w-full flex justify-end shrink-0">
               <Link
                 href={`/services/${activeService?.slug}`}
                 className="flex items-center gap-2 px-5 py-3 rounded-mirai border-[1.5px] border-primary text-primary font-semibold hover:bg-brand-100 hover:border-brand-600 transition-colors"

@@ -16,25 +16,25 @@ export default function AboutUsHero({ data }: AboutHeroProps) {
       : "Mirai Softnet Technology";
 
   return (
-    <section className="w-full relative overflow-hidden flex flex-col items-start px-4 md:px-[120px] xl:px-[240px] pt-[140px] pb-[60px] gap-[32px] text-[#010101]">
-      <div className="w-full flex flex-col xl:flex-row items-center xl:items-start gap-[40px] xl:gap-[60px]">
-        <div className="flex-1 flex flex-col items-start gap-[16px] w-full">
+    <section className="w-full relative overflow-hidden flex flex-col items-start px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] pt-24 sm:pt-[120px] lg:pt-[140px] pb-10 sm:pb-14 lg:pb-[60px] gap-6 sm:gap-8 lg:gap-[32px] text-[#010101]">
+      <div className="w-full flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-[40px] xl:gap-[60px]">
+        <div className="flex-1 flex flex-col items-start gap-3 sm:gap-4 lg:gap-[16px] w-full">
           <div className="bg-[#0451bf] text-[#fdfdfd] rounded-full px-[14px] py-[5px] text-[14px] font-medium leading-[180%] tracking-wide uppercase">
             TENTANG KAMI
           </div>
 
-          <h1 className="text-[32px] md:text-[46px] font-bold leading-[125%] text-[#010101] tracking-tight text-left">
+          <h1 className="text-[28px] sm:text-[36px] lg:text-[40px] xl:text-[46px] font-bold leading-[130%] sm:leading-[125%] text-[#010101] tracking-tight text-left max-w-2xl lg:max-w-full">
             {data?.heroHeadline || "Mendorong Transformasi Digital Indonesia"}
           </h1>
 
           <div className="w-[60px] h-[4px] bg-[#0451bf] rounded-full mt-2 mb-2"></div>
 
-          <p className="w-full text-[16px] leading-[190%] font-medium text-[#010101]/80 text-justify whitespace-pre-line">
+          <p className="w-full text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[190%] font-medium text-[#010101]/80 text-left sm:text-justify whitespace-pre-line">
             {data?.heroDescription}
           </p>
         </div>
 
-        <div className="w-full xl:w-[540px] 2xl:w-[600px] h-[350px] md:h-[480px] xl:h-[540px] 2xl:h-[600px] shrink-0 rounded-[20px] overflow-hidden relative bg-[#fdfdfd] p-4 shadow-[0px_4px_10px_1px_rgba(0,0,0,0.1)] group">
+        <div className="w-full lg:w-1/2 xl:w-[540px] 2xl:w-[600px] h-[280px] sm:h-[400px] md:h-[480px] lg:h-[500px] xl:h-[540px] 2xl:h-[600px] shrink-0 rounded-[20px] overflow-hidden relative bg-[#fdfdfd] p-3 sm:p-4 shadow-sm group">
           {imageUrl ? (
             <Image
               src={imageUrl}

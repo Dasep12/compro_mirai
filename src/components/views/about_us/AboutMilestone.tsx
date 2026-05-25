@@ -10,12 +10,12 @@ export default function AboutMilestones({ data }: AboutMilestonesProps) {
   }
 
   return (
-    <section className="w-full relative overflow-hidden bg-[#fdfdfd] px-4 lg:px-[120px] 2xl:px-[240px] py-[80px] flex flex-col items-center gap-[60px] font-sans">
-      <div className="flex flex-col items-center gap-4 text-center max-w-[800px]">
+    <section className="w-full relative overflow-hidden bg-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 xl:py-[80px] flex flex-col items-center gap-10 sm:gap-12 lg:gap-[60px] font-sans">
+      <div className="flex flex-col items-center gap-3 sm:gap-4 text-center max-w-[800px]">
         <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] text-[14px] font-medium leading-[120%] tracking-wide uppercase">
           REKAM JEJAK
         </div>
-        <h2 className="text-[32px] md:text-[46px] font-bold leading-[125%] text-[#010101]">
+        <h2 className="text-[28px] sm:text-[34px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] text-[#010101]">
           {data.milestoneHeadline || "Jejak Langkah Perjalanan Kami"}
         </h2>
       </div>
@@ -96,12 +96,12 @@ export default function AboutMilestones({ data }: AboutMilestonesProps) {
                   {item.year}
                 </span>
 
-                <div className="bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.06)] border border-gray-100/80 rounded-xl flex flex-col items-center p-6 gap-3 mt-4 w-full h-full transition-transform hover:-translate-y-1 hover:shadow-lg">
-                  <h3 className="text-[18px] font-bold leading-[130%] text-[#010101]">
+                <div className="bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.06)] border border-gray-100/80 rounded-xl flex flex-col items-center p-5 sm:p-6 gap-2 sm:gap-3 mt-4 w-full h-full transition-transform hover:-translate-y-1 hover:shadow-lg">
+                  <h3 className="text-[16px] sm:text-[18px] font-bold leading-[130%] text-[#010101]">
                     {item.title}
                   </h3>
                   {item.description && (
-                    <p className="text-[14px] font-medium leading-[170%] text-[#010101]/70">
+                    <p className="text-[13px] sm:text-[14px] font-medium leading-[160%] sm:leading-[170%] text-[#010101]/70">
                       {item.description}
                     </p>
                   )}

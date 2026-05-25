@@ -17,24 +17,24 @@ export default function PricingFaq({ faqs }: PricingFaqProps) {
   if (!faqs || faqs.length === 0) return null;
 
   return (
-    <section className="w-full relative flex flex-col items-center bg-[#fdfdfd] px-4 lg:px-[120px] 2xl:px-[240px] py-[50px] gap-10 text-[#010101] font-sans">
+    <section className="w-full relative flex flex-col items-center bg-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 gap-8 lg:gap-10 text-[#010101] font-sans">
       <div className="flex flex-col items-center gap-4 max-w-[900px] text-center">
-        <div className="bg-primary text-[#fdfdfd] rounded-full px-[14px] py-[5px] text-[14px] font-medium leading-[180%] tracking-wide uppercase">
+        <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
           FAQ
         </div>
 
-        <h2 className="text-[32px] md:text-[46px] font-bold leading-[125%]">
+        <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] max-w-4xl">
           <span className="text-primary">Frequently</span>{" "}
           <span className="text-[#010101]">Asked Questions</span>
         </h2>
 
-        <p className="text-[15px] md:text-[16px] leading-[180%] font-medium text-[#010101] mt-1 max-w-[800px]">
+        <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[180%] font-medium text-[#010101] mt-1 max-w-3xl">
           Temukan jawaban atas pertanyaan umum seputar layanan IT, solusi
           software kustom, dan produk unggulan Mirai Softnet.
         </p>
       </div>
 
-      <div className="w-[80%] bg-[#fdfdfd] shadow-[2px_4px_10px_1px_rgba(0,0,0,0.05)] rounded-[20px] p-6 lg:p-8 xl:p-[32px_40px] flex flex-col gap-4 animate-in fade-in slide-in-from-right-4 duration-500">
+      <div className="w-full md:w-[80%] bg-[#fdfdfd] shadow-[2px_4px_10px_1px_rgba(0,0,0,0.05)] rounded-[20px] p-5 sm:p-6 lg:p-8 xl:p-[32px_40px] flex flex-col gap-4 animate-in fade-in slide-in-from-right-4 duration-500">
         {(faqs ?? []).map((faq, idx) => {
           const isExpanded = expandedQnaIndex === idx;
           const displayNumber = String(idx + 1).padStart(2, "0");

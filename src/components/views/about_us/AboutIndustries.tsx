@@ -11,17 +11,17 @@ export default function AboutIndustries({ data }: AboutIndustriesProps) {
   }
 
   return (
-    <section className="w-full relative flex flex-col items-center bg-[#fdfdfd] px-4 2xl:px-[240px] py-[80px] gap-[40px] text-[#010101] font-sans">
-      <div className="flex flex-col items-center gap-4 text-center">
+    <section className="w-full relative flex flex-col items-center bg-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 xl:py-[80px] gap-8 lg:gap-[40px] text-[#010101] font-sans">
+      <div className="flex flex-col items-center gap-3 sm:gap-4 text-center max-w-[800px]">
         <div className="bg-[#7eb2fc]/15 text-[#0451bf] rounded-full px-[16px] py-[6px] text-[14px] font-bold leading-[120%] tracking-wide uppercase">
           SEKTOR INDUSTRI
         </div>
 
-        <h2 className="text-[32px] md:text-[42px] font-bold leading-[125%] text-[#010101]">
+        <h2 className="text-[28px] sm:text-[34px] lg:text-[38px] xl:text-[42px] font-bold leading-[125%] text-[#010101]">
           Industri <span className="text-[#0451bf]">yang Kami Layani</span>
         </h2>
 
-        <p className="text-[16px] leading-[180%] font-medium text-[#010101]/80 mt-1">
+        <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/80 mt-1 max-w-2xl">
           Solusi IT kami dirancang dengan fleksibilitas tinggi untuk beradaptasi
           dan memecahkan tantangan spesifik di berbagai sektor industri.
         </p>

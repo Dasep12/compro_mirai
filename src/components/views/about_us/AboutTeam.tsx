@@ -12,7 +12,7 @@ export default function AboutTeam({ data }: AboutTeamProps) {
   }
 
   return (
-    <section className="w-full relative overflow-hidden bg-[#7eb2fc]/5 px-4 lg:px-[120px] 2xl:px-[240px] py-[80px] lg:py-[100px] flex flex-col items-center gap-[60px] font-sans">
+    <section className="w-full relative overflow-hidden bg-[#7eb2fc]/5 px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 xl:py-[100px] flex flex-col items-center gap-10 sm:gap-12 lg:gap-[60px] font-sans">
       <div className="absolute top-0 left-0 w-full h-[400px] bg-linear-to-b from-[#7eb2fc]/10 to-transparent -z-10" />
 
       <div className="flex flex-col items-center text-center gap-4 relative z-10 w-full">
@@ -20,18 +20,18 @@ export default function AboutTeam({ data }: AboutTeamProps) {
           Tim Kami
         </div>
 
-        <h2 className="text-[32px] md:text-[42px] font-bold leading-[125%] text-[#010101] tracking-tight">
+        <h2 className="text-[28px] sm:text-[34px] lg:text-[38px] xl:text-[42px] font-bold leading-[125%] text-[#010101] tracking-tight max-w-2xl">
           {data.teamHeadline || "Tim Pakar di Balik Mirai Softnet"}
         </h2>
 
         {data.teamDescription && (
-          <p className="text-[16px] md:text-[17px] leading-[180%] font-medium text-[#010101]/70 mt-1">
+          <p className="text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[17px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/70 mt-1 max-w-2xl">
             {data.teamDescription}
           </p>
         )}
       </div>
 
-      <div className="w-full flex flex-wrap justify-center gap-[24px] md:gap-[32px] relative z-10">
+      <div className="w-full flex flex-wrap justify-center gap-5 sm:gap-6 md:gap-[32px] relative z-10">
         {(data.teamMembers ?? []).map((member, index) => {
           const photoUrl =
             member.photo &&
@@ -43,7 +43,7 @@ export default function AboutTeam({ data }: AboutTeamProps) {
           return (
             <div
               key={member.id || index}
-              className="group flex flex-col bg-[#fdfdfd] border border-gray-100 rounded-[32px] p-3 shadow-[0px_8px_24px_-8px_rgba(0,0,0,0.04)] hover:shadow-[0px_16px_40px_-8px_rgba(4,81,191,0.12)] hover:border-[#7eb2fc]/40 transition-all duration-300 w-[280px] sm:w-[300px] shrink-0"
+              className="group flex flex-col bg-[#fdfdfd] border border-gray-100 rounded-[32px] p-3 shadow-[0px_8px_24px_-8px_rgba(0,0,0,0.04)] hover:shadow-[0px_16px_40px_-8px_rgba(4,81,191,0.12)] hover:border-[#7eb2fc]/40 transition-all duration-300 w-[240px] sm:w-[270px] md:w-[280px] lg:w-[300px] shrink-0"
             >
               <div className="w-full aspect-4/5 relative rounded-[24px] overflow-hidden bg-[#7eb2fc]/10 mb-4">
                 {photoUrl ? (
