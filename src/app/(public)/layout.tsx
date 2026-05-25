@@ -42,6 +42,9 @@ export const metadata: Metadata = {
     title: "Mirai Softnet & Technology",
     images: ["/api/media/file/mirai-black.png"],
   },
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "any", type: "image/x-icon" }],
+  },
 };
 
 export default async function RootLayout({
