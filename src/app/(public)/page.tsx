@@ -8,6 +8,7 @@ import ProductShowcase from "@/components/views/home/ProductShowcase";
 import PortfolioShowcase from "@/components/views/home/PortfolioShowcase";
 import Contact from "@/components/views/home/Contact";
 import FaqShowcase from "@/components/views/home/FaqShowcase";
+import FadeInUp from "@/components/ui/FadeInUp";
 
 export default async function Home() {
   const payload = await getPayload({ config });
@@ -60,25 +61,39 @@ export default async function Home() {
   });
 
   return (
-    <>
+    <div className="overflow-hidden">
       <Hero />
 
-      <PartnershipCustomer
-        customers={customers.docs}
-        partnerships={partnerships.docs}
-      />
+      <FadeInUp delay={0.2}>
+        <PartnershipCustomer
+          customers={customers.docs}
+          partnerships={partnerships.docs}
+        />
+      </FadeInUp>
 
-      <Problem data={problems.docs} />
+      <FadeInUp>
+        <Problem data={problems.docs} />
+      </FadeInUp>
 
-      <ServiceShowcase services={services.docs} />
+      <FadeInUp>
+        <ServiceShowcase services={services.docs} />
+      </FadeInUp>
 
-      <ProductShowcase products={products.docs} />
+      <FadeInUp>
+        <ProductShowcase products={products.docs} />
+      </FadeInUp>
 
-      <PortfolioShowcase portfolios={portfolios.docs} />
+      <FadeInUp>
+        <PortfolioShowcase portfolios={portfolios.docs} />
+      </FadeInUp>
 
-      <Contact />
+      <FadeInUp>
+        <Contact />
+      </FadeInUp>
 
-      <FaqShowcase faqs={faqs.docs} />
-    </>
+      <FadeInUp>
+        <FaqShowcase faqs={faqs.docs} />
+      </FadeInUp>
+    </div>
   );
 }

@@ -4,6 +4,7 @@ import PricingHero from "@/components/views/pricing/PricingHero";
 import PricingPerks from "@/components/views/pricing/PricingPerks";
 import PartnershipCustomer from "@/components/views/home/PartnershipCustomer";
 import PricingFaq from "@/components/views/pricing/PricingFaq";
+import FadeInUp from "@/components/ui/FadeInUp";
 
 export default async function PricingPage() {
   const payload = await getPayload({ config });
@@ -34,17 +35,23 @@ export default async function PricingPage() {
   });
 
   return (
-    <>
+    <div className="overflow-hidden">
       <PricingHero />
 
-      <PricingPerks services={services.docs} />
+      <FadeInUp delay={0.2}>
+        <PricingPerks services={services.docs} />
+      </FadeInUp>
 
-      <PartnershipCustomer
-        customers={customers.docs}
-        partnerships={partnerships.docs}
-      />
+      <FadeInUp>
+        <PartnershipCustomer
+          customers={customers.docs}
+          partnerships={partnerships.docs}
+        />
+      </FadeInUp>
 
-      <PricingFaq faqs={faqs.docs} />
-    </>
+      <FadeInUp>
+        <PricingFaq faqs={faqs.docs} />
+      </FadeInUp>
+    </div>
   );
 }

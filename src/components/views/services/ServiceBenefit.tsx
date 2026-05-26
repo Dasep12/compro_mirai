@@ -42,7 +42,7 @@ export default function ServiceBenefit({
           return (
             <div
               key={card.id || index}
-              className="bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-xl flex flex-col items-start p-5 sm:p-6 lg:p-[24px_28px] gap-4 sm:gap-5 transition-transform hover:-translate-y-1 hover:shadow-lg duration-300"
+              className="group bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-xl flex flex-col items-start p-5 sm:p-6 lg:p-[24px_28px] gap-4 sm:gap-5 transition-all hover:-translate-y-2 hover:shadow-xl duration-300"
             >
               <div className="bg-brand-100/10 rounded-xl p-2 shrink-0 flex items-center justify-center">
                 {iconUrl ? (
@@ -51,7 +51,7 @@ export default function ServiceBenefit({
                     alt={iconAlt || "Benefit Icon"}
                     width={48}
                     height={48}
-                    className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+                    className="w-10 h-10 sm:w-12 sm:h-12 object-contain group-hover:scale-110 transition-transform duration-300"
                   />
                 ) : (
                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-lg flex items-center justify-center text-[10px] text-gray-500 text-center">

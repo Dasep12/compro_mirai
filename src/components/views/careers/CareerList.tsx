@@ -38,10 +38,10 @@ export default function CareerList({ careers }: CareerListProps) {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`rounded-[99px] flex items-center justify-center px-[20px] py-[5px] font-semibold text-[14px] leading-[180%] transition-colors ${
+              className={`rounded-[99px] flex items-center justify-center px-[20px] py-[5px] font-semibold text-[14px] leading-[180%] transition-all duration-300 ${
                 isActive
-                  ? "bg-[#0451bf] text-[#fdfdfd]"
-                  : "bg-[#fdfdfd] border border-[#0451bf] text-[#0451bf] hover:bg-[#0451bf]/5"
+                  ? "bg-[#0451bf] text-[#fdfdfd] shadow-md scale-105"
+                  : "bg-[#fdfdfd] border border-[#0451bf] text-[#0451bf] hover:bg-[#0451bf]/5 hover:-translate-y-0.5"
               }`}
             >
               {cat}
@@ -65,7 +65,7 @@ export default function CareerList({ careers }: CareerListProps) {
             return (
               <div
                 key={job.id}
-                className="w-full shadow-[0px_4px_10px_1px_rgba(0,0,0,0.1)] rounded-[20px] bg-[#fdfdfd] overflow-hidden flex flex-col lg:flex-row items-start gap-0 lg:gap-4 xl:gap-[20px]"
+                className="group w-full shadow-[0px_4px_10px_1px_rgba(0,0,0,0.1)] hover:shadow-xl hover:-translate-y-2 transition-all duration-300 rounded-[20px] bg-[#fdfdfd] overflow-hidden flex flex-col lg:flex-row items-start gap-0 lg:gap-4 xl:gap-[20px]"
               >
                 <div className="w-full lg:w-2/5 h-[240px] sm:h-[300px] lg:h-[450px] xl:h-[500px] shrink-0 relative">
                   {imageUrl && (
@@ -73,7 +73,7 @@ export default function CareerList({ careers }: CareerListProps) {
                       src={imageUrl}
                       alt={job.title}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   )}
                 </div>
@@ -152,7 +152,7 @@ export default function CareerList({ careers }: CareerListProps) {
             return (
               <div
                 key={job.id}
-                className="w-full shadow-[0px_4px_10px_1px_rgba(0,0,0,0.1)] rounded-[20px] bg-[#fdfdfd] overflow-hidden flex flex-col items-start gap-[20px]"
+                className="group w-full shadow-[0px_4px_10px_1px_rgba(0,0,0,0.1)] hover:shadow-xl hover:-translate-y-2 transition-all duration-300 rounded-[20px] bg-[#fdfdfd] overflow-hidden flex flex-col items-start gap-[20px]"
               >
                 <div className="w-full h-[240px] sm:h-[300px] xl:h-[360px] shrink-0 relative">
                   {imageUrl && (
@@ -160,7 +160,7 @@ export default function CareerList({ careers }: CareerListProps) {
                       src={imageUrl}
                       alt={job.title}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   )}
                 </div>

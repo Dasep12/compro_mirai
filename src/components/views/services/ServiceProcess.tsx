@@ -67,7 +67,7 @@ export default function ServiceProcess({
 
                   <div className="w-full md:w-1/2 flex pt-[40px] sm:pt-[50px] md:pt-0">
                     <div
-                      className={`w-full bg-[#fdfdfd] shadow-[3px_5px_10px_1px_rgba(0,0,0,0.1)] rounded-xl p-5 sm:p-6 lg:p-[24px_28px] flex flex-col items-start gap-4 transition-transform hover:-translate-y-1 duration-300 ${
+                      className={`group w-full bg-[#fdfdfd] shadow-[3px_5px_10px_1px_rgba(0,0,0,0.1)] hover:shadow-lg rounded-xl p-5 sm:p-6 lg:p-[24px_28px] flex flex-col items-start gap-4 transition-all hover:-translate-y-2 duration-300 ${
                         isEven ? "md:mr-8 lg:mr-16" : "md:ml-8 lg:ml-16"
                       }`}
                     >
@@ -78,7 +78,7 @@ export default function ServiceProcess({
                             alt={iconAlt || "Step Icon"}
                             width={48}
                             height={48}
-                            className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+                            className="w-10 h-10 sm:w-12 sm:h-12 object-contain group-hover:scale-110 transition-transform duration-300"
                           />
                         ) : (
                           <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-lg flex items-center justify-center text-[10px] text-gray-500 text-center">

@@ -9,6 +9,7 @@ import AboutIndustries from "@/components/views/about_us/AboutIndustries";
 import PartnershipCustomer from "@/components/views/home/PartnershipCustomer";
 import AboutTeam from "@/components/views/about_us/AboutTeam";
 import AboutCta from "@/components/views/about_us/AboutCTA";
+import FadeInUp from "@/components/ui/FadeInUp";
 
 export default async function AboutUsPage() {
   const payload = await getPayload({ config });
@@ -30,27 +31,43 @@ export default async function AboutUsPage() {
   });
 
   return (
-    <>
+    <div className="overflow-hidden">
       <AboutUsHero data={aboutUs} />
 
-      <AboutVisionMission data={aboutUs} />
+      <FadeInUp delay={0.2}>
+        <AboutVisionMission data={aboutUs} />
+      </FadeInUp>
 
-      <AboutCoreValues data={aboutUs} />
+      <FadeInUp>
+        <AboutCoreValues data={aboutUs} />
+      </FadeInUp>
 
-      <AboutMilestones data={aboutUs} />
+      <FadeInUp>
+        <AboutMilestones data={aboutUs} />
+      </FadeInUp>
 
-      <AboutStrengths data={aboutUs} />
+      <FadeInUp>
+        <AboutStrengths data={aboutUs} />
+      </FadeInUp>
 
-      <AboutIndustries data={aboutUs} />
+      <FadeInUp>
+        <AboutIndustries data={aboutUs} />
+      </FadeInUp>
 
-      <PartnershipCustomer
-        customers={customers.docs}
-        partnerships={partnerships.docs}
-      />
+      <FadeInUp>
+        <PartnershipCustomer
+          customers={customers.docs}
+          partnerships={partnerships.docs}
+        />
+      </FadeInUp>
 
-      <AboutTeam data={aboutUs} />
+      <FadeInUp>
+        <AboutTeam data={aboutUs} />
+      </FadeInUp>
 
-      <AboutCta data={aboutUs} />
-    </>
+      <FadeInUp>
+        <AboutCta data={aboutUs} />
+      </FadeInUp>
+    </div>
   );
 }

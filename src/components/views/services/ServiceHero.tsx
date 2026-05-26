@@ -18,6 +18,19 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
 
   return (
     <section className="w-full relative overflow-hidden flex flex-col lg:flex-row items-center justify-between px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-[50px] gap-10 lg:gap-8 bg-[#fdfdfd] text-[#010101]">
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes levitate {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-15px); }
+            }
+            .animate-levitate {
+              animation: levitate 4s ease-in-out infinite;
+            }
+          `,
+        }}
+      />
       <div className="flex flex-col items-start gap-4 sm:gap-5 w-full flex-1 lg:max-w-[500px] xl:max-w-[629px] shrink-0 z-10">
         <div className="bg-brand-100/25 text-primary rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-semibold leading-[120%] tracking-wide uppercase">
           {service.title}
@@ -61,7 +74,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
             priority
             quality={100}
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-contain"
+            className="object-contain animate-levitate"
           />
         ) : (
           <div className="w-full h-full bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 font-medium">

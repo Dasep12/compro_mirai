@@ -26,7 +26,7 @@ export default function CareerDetail({ job }: CareerDetailProps) {
     <article className="w-full relative overflow-hidden flex flex-col items-start px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-8 sm:py-10 lg:py-14 gap-6 sm:gap-8 lg:gap-[22px] text-[#010101] bg-[#fdfdfd] font-sans">
       <Link
         href="/careers"
-        className="rounded-[10px] bg-[#fdfdfd] border border-gray-200 lg:border-none flex items-center gap-[10px] p-2 text-[#0451bf] font-semibold text-[15px] sm:text-[16px] leading-[175%] no-underline hover:opacity-80 transition-opacity"
+        className="group rounded-[10px] bg-[#fdfdfd] border border-gray-200 lg:border-none flex items-center gap-[10px] p-2 text-[#0451bf] font-semibold text-[15px] sm:text-[16px] leading-[175%] no-underline hover:opacity-80 transition-all duration-300 hover:-translate-x-1"
       >
         <svg
           className="w-[23px] h-[23px]"
@@ -45,7 +45,7 @@ export default function CareerDetail({ job }: CareerDetailProps) {
       </Link>
 
       <div className="w-full flex flex-col lg:flex-row items-start gap-6 sm:gap-8 lg:gap-12 xl:gap-[20px]">
-        <div className="w-full lg:w-5/12 xl:w-[630px] h-[240px] sm:h-[350px] md:h-[500px] xl:h-[630px] shrink-0 rounded-[20px] overflow-hidden relative bg-gray-50 p-4 shadow-sm">
+        <div className="w-full lg:w-5/12 xl:w-[630px] h-[240px] sm:h-[350px] md:h-[500px] xl:h-[630px] shrink-0 rounded-[20px] overflow-hidden relative bg-gray-50 p-4 shadow-sm animate-in fade-in zoom-in-95 duration-700">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -120,7 +120,7 @@ export default function CareerDetail({ job }: CareerDetailProps) {
 
           <button
             onClick={handleApplyClick}
-            className="w-full xl:w-auto bg-[#0451bf] text-[#fdfdfd] rounded-[10px] flex items-center justify-center px-[40px] py-[12px] font-semibold text-[16px] leading-[175%] hover:bg-blue-800 transition-colors mt-4 shadow-sm"
+            className="w-full xl:w-auto bg-[#0451bf] text-[#fdfdfd] rounded-[10px] flex items-center justify-center px-[40px] py-[12px] font-semibold text-[16px] leading-[175%] hover:bg-blue-800 hover:scale-[1.02] hover:shadow-lg transition-all duration-300 mt-4 shadow-sm"
           >
             Lamar Sekarang
           </button>

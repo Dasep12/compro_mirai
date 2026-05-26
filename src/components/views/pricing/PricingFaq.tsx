@@ -52,7 +52,7 @@ export default function PricingFaq({ faqs }: PricingFaqProps) {
                   {displayNumber}
                 </div>
 
-                <h3 className="flex-1 font-bold text-[16px] md:text-[18px] leading-[140%] text-primary group-hover:text-blue-800 transition-colors">
+                <h3 className="flex-1 font-bold text-[16px] md:text-[18px] leading-[140%] text-primary group-hover:text-blue-800 group-hover:translate-x-1 transition-all duration-300">
                   {faq.question}
                 </h3>
 

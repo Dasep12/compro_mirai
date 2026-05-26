@@ -2,6 +2,7 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { notFound } from "next/navigation";
 import CareerDetail from "@/components/views/careers/CareerDetail";
+import FadeInUp from "@/components/ui/FadeInUp";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -24,8 +25,10 @@ export default async function CareerPage({ params }: PageProps) {
   }
 
   return (
-    <>
-      <CareerDetail job={job} />
-    </>
+    <div className="overflow-hidden">
+      <FadeInUp>
+        <CareerDetail job={job} />
+      </FadeInUp>
+    </div>
   );
 }

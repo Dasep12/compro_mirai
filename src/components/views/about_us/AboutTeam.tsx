@@ -43,7 +43,7 @@ export default function AboutTeam({ data }: AboutTeamProps) {
           return (
             <div
               key={member.id || index}
-              className="group flex flex-col bg-[#fdfdfd] border border-gray-100 rounded-[32px] p-3 shadow-[0px_8px_24px_-8px_rgba(0,0,0,0.04)] hover:shadow-[0px_16px_40px_-8px_rgba(4,81,191,0.12)] hover:border-[#7eb2fc]/40 transition-all duration-300 w-[240px] sm:w-[270px] md:w-[280px] lg:w-[300px] shrink-0"
+              className="group flex flex-col bg-[#fdfdfd] border border-gray-100 rounded-[32px] p-3 shadow-[0px_8px_24px_-8px_rgba(0,0,0,0.04)] hover:shadow-[0px_16px_40px_-8px_rgba(4,81,191,0.12)] hover:-translate-y-2 hover:border-[#7eb2fc]/40 transition-all duration-300 w-[240px] sm:w-[270px] md:w-[280px] lg:w-[300px] shrink-0"
             >
               <div className="w-full aspect-4/5 relative rounded-[24px] overflow-hidden bg-[#7eb2fc]/10 mb-4">
                 {photoUrl ? (

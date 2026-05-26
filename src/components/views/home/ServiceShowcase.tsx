@@ -48,6 +48,13 @@ export default function ServiceShowcase({ services }: ServiceShowcaseProps) {
               -ms-overflow-style: none;
               scrollbar-width: none;
             }
+            @keyframes fadeInService {
+              from { opacity: 0; transform: translateY(10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in-service {
+              animation: fadeInService 0.5s ease-out forwards;
+            }
           `,
         }}
       />
@@ -159,7 +166,10 @@ export default function ServiceShowcase({ services }: ServiceShowcaseProps) {
             )}
           </div>
 
-          <div className="flex flex-col items-start p-5 sm:p-6 lg:p-8 xl:p-[40px] gap-3 sm:gap-4 xl:gap-5 flex-1 h-full">
+          <div 
+            key={activeService?.id || activeIndex}
+            className="flex flex-col items-start p-5 sm:p-6 lg:p-8 xl:p-[40px] gap-3 sm:gap-4 xl:gap-5 flex-1 h-full animate-fade-in-service"
+          >
             <h3 className="text-[20px] sm:text-[24px] xl:text-[28px] font-bold leading-[125%] transition-opacity duration-300 line-clamp-2 w-full text-left shrink-0">
               {activeService?.dashboardTitle || activeService?.title}
             </h3>

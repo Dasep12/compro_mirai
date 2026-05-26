@@ -7,6 +7,7 @@ import ServiceSolution from "@/components/views/services/ServiceSolution";
 import ServiceProcess from "@/components/views/services/ServiceProcess";
 import ServiceCTA from "@/components/views/services/ServiceCTS";
 import ServiceBenefit from "@/components/views/services/ServiceBenefit";
+import FadeInUp from "@/components/ui/FadeInUp";
 
 interface PageProps {
   params: Promise<{
@@ -35,32 +36,42 @@ export default async function ServicePage({ params }: PageProps) {
   }
 
   return (
-    <>
+    <div className="overflow-hidden">
       <ServiceHero service={service} />
 
-      <ServiceProblem
-        showProblem={service.showProblem}
-        problemData={service.problem}
-      />
+      <FadeInUp delay={0.2}>
+        <ServiceProblem
+          showProblem={service.showProblem}
+          problemData={service.problem}
+        />
+      </FadeInUp>
 
-      <ServiceSolution
-        showSolution={service.showSolution}
-        solutionData={service.solution}
-      />
+      <FadeInUp>
+        <ServiceSolution
+          showSolution={service.showSolution}
+          solutionData={service.solution}
+        />
+      </FadeInUp>
 
-      <ServiceProcess
-        showProcess={service.showProcess}
-        processData={service.process}
-        showFramework={service.showFramework}
-        frameworkData={service.framework}
-      />
+      <FadeInUp>
+        <ServiceProcess
+          showProcess={service.showProcess}
+          processData={service.process}
+          showFramework={service.showFramework}
+          frameworkData={service.framework}
+        />
+      </FadeInUp>
 
-      <ServiceCTA service={service} />
+      <FadeInUp>
+        <ServiceCTA service={service} />
+      </FadeInUp>
 
-      <ServiceBenefit
-        showBenefit={service.showBenefit}
-        benefitData={service.benefit}
-      />
-    </>
+      <FadeInUp>
+        <ServiceBenefit
+          showBenefit={service.showBenefit}
+          benefitData={service.benefit}
+        />
+      </FadeInUp>
+    </div>
   );
 }

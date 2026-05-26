@@ -17,8 +17,21 @@ export default function AboutUsHero({ data }: AboutHeroProps) {
 
   return (
     <section className="w-full relative overflow-hidden flex flex-col items-start px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] pt-24 sm:pt-[120px] lg:pt-[140px] pb-10 sm:pb-14 lg:pb-[60px] gap-6 sm:gap-8 lg:gap-[32px] text-[#010101]">
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes levitate {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-15px); }
+            }
+            .animate-levitate {
+              animation: levitate 4s ease-in-out infinite;
+            }
+          `,
+        }}
+      />
       <div className="w-full flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-[40px] xl:gap-[60px]">
-        <div className="flex-1 flex flex-col items-start gap-3 sm:gap-4 lg:gap-[16px] w-full">
+        <div className="flex-1 flex flex-col items-start gap-3 sm:gap-4 lg:gap-[16px] w-full animate-in fade-in slide-in-from-bottom-4 duration-700">
           <div className="bg-[#0451bf] text-[#fdfdfd] rounded-full px-[14px] py-[5px] text-[14px] font-medium leading-[180%] tracking-wide uppercase">
             TENTANG KAMI
           </div>
@@ -43,7 +56,7 @@ export default function AboutUsHero({ data }: AboutHeroProps) {
               priority
               quality={100}
               sizes="(max-width: 1280px) 100vw, 600px"
-              className="object-cover rounded-[20px] transition-transform duration-700 group-hover:scale-105"
+              className="object-cover rounded-[20px] transition-transform duration-700 group-hover:scale-105 animate-levitate"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-[#7eb2fc]/10 text-gray-400 font-medium rounded-[20px]">

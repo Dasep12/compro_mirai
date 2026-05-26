@@ -38,7 +38,7 @@ export default function AboutCoreValues({ data }: AboutCoreValuesProps) {
           return (
             <div
               key={value.id || index}
-              className="bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-xl flex flex-col items-start p-6 lg:p-[24px_28px] gap-4 transition-transform hover:-translate-y-1 hover:shadow-lg duration-300"
+              className="group bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-xl flex flex-col items-start p-6 lg:p-[24px_28px] gap-4 transition-all hover:-translate-y-2 hover:shadow-xl duration-300"
             >
               <div className="bg-[#7eb2fc]/10 rounded-xl p-2 shrink-0 flex items-center justify-center">
                 {iconUrl ? (
@@ -47,7 +47,7 @@ export default function AboutCoreValues({ data }: AboutCoreValuesProps) {
                     alt={`${value.title} Icon`}
                     width={48}
                     height={48}
-                    className="w-12 h-12 object-contain"
+                    className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
                   />
                 ) : (
                   <svg

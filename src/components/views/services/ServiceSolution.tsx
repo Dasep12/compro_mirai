@@ -42,7 +42,7 @@ export default function ServiceSolution({
           return (
             <div
               key={item.id || index}
-              className={`w-full flex flex-col gap-6 sm:gap-8 lg:gap-[80px] items-center ${
+              className={`group w-full flex flex-col gap-6 sm:gap-8 lg:gap-[80px] items-center ${
                 isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
               }`}
             >
@@ -53,7 +53,7 @@ export default function ServiceSolution({
                     alt={imageAlt || "Solution Image"}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-400 font-medium">

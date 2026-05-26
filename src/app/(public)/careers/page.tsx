@@ -2,6 +2,7 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import CareerHero from "@/components/views/careers/CareerHero";
 import CareerList from "@/components/views/careers/CareerList";
+import FadeInUp from "@/components/ui/FadeInUp";
 
 export default async function CareersPage() {
   const payload = await getPayload({
@@ -14,10 +15,12 @@ export default async function CareersPage() {
   });
 
   return (
-    <>
+    <div className="overflow-hidden">
       <CareerHero />
 
-      <CareerList careers={careers} />
-    </>
+      <FadeInUp delay={0.2}>
+        <CareerList careers={careers} />
+      </FadeInUp>
+    </div>
   );
 }

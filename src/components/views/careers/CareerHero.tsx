@@ -1,7 +1,7 @@
 export default function CareerHero() {
   return (
     <section className="w-full relative flex flex-col items-center bg-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 xl:py-[80px] text-[#010101]">
-      <div className="flex flex-col items-center gap-4 text-center max-w-[900px] lg:max-w-[1000px]">
+      <div className="flex flex-col items-center gap-4 text-center max-w-[900px] lg:max-w-[1000px] animate-in fade-in slide-in-from-bottom-4 duration-700">
         <h1 className="text-[28px] sm:text-[36px] lg:text-[40px] xl:text-[48px] font-bold leading-[130%] sm:leading-[125%]">
           Bangun Masa Depan Teknologi Bersama Kami
         </h1>

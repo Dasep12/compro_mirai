@@ -166,7 +166,7 @@ export default function PricingPerks({ services }: PricingPerksProps) {
             return (
               <div
                 key={id || index}
-                className={`flex flex-col items-center p-6 sm:p-8 lg:p-[40px_20px] gap-6 sm:gap-[32px] rounded-[16px] transition-transform hover:-translate-y-2 duration-300 md:shrink-0 md:snap-center ${
+                className={`group flex flex-col items-center p-6 sm:p-8 lg:p-[40px_20px] gap-6 sm:gap-[32px] rounded-[16px] transition-all hover:-translate-y-2 hover:shadow-xl duration-300 md:shrink-0 md:snap-center ${
                   (pricingData.tiers?.length || 0) < 3
                     ? "w-full md:w-[380px] xl:w-[400px]"
                     : "w-full md:w-[360px] lg:w-[380px] xl:w-full"
@@ -229,10 +229,10 @@ export default function PricingPerks({ services }: PricingPerksProps) {
 
                 <Link
                   href={buttonLink || "#contact"}
-                  className={`w-full rounded-[10px] flex items-center justify-center px-[20px] py-[12px] font-semibold text-[16px] leading-[175%] mt-auto transition-colors ${
+                  className={`w-full rounded-[10px] flex items-center justify-center px-[20px] py-[12px] font-semibold text-[16px] leading-[175%] mt-auto transition-all duration-300 ${
                     isPopular
-                      ? "bg-primary text-[#fdfdfd] hover:bg-blue-800"
-                      : "bg-[#fdfdfd] border-[1.5px] border-primary text-primary hover:bg-primary/5"
+                      ? "bg-primary text-[#fdfdfd] hover:bg-blue-800 hover:scale-[1.02] shadow-md"
+                      : "bg-[#fdfdfd] border-[1.5px] border-primary text-primary hover:bg-primary hover:text-white"
                   }`}
                 >
                   {buttonText || "Konsultasi Sekarang"}
