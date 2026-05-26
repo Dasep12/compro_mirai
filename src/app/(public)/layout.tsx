@@ -4,7 +4,6 @@ import "./globals.css";
 import { getPayload } from "payload";
 import config from "../../../payload.config";
 import AppBar from "@/components/ui/AppBar";
-import { Suspense } from "react";
 import Footer from "@/components/ui/Footer";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -71,39 +70,11 @@ export default async function RootLayout({
   return (
     <html lang="id" className={`${jakarta.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <Suspense
-          fallback={
-            <div className="w-full flex-1 flex flex-col items-center justify-center min-h-[50vh] gap-3">
-              <style
-                dangerouslySetInnerHTML={{
-                  __html: `
-                      @keyframes loading-slide {
-                        0% { transform: translateX(-100%); }
-                        100% { transform: translateX(200%); }
-                      }
-                      .animate-loading-slide {
-                        animation: loading-slide 1.5s infinite ease-in-out;
-                      }
-                    `,
-                }}
-              />
+        <AppBar services={services.docs} products={products.docs} />
 
-              <div className="w-[200px] md:w-[300px] h-[6px] bg-base-100/30 rounded-full overflow-hidden relative">
-                <div className="absolute top-0 left-0 h-full w-1/2 bg-linear-to-r from-[#0451bf] to-secondary-300 rounded-full animate-loading-slide"></div>
-              </div>
+        <main className="grow w-full mt-[70px]">{children}</main>
 
-              <span className="text-[13px] font-medium text-primary animate-pulse tracking-wide">
-                Memuat halaman...
-              </span>
-            </div>
-          }
-        >
-          <AppBar services={services.docs} products={products.docs} />
-
-          <main className="grow w-full mt-[70px]">{children}</main>
-
-          <Footer services={services.docs} products={products.docs} />
-        </Suspense>
+        <Footer services={services.docs} products={products.docs} />
       </body>
     </html>
   );
