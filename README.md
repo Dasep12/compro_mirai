@@ -6,8 +6,8 @@ Company profile website built with Next.js 16 and PayloadCMS 3, featuring a head
 
 ### Frontend
 
-- Next.js 16.2.6 with App Router
-- React 19.2.4
+- Next.js 15.1.0 (Stable) with App Router
+- React 19.0.0
 - TypeScript 5
 - Tailwind CSS 4
 - Framer Motion 12.38.0 for animations
