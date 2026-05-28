@@ -95,7 +95,7 @@ export default function Footer({ services, products }: FooterProps) {
           </Link> */}
 
           <Link
-            href="#"
+            href="https://tokomirai.com/"
             target="_blank"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >

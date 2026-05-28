@@ -477,7 +477,7 @@ export default function AppBar({ services, products }: AppBarProps) {
             </Link> */}
 
             <Link
-              href="#"
+              href="https://tokomirai.com/"
               target="_blank"
               onClick={closeMobileMenu}
               className="py-3 font-medium border-t border-black/5 w-full hover:text-primary transition-colors"

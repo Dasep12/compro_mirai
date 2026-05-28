@@ -43,7 +43,7 @@ export default function Hero() {
           </Link>
 
           <Link
-            href="#"
+            href="https://tokomirai.com/"
             className="bg-[#fdfdfd] text-primary border-[1.5px] border-primary font-semibold px-6 py-3 rounded-mirai hover:bg-brand-100 hover:border-brand-600 transition-colors no-underline flex items-center justify-center w-full sm:w-auto text-center"
           >
             Lihat Katalog
