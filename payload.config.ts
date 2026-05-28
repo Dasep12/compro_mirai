@@ -17,13 +17,36 @@ import { PricingFaq } from "./src/collections/PricingFaq.ts";
 import { AboutUs } from "./src/collections/AboutUs.ts";
 import { Problems } from "./src/collections/Problem.ts";
 import sharp from "sharp";
+import { CustomLogo } from "@/components/payloads/CustomLogo.tsx";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+if (!process.env.PAYLOAD_SECRET) {
+  throw new Error(
+    "[Payload] PAYLOAD_SECRET is not set! Set it in your .env file.",
+  );
+}
+if (!process.env.DATABASE_URI) {
+  throw new Error(
+    "[Payload] DATABASE_URI is not set! Set it in your .env file.",
+  );
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
+    components: {
+      graphics: {
+        Logo: CustomLogo,
+      },
+    },
+    meta: {
+      titleSuffix: "- Mirai Softnet",
+      icons: {
+        icon: [{ url: "/favicon.ico?v=2", sizes: "any", type: "image/x-icon" }],
+      },
+    },
   },
   collections: [
     Users,
@@ -41,10 +64,10 @@ export default buildConfig({
   ],
   globals: [AboutUs],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || "",
+  secret: process.env.PAYLOAD_SECRET,
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || "",
+      connectionString: process.env.DATABASE_URI,
     },
   }),
   typescript: {

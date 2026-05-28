@@ -1,10 +1,27 @@
 import type { CollectionConfig } from "payload";
 
+const generateSlug = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-");
+
 export const Career: CollectionConfig = {
   slug: "careers",
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "category", "type", "location"],
+  },
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        if (data?.title && !data?.slug) {
+          data.slug = generateSlug(data.title);
+        }
+        return data;
+      },
+    ],
   },
   access: {
     read: () => true,

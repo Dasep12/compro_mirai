@@ -20,10 +20,8 @@ export default function Problem({ data }: ProblemProps) {
 
         <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/80 mt-1 max-w-3xl">
           Dedikasi utama kami adalah mendukung pertumbuhan bisnis Anda melalui
-          kombinasi keahlian teknis terpadu, inovasi tanpa henti,{" "}
-          <br className="hidden lg:block" />
-          serta wawasan strategis yang dirancang untuk menjawab setiap
-          tantangan.
+          kombinasi keahlian teknis terpadu, inovasi tanpa henti, serta wawasan
+          strategis yang dirancang untuk menjawab setiap tantangan.
         </p>
       </div>
 

@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
 export default function Hero() {
+  const waUrl = generateWhatsAppUrl();
+
   return (
     <section className="w-full relative overflow-hidden flex flex-col lg:flex-row items-center justify-between px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-[50px] gap-10 lg:gap-8 text-[#010101]">
       <style
@@ -32,7 +35,8 @@ export default function Hero() {
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-2 w-full sm:w-auto">
           <Link
-            href="#"
+            href={waUrl}
+            target="_blank"
             className="bg-primary text-[#fdfdfd] font-semibold px-6 py-3 rounded-mirai hover:bg-brand-600 transition-colors no-underline flex items-center justify-center w-full sm:w-auto text-center"
           >
             Konsultasi Sekarang

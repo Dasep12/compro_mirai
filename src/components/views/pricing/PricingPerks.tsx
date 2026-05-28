@@ -3,12 +3,14 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { Service } from "../../../../payload-types";
+import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
 interface PricingPerksProps {
   services: Service[];
 }
 
 export default function PricingPerks({ services }: PricingPerksProps) {
+  const waUrl = generateWhatsAppUrl();
   const pricingServices = services.filter((s) => s.showPricing);
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -228,7 +230,7 @@ export default function PricingPerks({ services }: PricingPerksProps) {
                 </div>
 
                 <Link
-                  href={buttonLink || "#contact"}
+                  href={buttonLink || waUrl || "#"}
                   className={`w-full rounded-[10px] flex items-center justify-center px-[20px] py-[12px] font-semibold text-[16px] leading-[175%] mt-auto transition-all duration-300 ${
                     isPopular
                       ? "bg-primary text-[#fdfdfd] hover:bg-blue-800 hover:scale-[1.02] shadow-md"

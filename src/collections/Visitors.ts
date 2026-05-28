@@ -6,9 +6,10 @@ export const Visitors: CollectionConfig = {
     useAsTitle: "name",
     description: "Data leads/pengunjung yang mengisi form kontak web.",
     defaultColumns: ["name", "email", "phone", "createdAt"],
+    group: "CRM",
   },
   access: {
-    read: () => true,
+    read: ({ req: { user } }) => Boolean(user),
     create: () => true,
     update: () => false,
     delete: () => false,
@@ -22,7 +23,7 @@ export const Visitors: CollectionConfig = {
     },
     {
       name: "email",
-      type: "text",
+      type: "email",
       required: true,
       label: "Email Perusahaan",
     },

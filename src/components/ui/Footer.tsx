@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Service, Product } from "../../../payload-types";
 import Image from "next/image";
+import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
 interface FooterProps {
   services: Service[];
@@ -9,6 +10,7 @@ interface FooterProps {
 
 export default function Footer({ services, products }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const waUrl = generateWhatsAppUrl();
 
   return (
     <footer className="w-full bg-base-800 text-[15px] text-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] pt-12 pb-6 flex flex-col gap-10">
@@ -83,8 +85,18 @@ export default function Footer({ services, products }: FooterProps) {
           >
             Harga
           </Link>
+
+          {/* Open if there is a new product in the future */}
+          {/* <Link
+            href="/careers"
+            className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
+          >
+            Karir
+          </Link> */}
+
           <Link
             href="#"
+            target="_blank"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Katalog
@@ -101,6 +113,7 @@ export default function Footer({ services, products }: FooterProps) {
           >
             Tentang Kami
           </Link>
+
           <Link
             href="#"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
@@ -114,7 +127,8 @@ export default function Footer({ services, products }: FooterProps) {
             Privacy Policy
           </Link>
           <Link
-            href="#"
+            href={waUrl}
+            target="_blank"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Hubungi Kami

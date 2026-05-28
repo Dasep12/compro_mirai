@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Product, Service } from "../../../payload-types";
 import { useState } from "react";
+import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
 interface AppBarProps {
   services: Service[];
@@ -11,6 +12,7 @@ interface AppBarProps {
 }
 
 export default function AppBar({ services, products }: AppBarProps) {
+  const waUrl = generateWhatsAppUrl();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(
     null,
@@ -245,15 +247,26 @@ export default function AppBar({ services, products }: AppBarProps) {
           >
             Harga
           </Link>
+
+          {/* Open if there is a new product in the future */}
+          {/* <Link
+            href="/careers"
+            className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
+          >
+            Karir
+          </Link> */}
+
           <Link
-            href="#"
+            href="https://tokomirai.com/"
+            target="_blank"
             className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
           >
             Katalog
           </Link>
         </div>
         <Link
-          href="#"
+          href={waUrl}
+          target="_blank"
           className="hidden lg:flex items-center justify-center bg-primary text-white font-semibold px-5 py-2 rounded-mirai hover:bg-brand-600 transition-colors"
         >
           Hubungi Kami
@@ -453,8 +466,19 @@ export default function AppBar({ services, products }: AppBarProps) {
             >
               Harga
             </Link>
+
+            {/* Open if there is a new product in the future */}
+            {/* <Link
+              href="/careers"
+              onClick={closeMobileMenu}
+              className="py-3 font-medium border-t border-black/5 w-full hover:text-primary transition-colors"
+            >
+              Karir
+            </Link> */}
+
             <Link
               href="#"
+              target="_blank"
               onClick={closeMobileMenu}
               className="py-3 font-medium border-t border-black/5 w-full hover:text-primary transition-colors"
             >
@@ -463,7 +487,8 @@ export default function AppBar({ services, products }: AppBarProps) {
 
             <div className="w-full pt-4 mt-2 border-t border-black/5">
               <Link
-                href="#"
+                href={waUrl}
+                target="_blank"
                 onClick={closeMobileMenu}
                 className="flex items-center justify-center bg-primary text-white font-semibold px-5 py-3 rounded-mirai hover:bg-brand-600 transition-colors w-full"
               >

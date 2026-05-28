@@ -1,9 +1,26 @@
 import type { CollectionConfig } from "payload";
 
+const generateSlug = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-");
+
 export const Services: CollectionConfig = {
   slug: "services",
   admin: {
     useAsTitle: "title",
+  },
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        if (data?.title && !data?.slug) {
+          data.slug = generateSlug(data.title);
+        }
+        return data;
+      },
+    ],
   },
   access: {
     read: () => true,

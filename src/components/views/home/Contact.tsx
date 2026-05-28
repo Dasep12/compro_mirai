@@ -2,6 +2,11 @@
 
 import React, { useState } from "react";
 
+const WA_NUMBER = "6285218026895";
+const WA_CONTACT_NAME = "Tim Mirai Softnet";
+
+type SubmitStatus = "idle" | "success" | "error";
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,16 +15,20 @@ export default function Contact() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    if (submitStatus !== "idle") setSubmitStatus("idle");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus("idle");
 
     try {
       const response = await fetch("/api/visitors", {
@@ -29,20 +38,21 @@ export default function Contact() {
       });
 
       if (!response.ok) {
-        console.error("Gagal menyimpan data pengunjung");
+        throw new Error(`Server error: ${response.status}`);
       }
 
-      const waNumber = "6285218026895";
-      const textMessage = `Halo Pak Saputro,\n\nSaya tertarik untuk berdiskusi mengenai Layanan atau Produk Anda di Mirai Softnet & Technology.\n\n*Detail Kontak:*\n- Nama: ${formData.name}\n- Email: ${formData.email}\n- Telp: ${formData.phone}\n\n*Pesan:*\n${formData.message}`;
+      const textMessage = `Halo ${WA_CONTACT_NAME},\n\nSaya tertarik untuk berdiskusi mengenai Layanan atau Produk Anda di Mirai Softnet & Technology.\n\n*Detail Kontak:*\n- Nama: ${formData.name}\n- Email: ${formData.email}\n- Telp: ${formData.phone}\n\n*Pesan:*\n${formData.message}`;
 
       const encodedMessage = encodeURIComponent(textMessage);
-      const waUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
-
+      const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodedMessage}`;
       window.open(waUrl, "_blank");
 
+      setSubmitStatus("success");
       setFormData({ name: "", email: "", phone: "", message: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
+
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -150,7 +160,7 @@ export default function Contact() {
 
         <div className="w-full flex flex-col md:flex-row gap-3">
           <input
-            type="text"
+            type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -179,12 +189,77 @@ export default function Contact() {
           className="w-full h-[120px] bg-[#fdfdfd] text-[#010101] rounded-[4px] px-[22px] py-[14px] outline-none placeholder-[#53938b]/70 resize-none focus:ring-2 focus:ring-[#fa9f29] transition-all"
         />
 
+        {submitStatus === "success" && (
+          <div className="flex items-center gap-2 bg-[#fdfdfd]/15 border border-[#fdfdfd]/30 rounded-[6px] px-4 py-3 text-[14px] font-medium">
+            <svg
+              className="w-4 h-4 shrink-0 text-green-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <span>Pesan terkirim! WhatsApp akan terbuka otomatis.</span>
+          </div>
+        )}
+
+        {submitStatus === "error" && (
+          <div className="flex items-center gap-2 bg-red-500/20 border border-red-400/40 rounded-[6px] px-4 py-3 text-[14px] font-medium">
+            <svg
+              className="w-4 h-4 shrink-0 text-red-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>
+              Terjadi kesalahan. Coba lagi atau hubungi kami langsung.
+            </span>
+          </div>
+        )}
+
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-[#fa9f29] text-[#fdfdfd] font-semibold text-[16px] rounded-[10px] py-[14px] mt-1 hover:bg-[#e08b20] transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full bg-[#fa9f29] text-[#fdfdfd] font-semibold text-[16px] rounded-[10px] py-[14px] mt-1 hover:bg-[#e08b20] transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          {isSubmitting ? "Mengirim..." : "Coba Sekarang"}
+          {isSubmitting ? (
+            <>
+              <svg
+                className="animate-spin w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                />
+              </svg>
+              Mengirim...
+            </>
+          ) : (
+            "Coba Sekarang"
+          )}
         </button>
       </form>
     </section>

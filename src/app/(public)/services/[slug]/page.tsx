@@ -1,5 +1,3 @@
-import { getPayload } from "payload";
-import configPromise from "@payload-config";
 import { notFound } from "next/navigation";
 import ServiceHero from "@/components/views/services/ServiceHero";
 import ServiceProblem from "@/components/views/services/ServiceProblem";
@@ -8,6 +6,7 @@ import ServiceProcess from "@/components/views/services/ServiceProcess";
 import ServiceCTA from "@/components/views/services/ServiceCTS";
 import ServiceBenefit from "@/components/views/services/ServiceBenefit";
 import FadeInUp from "@/components/ui/FadeInUp";
+import { getServiceBySlug } from "@/lib/data/collections";
 
 interface PageProps {
   params: Promise<{
@@ -17,19 +16,7 @@ interface PageProps {
 
 export default async function ServicePage({ params }: PageProps) {
   const { slug } = await params;
-  const payload = await getPayload({ config: configPromise });
-
-  const { docs } = await payload.find({
-    collection: "services",
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-    limit: 1,
-  });
-
-  const service = docs[0];
+  const service = await getServiceBySlug(slug);
 
   if (!service) {
     return notFound();

@@ -23,8 +23,7 @@ export default function AboutCoreValues({ data }: AboutCoreValuesProps) {
 
         <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/80 mt-1 max-w-3xl">
           Fondasi utama yang membimbing setiap keputusan, baris kode, dan
-          kemitraan yang kami bangun di <br className="hidden md:block" />
-          Mirai Softnet.
+          kemitraan yang kami bangun di Mirai Softnet.
         </p>
       </div>
 

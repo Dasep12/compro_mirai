@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { Service } from "../../../../payload-types";
+import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
 interface ServiceCTAProps {
   service: Service;
 }
 
 export default function ServiceCTA({ service }: ServiceCTAProps) {
+  const waUrl = generateWhatsAppUrl();
+
   return (
     <section className="w-full relative flex flex-col items-center justify-center bg-primary px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-14 sm:py-16 lg:py-20 text-center text-[#fdfdfd]">
       <div className="flex flex-col items-center gap-4 max-w-[900px] lg:max-w-[1000px]">
@@ -22,7 +25,7 @@ export default function ServiceCTA({ service }: ServiceCTAProps) {
 
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mt-8 w-full sm:w-auto">
         <Link
-          href={service.heroBtn1Link || "#"}
+          href={service.heroBtn1Link || waUrl || "#"}
           className="bg-[#fdfdfd] text-primary font-semibold px-6 py-3 rounded-mirai hover:bg-gray-100 transition-colors no-underline flex items-center justify-center w-full sm:w-auto text-center shadow-sm"
         >
           Jadwalkan Konsultasi Gratis

@@ -1,5 +1,4 @@
-import { getPayload } from "payload";
-import config from "../../../../payload.config";
+import type { Metadata } from "next";
 import AboutUsHero from "@/components/views/about_us/AboutUsHero";
 import AboutVisionMission from "@/components/views/about_us/AboutVisionMission";
 import AboutCoreValues from "@/components/views/about_us/AboutCoreValue";
@@ -10,25 +9,24 @@ import PartnershipCustomer from "@/components/views/home/PartnershipCustomer";
 import AboutTeam from "@/components/views/about_us/AboutTeam";
 import AboutCta from "@/components/views/about_us/AboutCTA";
 import FadeInUp from "@/components/ui/FadeInUp";
+import {
+  getAboutUs,
+  getCustomers,
+  getPartnerships,
+} from "@/lib/data/collections";
+
+export const metadata: Metadata = {
+  title: "Tentang Kami",
+  description:
+    "Kenali Mirai Softnet & Technology — misi, visi, nilai inti, dan tim profesional yang mendorong transformasi digital Indonesia.",
+};
 
 export default async function AboutUsPage() {
-  const payload = await getPayload({ config });
-
-  const aboutUs = await payload.findGlobal({
-    slug: "about-us",
-  });
-
-  const customers = await payload.find({
-    collection: "customers",
-    limit: 20,
-    sort: "createdAt",
-  });
-
-  const partnerships = await payload.find({
-    collection: "partnerships",
-    limit: 20,
-    sort: "createdAt",
-  });
+  const [aboutUs, customers, partnerships] = await Promise.all([
+    getAboutUs(),
+    getCustomers(20),
+    getPartnerships(20),
+  ]);
 
   return (
     <div className="overflow-hidden">
@@ -56,8 +54,8 @@ export default async function AboutUsPage() {
 
       <FadeInUp>
         <PartnershipCustomer
-          customers={customers.docs}
-          partnerships={partnerships.docs}
+          customers={customers}
+          partnerships={partnerships}
         />
       </FadeInUp>
 
