@@ -12,7 +12,7 @@ export const getCustomers = unstable_cache(
     return result.docs;
   },
   ["customers"],
-  { revalidate: 3600, tags: ["customers"] },
+  { revalidate: 60, tags: ["customers"] },
 );
 
 export const getPartnerships = unstable_cache(
@@ -26,7 +26,7 @@ export const getPartnerships = unstable_cache(
     return result.docs;
   },
   ["partnerships"],
-  { revalidate: 3600, tags: ["partnerships"] },
+  { revalidate: 60, tags: ["partnerships"] },
 );
 
 export const getPortfolios = unstable_cache(
@@ -41,7 +41,7 @@ export const getPortfolios = unstable_cache(
     return result.docs;
   },
   ["portfolios"],
-  { revalidate: 3600, tags: ["portfolios"] },
+  { revalidate: 60, tags: ["portfolios"] },
 );
 
 export const getFaqs = unstable_cache(
@@ -56,7 +56,7 @@ export const getFaqs = unstable_cache(
     return result.docs;
   },
   ["faqs"],
-  { revalidate: 3600, tags: ["faqs"] },
+  { revalidate: 60, tags: ["faqs"] },
 );
 
 export const getProblems = unstable_cache(
@@ -71,7 +71,7 @@ export const getProblems = unstable_cache(
     return result.docs;
   },
   ["problems"],
-  { revalidate: 3600, tags: ["problems"] },
+  { revalidate: 60, tags: ["problems"] },
 );
 
 export const getAboutUs = unstable_cache(
@@ -80,7 +80,7 @@ export const getAboutUs = unstable_cache(
     return payload.findGlobal({ slug: "about-us" });
   },
   ["about-us"],
-  { revalidate: 3600, tags: ["about-us"] },
+  { revalidate: 60, tags: ["about-us"] },
 );
 
 export const getPricingFaqs = unstable_cache(
@@ -94,7 +94,7 @@ export const getPricingFaqs = unstable_cache(
     return result.docs;
   },
   ["pricing-faqs"],
-  { revalidate: 3600, tags: ["pricing-faqs"] },
+  { revalidate: 60, tags: ["pricing-faqs"] },
 );
 
 export const getProducts = unstable_cache(
@@ -109,7 +109,7 @@ export const getProducts = unstable_cache(
     return result.docs;
   },
   ["products"],
-  { revalidate: 3600, tags: ["products"] },
+  { revalidate: 60, tags: ["products"] },
 );
 
 export const getServices = unstable_cache(
@@ -124,7 +124,7 @@ export const getServices = unstable_cache(
     return result.docs;
   },
   ["services"],
-  { revalidate: 3600, tags: ["services"] },
+  { revalidate: 60, tags: ["services"] },
 );
 
 export async function getServiceBySlug(slug: string) {
@@ -151,7 +151,7 @@ export const getCareers = unstable_cache(
     return result.docs;
   },
   ["careers"],
-  { revalidate: 3600, tags: ["careers"] },
+  { revalidate: 60, tags: ["careers"] },
 );
 
 export async function getCareerBySlug(slug: string) {
