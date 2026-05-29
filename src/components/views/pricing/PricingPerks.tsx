@@ -184,17 +184,25 @@ export default function PricingPerks({ services }: PricingPerksProps) {
                   {tierName}
                 </h3>
 
-                <div className="flex items-end justify-center px-[10px] text-primary gap-2">
-                  <span
-                    className={`font-bold leading-none ${isPopular ? "text-[40px] sm:text-[50px]" : "text-[36px] sm:text-[46px]"}`}
-                  >
-                    {price}
-                  </span>
-                  {priceSuffix && (
-                    <span className="text-[16px] sm:text-[19px] font-medium leading-[180%] text-[#010101] mb-1">
-                      {priceSuffix}
+                <div className="flex flex-col items-center">
+                  {price != "Hubungi Kami" && (
+                    <span className="text-[10px] sm:text-[13px] font-semibold text-gray-400 uppercase tracking-widest mb-1">
+                      Mulai Dari
                     </span>
                   )}
+
+                  <div className="flex items-end justify-center px-[10px] text-primary gap-2">
+                    <span
+                      className={`font-bold leading-none ${isPopular ? "text-[40px] sm:text-[50px]" : "text-[36px] sm:text-[46px]"}`}
+                    >
+                      {price}
+                    </span>
+                    {priceSuffix && (
+                      <span className="text-[16px] sm:text-[19px] font-medium leading-[180%] text-[#010101] mb-1">
+                        {priceSuffix}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="w-full flex flex-col items-start gap-[16px] sm:gap-[22px] flex-1">
@@ -228,7 +236,6 @@ export default function PricingPerks({ services }: PricingPerksProps) {
                     ))}
                   </div>
                 </div>
-
                 <Link
                   href={buttonLink || waUrl || "#"}
                   className={`w-full rounded-[10px] flex items-center justify-center px-[20px] py-[12px] font-semibold text-[16px] leading-[175%] mt-auto transition-all duration-300 ${
