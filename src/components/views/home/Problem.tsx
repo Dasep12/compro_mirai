@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/Image";
 import { Problem as ProblemType } from "../../../../payload-types";
 
 interface ProblemProps {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Service, Product } from "../../../payload-types";
-import Image from "next/image";
+import Image from "@/components/ui/Image";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
 interface FooterProps {

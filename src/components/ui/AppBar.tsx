@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/ui/Image";
 import { Product, Service } from "../../../payload-types";
 import { useState } from "react";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";

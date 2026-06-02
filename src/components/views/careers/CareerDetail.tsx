@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/Image";
 import Link from "next/link";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { Career } from "../../../../payload-types";

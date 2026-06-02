@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/Image";
 import Link from "next/link";
 import { Product } from "../../../../payload-types";
 
@@ -27,7 +27,6 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
 
   return (
     <section className="w-full relative flex flex-col items-center bg-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 md:py-[50px] gap-8 md:gap-10 text-[#010101]">
-      {/* CSS internal untuk menyembunyikan scrollbar pada navigasi tab mobile */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -85,15 +84,11 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
           </div>
         </div>
 
-        {/* ======================================================== */}
-        {/* DETAIL SHOWCASE - Diubah Menjadi Gambar Dulu Baru Teks   */}
-        {/* Menggunakan breakpoint 'xl' agar 1024px ikut style tablet */}
-        {/* ======================================================== */}
         <div className="w-full flex flex-col xl:flex-row items-stretch gap-8 xl:gap-10 text-left animate-in fade-in zoom-in-95 duration-500 mt-2 xl:mt-0">
-          {/* 1. GAMBAR MOCKUP (Sekarang di atas pada Mobile/Tablet/Laptop Kecil, di kiri pada Desktop xl+) */}
           <div className="w-full xl:w-[480px] 2xl:w-[576px] h-[250px] sm:h-[350px] md:h-[400px] xl:h-auto min-h-[250px] lg:min-h-[380px] xl:min-h-[480px] bg-gray-50 rounded-2xl overflow-hidden relative shrink-0 flex items-center justify-center p-4">
             {mockupUrl ? (
               <Image
+                key={`mockup-${activeProduct.id}`}
                 src={mockupUrl}
                 alt={mockupAlt || "Mockup Product"}
                 fill
@@ -108,7 +103,6 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
             )}
           </div>
 
-          {/* 2. KONTEN TEKS & FITUR (Di bawah pada Mobile/Tablet/Laptop Kecil, di kanan pada Desktop xl+) */}
           <div className="flex-1 flex flex-col items-start gap-6 pt-2 xl:py-6">
             <div className="flex flex-col items-start gap-3">
               {activeProduct.badge && (
