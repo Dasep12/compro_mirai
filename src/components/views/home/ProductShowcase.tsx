@@ -42,12 +42,10 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
       />
 
       <div className="flex flex-col items-center gap-4 max-w-[900px] text-center">
-        {/* CHIPS "PRODUK" - Diperbesar khusus di layar 2xl (4K) */}
         <div className="bg-primary text-[#fdfdfd] rounded-full px-[14px] py-[5px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[180%] 2xl:leading-[140%] tracking-wide uppercase">
           PRODUK
         </div>
 
-        {/* Ukuran Judul Utama Berskala */}
         <h2 className="text-[28px] sm:text-[32px] md:text-[46px] font-bold leading-[125%]">
           Solusi Software Terintegrasi untuk Bisnis Anda
         </h2>
@@ -62,7 +60,6 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
       </div>
 
       <div className="w-full flex flex-col items-center gap-[23px]">
-        {/* TAB SYSTEM - Gaya desain asli tetap dipertahankan */}
         <div className="w-full flex items-center justify-start md:justify-center overflow-x-auto hide-scrollbar snap-x snap-mandatory">
           <div className="flex items-center justify-start flex-nowrap md:flex-wrap gap-2 sm:gap-3 bg-[#fdfdfd] border border-primary/30 p-1.5 rounded-2xl shrink-0 min-w-min">
             {(products ?? []).map((product, index) => {
@@ -120,7 +117,6 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
               </p>
             </div>
 
-            {/* List Fitur Produk */}
             <div className="flex flex-col gap-5 w-full mt-2">
               {(activeProduct.features ?? []).map((feature, idx) => {
                 const iconUrl =
@@ -159,7 +155,6 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
         </div>
       </div>
 
-      {/* BOTTOM CTA BUTTONS */}
       <div className="flex flex-col items-center gap-4 mt-2 md:mt-4 w-full">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 w-full sm:w-auto">
           <Link

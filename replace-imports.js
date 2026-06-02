@@ -23,8 +23,6 @@ let changedCount = 0;
 
 files.forEach(file => {
   const content = readFileSync(file, 'utf8');
-  // Use regex to replace different variations of import Image from "next/image"
-  // Example: import Image from "next/image"; or import Image from 'next/image'
   const newContent = content.replace(/import\s+Image\s+from\s+["']next\/image["'];?/g, 'import Image from "@/components/ui/Image";');
   
   if (content !== newContent) {
