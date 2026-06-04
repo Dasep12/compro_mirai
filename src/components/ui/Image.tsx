@@ -45,10 +45,12 @@ export default function Image({ className = "", onLoad, onError, alt, src, ...pr
         {...props}
         src={src}
         alt={alt || "image"}
-        unoptimized={true}
-        className={`w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+        quality={props.quality || 100}
+        // unoptimized={false}
+        sizes={props.sizes || (props.fill ? "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" : undefined)}
+        className={`w-full h-full object-contain transition-opacity duration-500 ease-in-out ${
           isLoading || isError ? "opacity-0" : "opacity-100"
-        }`}
+        } ${className}`}
         onLoad={(e) => {
           loadedImageUrls.add(srcString);
           setIsLoading(false);
