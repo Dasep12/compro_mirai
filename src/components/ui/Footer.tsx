@@ -35,11 +35,11 @@ export default function Footer({ services, products }: FooterProps) {
           <div className="flex flex-col gap-1.5 mt-2 text-[14px] text-[#fdfdfd]/80">
             <span className="flex items-center gap-2">
               <span className="font-semibold text-[#74e0d3]">Email:</span>{" "}
-              info@miraisoftnet.com
+              marketing@miraisoftnet.com
             </span>
             <span className="flex items-center gap-2">
               <span className="font-semibold text-[#74e0d3]">Jam Kerja:</span>{" "}
-              Senin - Jumat (09:00 - 18:00)
+              Senin - Jumat (07.15 - 16:00)
             </span>
           </div>
         </div>
