@@ -51,8 +51,7 @@ export default function Footer({ services, products }: FooterProps) {
           {(products ?? []).slice(0, 5).map((product) => (
             <Link
               key={product.id}
-              href={`${product.productUrl}`}
-              target="_blank"
+              href={`/products/${product.slug}`}
               className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
             >
               {product.name}

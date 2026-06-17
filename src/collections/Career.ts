@@ -1,11 +1,5 @@
+import { generateSlug } from "@/lib/utils";
 import type { CollectionConfig } from "payload";
-
-const generateSlug = (text: string) =>
-  text
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-");
 
 export const Career: CollectionConfig = {
   slug: "careers",

@@ -1,11 +1,5 @@
+import { generateSlug } from "@/lib/utils";
 import type { CollectionConfig } from "payload";
-
-const generateSlug = (text: string) =>
-  text
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-");
 
 export const Services: CollectionConfig = {
   slug: "services",
@@ -38,6 +32,14 @@ export const Services: CollectionConfig = {
       required: true,
       unique: true,
       label: "URL Slug",
+    },
+    {
+      name: "category",
+      type: "text",
+      label: "Kategori Layanan (Untuk Badge di Card)",
+      admin: {
+        description: "Pengganti teks 'LAYANAN KAMI'. Misal: Enterprise Software, Cloud Solution, dll.",
+      },
     },
     {
       name: "subtitle",
@@ -74,6 +76,57 @@ export const Services: CollectionConfig = {
       type: "textarea",
       label: "Sub-judul / Deskripsi Dashboard",
     },
+    {
+      name: "floatingCards",
+      type: "group",
+      label: "Floating Cards (Efek Melayang pada Gambar)",
+      admin: {
+        description: "Data untuk card kecil yang melayang di pojok kiri atas dan kanan bawah gambar.",
+      },
+      fields: [
+        {
+          name: "topLeft",
+          type: "group",
+          label: "Card Kiri Atas",
+          fields: [
+            { name: "title", type: "text", label: "Judul (Misal: 99.9% Uptime)" },
+            { name: "subtitle", type: "text", label: "Sub-judul (Misal: Garansi keandalan)" },
+            {
+              name: "dotColor",
+              type: "select",
+              label: "Warna Titik Indikator",
+              options: [
+                { label: "Hijau (Success/Active)", value: "green" },
+                { label: "Oranye (Warning/Speed)", value: "orange" },
+                { label: "Biru (Info/Security)", value: "blue" },
+              ],
+              defaultValue: "green",
+            },
+          ],
+        },
+        {
+          name: "bottomRight",
+          type: "group",
+          label: "Card Kanan Bawah",
+          fields: [
+            { name: "title", type: "text", label: "Judul (Misal: 24/7 Support)" },
+            { name: "subtitle", type: "text", label: "Sub-judul (Misal: Selalu dipantau)" },
+            {
+              name: "dotColor",
+              type: "select",
+              label: "Warna Titik Indikator",
+              options: [
+                { label: "Hijau (Success/Active)", value: "green" },
+                { label: "Oranye (Warning/Speed)", value: "orange" },
+                { label: "Biru (Info/Security)", value: "blue" },
+              ],
+              defaultValue: "orange",
+            },
+          ],
+        },
+      ],
+    },
+    
     {
       type: "tabs",
       tabs: [

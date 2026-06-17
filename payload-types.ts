@@ -227,6 +227,10 @@ export interface Service {
   title: string;
   slug: string;
   /**
+   * Pengganti teks 'LAYANAN KAMI'. Misal: Enterprise Software, Cloud Solution, dll.
+   */
+  category?: string | null;
+  /**
    * Teks ini akan muncul di tooltip navigasi AppBar dan Card daftar layanan.
    */
   subtitle: string;
@@ -237,6 +241,21 @@ export interface Service {
   dashboardBadge?: string | null;
   dashboardTitle?: string | null;
   dashboardSubtitle?: string | null;
+  /**
+   * Data untuk card kecil yang melayang di pojok kiri atas dan kanan bawah gambar.
+   */
+  floatingCards?: {
+    topLeft?: {
+      title?: string | null;
+      subtitle?: string | null;
+      dotColor?: ('green' | 'orange' | 'blue') | null;
+    };
+    bottomRight?: {
+      title?: string | null;
+      subtitle?: string | null;
+      dotColor?: ('green' | 'orange' | 'blue') | null;
+    };
+  };
   heroBadge?: string | null;
   heroDescription?: string | null;
   heroImage?: (number | null) | Media;
@@ -400,7 +419,7 @@ export interface Career {
   createdAt: string;
 }
 /**
- * Daftar produk internal yang akan tampil sebagai Tab di halaman muka.
+ * Daftar produk internal yang akan tampil sebagai Tab di halaman muka dan halaman Detail Produk.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
@@ -412,6 +431,11 @@ export interface Product {
    * Link ke landing page eksternal produk ini (Misal: https://bithrms.com)
    */
   productUrl: string;
+  slug: string;
+  /**
+   * Teks tombol yang mengarahkan ke URL Website Produk di atas.
+   */
+  ctaText?: string | null;
   /**
    * Teks ini akan muncul di tooltip navigasi AppBar dan Card daftar layanan.
    */
@@ -422,16 +446,80 @@ export interface Product {
   iconTitle: number | Media;
   badge?: string | null;
   headline: string;
+  /**
+   * Muncul di Hero section halaman muka dan halaman detail.
+   */
   description: string;
-  features?:
+  image: number | Media;
+  /**
+   * Ceritakan latar belakang, visi, dan solusi menyeluruh dari produk ini.
+   */
+  fullDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  benefitTitle: string;
+  benefitDescription: string;
+  benefits?:
     | {
-        icon?: (number | null) | Media;
         title: string;
         description: string;
         id?: string | null;
       }[]
     | null;
-  image: number | Media;
+  features?:
+    | {
+        icon?: (number | null) | Media;
+        title: string;
+        description: string;
+        picture?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  useCases?:
+    | {
+        industry: string;
+        id?: string | null;
+      }[]
+    | null;
+  gallery?:
+    | {
+        galleryImage: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Sistem yang bisa dihubungkan. Misal: SAP, Android, iOS, Hardware Khusus.
+   */
+  integrations?:
+    | {
+        logo?: (number | null) | Media;
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tampilkan logo perusahaan sebagai social proof.
+   */
+  clients?:
+    | {
+        clientLogo: number | Media;
+        clientName?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -709,11 +797,30 @@ export interface MediaSelect<T extends boolean = true> {
 export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  category?: T;
   subtitle?: T;
   iconTitle?: T;
   dashboardBadge?: T;
   dashboardTitle?: T;
   dashboardSubtitle?: T;
+  floatingCards?:
+    | T
+    | {
+        topLeft?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              dotColor?: T;
+            };
+        bottomRight?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              dotColor?: T;
+            };
+      };
   heroBadge?: T;
   heroDescription?: T;
   heroImage?: T;
@@ -872,20 +979,60 @@ export interface CareersSelect<T extends boolean = true> {
 export interface ProductsSelect<T extends boolean = true> {
   name?: T;
   productUrl?: T;
+  slug?: T;
+  ctaText?: T;
   subtitle?: T;
   iconTitle?: T;
   badge?: T;
   headline?: T;
   description?: T;
+  image?: T;
+  fullDescription?: T;
+  benefitTitle?: T;
+  benefitDescription?: T;
+  benefits?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   features?:
     | T
     | {
         icon?: T;
         title?: T;
         description?: T;
+        picture?: T;
         id?: T;
       };
-  image?: T;
+  useCases?:
+    | T
+    | {
+        industry?: T;
+        id?: T;
+      };
+  gallery?:
+    | T
+    | {
+        galleryImage?: T;
+        caption?: T;
+        id?: T;
+      };
+  integrations?:
+    | T
+    | {
+        logo?: T;
+        name?: T;
+        id?: T;
+      };
+  clients?:
+    | T
+    | {
+        clientLogo?: T;
+        clientName?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

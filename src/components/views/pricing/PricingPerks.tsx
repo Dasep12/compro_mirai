@@ -238,6 +238,7 @@ export default function PricingPerks({ services }: PricingPerksProps) {
                 </div>
                 <Link
                   href={buttonLink || waUrl || "#"}
+                  target="_blank"
                   className={`w-full rounded-[10px] flex items-center justify-center px-[20px] py-[12px] font-semibold text-[16px] leading-[175%] mt-auto transition-all duration-300 ${
                     isPopular
                       ? "bg-primary text-[#fdfdfd] hover:bg-blue-800 hover:scale-[1.02] shadow-md"

@@ -94,7 +94,15 @@ export default function AppBar({ services, products }: AppBarProps) {
               }`}
               onClick={(e) => e.stopPropagation()}
             >
-              {(products ?? []).map((product) => {
+              {(products ?? []).length == 0 ? (
+                    <Link
+                      href="#"
+                      onClick={closeMobileMenu}
+                      className="w-full flex items-start gap-3 p-[10px_12px] hover:bg-[#010101]/5 active:bg-[#010101]/10 transition-colors rounded-mirai"
+                    >
+                      <span>Produk Tidak Tersedia</span>
+                    </Link>
+                  ) : (products ?? []).map((product) => {
                 const iconUrl =
                   product.iconTitle && typeof product.iconTitle === "object"
                     ? product.iconTitle.url
@@ -102,9 +110,8 @@ export default function AppBar({ services, products }: AppBarProps) {
 
                 return (
                   <Link
-                    href={`${product.productUrl}`}
+                    href={`/products/${product.slug}`}
                     key={product.id}
-                    target="_blank"
                     className="w-[275px] flex items-start gap-3 p-[10px_16px] hover:bg-[#010101]/5 transition-colors rounded-lg"
                     onClick={() => setOpenDesktopDropdown(null)}
                   >
@@ -189,7 +196,15 @@ export default function AppBar({ services, products }: AppBarProps) {
               }`}
               onClick={(e) => e.stopPropagation()}
             >
-              {(services ?? []).map((service) => {
+              {(services ?? []).length == 0 ? (
+                    <Link
+                      href="#"
+                      onClick={closeMobileMenu}
+                      className="w-full flex items-start gap-3 p-[10px_12px] hover:bg-[#010101]/5 active:bg-[#010101]/10 transition-colors rounded-mirai"
+                    >
+                      <span>Layanan Tidak Tersedia</span>
+                    </Link>
+                  ) : (services ?? []).map((service) => {
                 const iconUrl =
                   service.iconTitle && typeof service.iconTitle === "object"
                     ? service.iconTitle.url
@@ -346,16 +361,23 @@ export default function AppBar({ services, products }: AppBarProps) {
                 }`}
               >
                 <div className="overflow-hidden flex flex-col gap-1 pl-2">
-                  {(products ?? []).map((product) => {
+                  {(products ?? []).length == 0 ? (
+                    <Link
+                      href="#"
+                      onClick={closeMobileMenu}
+                      className="w-full flex items-start gap-3 p-[10px_12px] hover:bg-[#010101]/5 active:bg-[#010101]/10 transition-colors rounded-mirai"
+                    >
+                      <span>Produk Tidak Tersedia</span>
+                    </Link>
+                  ) : (products ?? []).map((product) => {
                     const iconUrl =
                       product.iconTitle && typeof product.iconTitle === "object"
                         ? product.iconTitle.url
                         : null;
                     return (
                       <Link
-                        href={`${product.productUrl}`}
+                        href={`/products/${product.slug}`}
                         key={product.id}
-                        target="_blank"
                         onClick={closeMobileMenu}
                         className="w-full flex items-start gap-3 p-[10px_12px] hover:bg-[#010101]/5 active:bg-[#010101]/10 transition-colors rounded-mirai"
                       >
@@ -383,6 +405,7 @@ export default function AppBar({ services, products }: AppBarProps) {
                       </Link>
                     );
                   })}
+                  
                 </div>
               </div>
             </div>
@@ -419,7 +442,15 @@ export default function AppBar({ services, products }: AppBarProps) {
                 }`}
               >
                 <div className="overflow-hidden flex flex-col gap-1 pl-2">
-                  {(services ?? []).map((service) => {
+                  {(services ?? []).length == 0 ? (
+                    <Link
+                      href="#"
+                      onClick={closeMobileMenu}
+                      className="w-full flex items-start gap-3 p-[10px_12px] hover:bg-[#010101]/5 active:bg-[#010101]/10 transition-colors rounded-mirai"
+                    >
+                      <span>Layanan Tidak Tersedia</span>
+                    </Link>
+                  ) : (services ?? []).map((service) => {
                     const iconUrl =
                       service.iconTitle && typeof service.iconTitle === "object"
                         ? service.iconTitle.url

@@ -20,7 +20,7 @@ export default function PortfolioShowcase({
       setActiveIndex((current) =>
         current === portfolios.length - 1 ? 0 : current + 1,
       );
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(timer);
   }, [portfolios, activeIndex]);

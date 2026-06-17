@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { AboutUs } from "../../../../payload-types";
+import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
 interface AboutCtaProps {
   data: AboutUs;
 }
 
 export default function AboutCta({ data }: AboutCtaProps) {
+  const waUrl = generateWhatsAppUrl();
+
   if (!data?.ctaHeadline || !data?.ctaButtonText) {
     return null;
   }
@@ -25,7 +28,8 @@ export default function AboutCta({ data }: AboutCtaProps) {
           )}
 
           <Link
-            href={data.ctaButtonLink}
+            href={data.ctaButtonLink || waUrl}
+            target="_blank"
             className="mt-2 bg-[#fdfdfd] text-primary gap-2 border-[1.5px] border-primary font-semibold px-6 py-3 rounded-mirai hover:bg-brand-100 hover:border-brand-600 transition-colors no-underline flex items-center justify-center w-full sm:w-auto"
           >
             {data.ctaButtonText}

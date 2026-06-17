@@ -4,7 +4,7 @@ interface WhatsAppParams {
 }
 
 export const generateWhatsAppUrl = ({
-  phoneNumber = "6285218026895",
+  phoneNumber = "6281188862020",
   message = "Halo Tim Mirai Softnet,\n\nSaya tertarik untuk berdiskusi mengenai Layanan atau Produk Anda di Mirai Softnet & Technology.\n",
 }: WhatsAppParams = {}): string => {
   const encodedMessage = encodeURIComponent(message);

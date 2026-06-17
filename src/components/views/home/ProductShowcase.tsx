@@ -167,8 +167,7 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
           </Link>
 
           <Link
-            href={activeProduct?.productUrl || "#"}
-            target="_blank"
+            href={`/products/${activeProduct.slug}`}
             className="flex items-center justify-center gap-2 bg-[#fdfdfd] text-primary border-[1.5px] border-primary font-semibold px-6 py-3 rounded-[10px] hover:bg-brand-100 transition-colors text-center text-[14px] sm:text-[15px]"
           >
             <span>Lebih Detail</span>

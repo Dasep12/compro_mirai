@@ -112,6 +112,25 @@ export const getProducts = unstable_cache(
   { revalidate: 60, tags: ["products"] },
 );
 
+export async function getProductBySlug(slug: string) {
+  if (!slug) return null;
+
+  try {
+    const payload = await getPayloadClient();
+    const result = await payload.find({
+      collection: "products",
+      depth: 2,
+      where: { slug: { equals: slug } },
+      limit: 1,
+    });
+
+    return result?.docs?.[0] ?? null;
+  } catch (error) {
+    console.error(`[Error] Failed to fetch product by slug (${slug}):`, error);
+    return null;
+  }
+}
+
 export const getServices = unstable_cache(
   async (limit = 10) => {
     const payload = await getPayloadClient();
@@ -128,15 +147,22 @@ export const getServices = unstable_cache(
 );
 
 export async function getServiceBySlug(slug: string) {
-  const payload = await getPayloadClient();
+  if (!slug) return null;
 
-  const result = await payload.find({
-    collection: "services",
-    depth: 2,
-    where: { slug: { equals: slug } },
-    limit: 1,
-  });
-  return result.docs[0] ?? null;
+  try {
+    const payload = await getPayloadClient();
+    const result = await payload.find({
+      collection: "services",
+      depth: 2,
+      where: { slug: { equals: slug } },
+      limit: 1,
+    });
+
+    return result?.docs?.[0] ?? null;
+  } catch (error) {
+    console.error(`[Error] Failed to fetch service by slug (${slug}):`, error);
+    return null;
+  }
 }
 
 export const getCareers = unstable_cache(

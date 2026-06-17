@@ -37,7 +37,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
         </div>
 
         <h1 className="text-[28px] sm:text-[36px] lg:text-[40px] xl:text-[48px] font-bold leading-[130%] sm:leading-[140%] text-left">
-          {service.heroBadge || "Solusi Teknologi Terintegrasi"}
+          {service.heroBadge || "-"}
         </h1>
 
         <p className="text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[18px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90">

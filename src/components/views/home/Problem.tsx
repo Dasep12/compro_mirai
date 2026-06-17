@@ -12,7 +12,7 @@ export default function Problem({ data }: ProblemProps) {
     <section className="w-full relative overflow-hidden flex flex-col items-center bg-[#7eb2fc]/5 px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 gap-8 lg:gap-12 text-[#010101]">
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
-          PROBLEM
+          KEUNGGULAN
         </div>
         <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%]">
           Mengapa Memilih Mirai Softnet?
