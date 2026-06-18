@@ -17,7 +17,7 @@ import { PricingFaq } from "./src/collections/PricingFaq.ts";
 import { AboutUs } from "./src/collections/AboutUs.ts";
 import { Problems } from "./src/collections/Problem.ts";
 import sharp from "sharp";
-import { CustomLogo } from "@/components/payloads/CustomLogo.tsx";
+// import { CustomLogo } from "@/components/payloads/CustomLogo.tsx";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -38,7 +38,7 @@ export default buildConfig({
     user: Users.slug,
     components: {
       graphics: {
-        Logo: CustomLogo,
+        // Logo: CustomLogo,
       },
     },
     meta: {
