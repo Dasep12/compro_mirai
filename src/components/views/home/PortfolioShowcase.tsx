@@ -59,22 +59,23 @@ export default function PortfolioShowcase({
       <div className="w-full flex flex-col items-center gap-6 lg:gap-8">
         <div
           key={activeIndex}
-          className="w-full flex flex-col-reverse lg:flex-row items-stretch bg-[#fdfdfd] shadow-[2px_4px_8px_1px_rgba(0,0,0,0.1)] rounded-mirai overflow-hidden animate-in fade-in zoom-in-[0.98] duration-500"
+          className="w-full h-[550px] sm:h-[650px] lg:h-[480px] xl:h-[560px] flex flex-col-reverse lg:flex-row items-start bg-[#fdfdfd] shadow-[2px_4px_8px_1px_rgba(0,0,0,0.1)] rounded-mirai overflow-hidden animate-in fade-in zoom-in-[0.98] duration-500"
         >
-          <div className="flex-1 flex flex-col items-start justify-center p-5 sm:p-6 lg:p-10 xl:p-[60px] gap-4 lg:gap-5">
-            <h3 className="text-[20px] sm:text-[24px] lg:text-[28px] xl:text-[32px] font-bold leading-[125%]">
+          <div className="flex-1 flex flex-col items-start justify-center p-5 sm:p-6 lg:p-10 xl:p-[60px] gap-4 lg:gap-5 overflow-hidden">
+            
+            <h3 className="text-[20px] sm:text-[24px] lg:text-[28px] xl:text-[32px] font-bold leading-[125%] shrink-0 line-clamp-2 text-ellipsis">
               {activePortfolio.clientName}
             </h3>
 
-            <p className="text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[18px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90">
+            <p className="text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[18px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90 line-clamp-3 sm:line-clamp-4 lg:line-clamp-5 text-ellipsis">
               {activePortfolio.description}
             </p>
 
             {activePortfolio.achievements &&
               activePortfolio.achievements.length > 0 && (
-                <ol className="list-decimal pl-5 flex flex-col gap-1.5 w-full text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[18px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90">
+                <ol className="list-decimal pl-5 flex flex-col gap-1.5 w-full text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[18px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90 overflow-hidden">
                   {(activePortfolio.achievements ?? []).map((item, idx) => (
-                    <li key={idx} className="pl-1.5">
+                    <li key={idx} className="pl-1.5 line-clamp-2 text-ellipsis">
                       {item.text}
                     </li>
                   ))}
@@ -82,7 +83,7 @@ export default function PortfolioShowcase({
               )}
 
             {activePortfolio.tags && activePortfolio.tags.length > 0 && (
-              <div className="flex flex-wrap items-center gap-2 mt-2">
+              <div className="flex flex-wrap items-center gap-2 mt-2 shrink-0">
                 {(activePortfolio.tags ?? []).map((tag, idx) => {
                   const isHardware = tag.theme === "hardware";
                   const colorClass = isHardware
@@ -102,7 +103,7 @@ export default function PortfolioShowcase({
             )}
           </div>
 
-          <div className="w-full lg:w-[45%] xl:w-[50%] h-[240px] sm:h-[320px] lg:h-auto relative shrink-0">
+          <div className="w-full lg:w-[45%] xl:w-[50%] h-[240px] sm:h-[300px] lg:h-full relative shrink-0">
             {imageUrl ? (
               <Image
                 src={imageUrl}

@@ -82,7 +82,7 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
         </div>
 
         <div className="w-full flex flex-col xl:flex-row items-stretch gap-8 xl:gap-10 text-left animate-in fade-in zoom-in-95 duration-500 mt-2 xl:mt-0">
-          <div className="w-full xl:w-[480px] 2xl:w-[576px] h-[250px] sm:h-[350px] md:h-[400px] xl:h-auto min-h-[250px] lg:min-h-[380px] xl:min-h-[480px] bg-gray-50 rounded-2xl overflow-hidden relative shrink-0 flex items-center justify-center p-4">
+          <div className="w-full xl:w-[480px] 2xl:w-[576px] h-[250px] sm:h-[350px] md:h-[400px] xl:h-[750px] min-h-[250px] lg:min-h-[380px] xl:min-h-[750px] bg-gray-50 rounded-2xl overflow-hidden relative shrink-0 flex items-center justify-center p-4">
             {mockupUrl ? (
               <Image
                 key={`mockup-${activeProduct.id}`}
