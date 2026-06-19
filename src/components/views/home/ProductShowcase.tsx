@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "@/components/ui/Image";
 import Link from "next/link";
 import { Product } from "../../../../payload-types";
@@ -11,6 +11,33 @@ interface ProductShowcaseProps {
 
 export default function ProductShowcase({ products }: ProductShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const tabContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkTabScroll = () => {
+    if (tabContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = tabContainerRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth);
+    }
+  };
+
+  useEffect(() => {
+    checkTabScroll();
+    window.addEventListener("resize", checkTabScroll);
+    return () => window.removeEventListener("resize", checkTabScroll);
+  }, [products]);
+
+  const scrollTabs = (direction: "left" | "right") => {
+    if (tabContainerRef.current) {
+      const scrollAmount = 200;
+      tabContainerRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   if (!products || products.length === 0) return null;
 
@@ -60,25 +87,61 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
       </div>
 
       <div className="w-full flex flex-col items-center gap-[23px]">
-        <div className="w-full flex items-center justify-start md:justify-center overflow-x-auto hide-scrollbar snap-x snap-mandatory">
-          <div className="flex items-center justify-start flex-nowrap md:flex-wrap gap-2 sm:gap-3 bg-[#fdfdfd] border border-primary/30 p-1.5 rounded-2xl shrink-0 min-w-min">
-            {(products ?? []).map((product, index) => {
-              const isActive = activeIndex === index;
-              return (
-                <button
-                  key={product.id}
-                  onClick={() => setActiveIndex(index)}
-                  className={`px-5 sm:px-6 py-2 sm:py-2.5 rounded-xl font-semibold text-[14px] sm:text-[15px] transition-all duration-300 shrink-0 snap-start whitespace-nowrap cursor-pointer ${
-                    isActive
-                      ? "bg-primary text-[#fdfdfd] shadow-sm"
-                      : "bg-transparent text-[#010101] hover:bg-gray-100"
-                  }`}
-                >
-                  {product.name}
-                </button>
-              );
-            })}
+        <div className="relative w-full max-w-full">
+          {canScrollLeft && (
+            <div className="absolute left-[-16px] top-0 bottom-4 w-12 sm:w-16 bg-gradient-to-r from-[#fdfdfd] via-[#fdfdfd]/80 to-transparent z-10 flex justify-start items-center pt-[6px] pointer-events-none">
+              <button
+                onClick={() => scrollTabs("left")}
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-primary hover:bg-gray-50 pointer-events-auto transition-transform active:scale-95"
+                aria-label="Scroll Tabs Left"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            </div>
+          )}
+
+          <div 
+            ref={tabContainerRef}
+            onScroll={checkTabScroll}
+            className="w-full overflow-x-auto pb-4 hide-scrollbar"
+          >
+            <div className="flex w-max min-w-full px-1">
+              <div className="mx-auto flex flex-nowrap items-center p-1 gap-[8px] sm:gap-[12px] rounded-[16px] bg-[#fdfdfd] border border-gray-200">
+                {(products ?? []).map((product, index) => {
+                  const isActive = activeIndex === index;
+                  return (
+                    <button
+                      key={product.id}
+                      onClick={() => setActiveIndex(index)}
+                      className={`flex items-start px-[24px] py-[8px] rounded-[12px] font-semibold text-[16px] sm:text-[18px] leading-[180%] transition-colors whitespace-nowrap ${
+                        isActive
+                          ? "bg-primary text-[#fdfdfd]"
+                          : "bg-[#fdfdfd] text-[#010101] hover:bg-gray-100"
+                      }`}
+                    >
+                      {product.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
+
+          {canScrollRight && (
+            <div className="absolute right-[-16px] top-0 bottom-4 w-12 sm:w-16 bg-gradient-to-l from-[#fdfdfd] via-[#fdfdfd]/80 to-transparent z-10 flex justify-end items-center pt-[6px] pointer-events-none">
+              <button
+                onClick={() => scrollTabs("right")}
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-primary hover:bg-gray-50 pointer-events-auto transition-transform active:scale-95"
+                aria-label="Scroll Tabs Right"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="w-full flex flex-col xl:flex-row items-stretch gap-8 xl:gap-10 text-left animate-in fade-in zoom-in-95 duration-500 mt-2 xl:mt-0">
