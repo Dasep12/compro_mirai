@@ -56,7 +56,7 @@ export default function AboutUsHero({ data }: AboutHeroProps) {
               priority
               quality={100}
               sizes="(max-width: 1280px) 100vw, 600px"
-              className="object-cover rounded-[20px] transition-transform duration-700 group-hover:scale-105 animate-levitate"
+              className="object-cover rounded-[20px]"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-[#7eb2fc]/10 text-gray-400 font-medium rounded-[20px]">
