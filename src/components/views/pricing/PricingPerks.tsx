@@ -11,7 +11,7 @@ interface PricingPerksProps {
 
 export default function PricingPerks({ services }: PricingPerksProps) {
   const waUrl = generateWhatsAppUrl();
-  const pricingServices = services.filter((s) => s.showPricing);
+  const pricingServices = services.filter((s) => s.showPricing && s.pricing?.tiers && s.pricing.tiers.length > 0);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const tabContainerRef = useRef<HTMLDivElement>(null);
