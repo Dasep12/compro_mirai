@@ -78,12 +78,12 @@ export default function Footer({ services, products }: FooterProps) {
           <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
             Akses Cepat
           </h3>
-          <Link
+          {/* <Link
             href="/pricing"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Harga
-          </Link>
+          </Link> */}
 
           {/* Open if there is a new product in the future */}
           {/* <Link

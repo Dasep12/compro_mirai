@@ -256,12 +256,12 @@ export default function AppBar({ services, products }: AppBarProps) {
             </div>
           </div>
 
-          <Link
+          {/* <Link
             href="/pricing"
             className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
           >
             Harga
-          </Link>
+          </Link> */}
 
           {/* Open if there is a new product in the future */}
           {/* <Link
@@ -490,13 +490,13 @@ export default function AppBar({ services, products }: AppBarProps) {
               </div>
             </div>
 
-            <Link
+            {/* <Link
               href="/pricing"
               onClick={closeMobileMenu}
               className="py-3 font-medium border-t border-black/5 w-full hover:text-primary transition-colors"
             >
               Harga
-            </Link>
+            </Link> */}
 
             {/* Open if there is a new product in the future */}
             {/* <Link
