@@ -79,6 +79,7 @@ export interface Config {
     portfolios: Portfolio;
     visitors: Visitor;
     'pricing-faqs': PricingFaq;
+    news: News;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -98,6 +99,7 @@ export interface Config {
     portfolios: PortfoliosSelect<false> | PortfoliosSelect<true>;
     visitors: VisitorsSelect<false> | VisitorsSelect<true>;
     'pricing-faqs': PricingFaqsSelect<false> | PricingFaqsSelect<true>;
+    news: NewsSelect<false> | NewsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -603,6 +605,36 @@ export interface PricingFaq {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+  id: number;
+  title: string;
+  slug: string;
+  category: 'berita' | 'pengumuman' | 'acara' | 'penghargaan' | 'teknologi';
+  date: string;
+  image: number | Media;
+  shortDescription: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -672,6 +704,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pricing-faqs';
         value: number | PricingFaq;
+      } | null)
+    | ({
+        relationTo: 'news';
+        value: number | News;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1098,6 +1134,21 @@ export interface VisitorsSelect<T extends boolean = true> {
 export interface PricingFaqsSelect<T extends boolean = true> {
   question?: T;
   answer?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  category?: T;
+  date?: T;
+  image?: T;
+  shortDescription?: T;
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -272,6 +272,13 @@ export default function AppBar({ services, products }: AppBarProps) {
           </Link> */}
 
           <Link
+            href="/news"
+            className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
+          >
+            Berita
+          </Link>
+
+          <Link
             href="https://tokomirai.com/"
             target="_blank"
             className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
@@ -506,6 +513,14 @@ export default function AppBar({ services, products }: AppBarProps) {
             >
               Karir
             </Link> */}
+
+            <Link
+              href="/news"
+              onClick={closeMobileMenu}
+              className="py-3 font-medium border-t border-black/5 w-full hover:text-primary transition-colors"
+            >
+              Berita
+            </Link>
 
             <Link
               href="https://tokomirai.com/"

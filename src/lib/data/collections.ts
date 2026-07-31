@@ -191,3 +191,30 @@ export async function getCareerBySlug(slug: string) {
   });
   return result.docs[0] ?? null;
 }
+
+export const getNews = unstable_cache(
+  async (limit = 20) => {
+    const payload = await getPayloadClient();
+    const result = await payload.find({
+      collection: "news",
+      depth: 1,
+      limit,
+      sort: "-date",
+    });
+    return result.docs;
+  },
+  ["news"],
+  { revalidate: 60, tags: ["news"] },
+);
+
+export async function getNewsBySlug(slug: string) {
+  const payload = await getPayloadClient();
+
+  const result = await payload.find({
+    collection: "news",
+    depth: 1,
+    where: { slug: { equals: slug } },
+    limit: 1,
+  });
+  return result.docs[0] ?? null;
+}

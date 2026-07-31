@@ -17,6 +17,7 @@ import { PricingFaq } from "./src/collections/PricingFaq.ts";
 import { AboutUs } from "./src/collections/AboutUs.ts";
 import { Problems } from "./src/collections/Problem.ts";
 import sharp from "sharp";
+import { News } from "@/collections/News.ts";
 // import { CustomLogo } from "@/components/payloads/CustomLogo.tsx";
 
 const filename = fileURLToPath(import.meta.url);
@@ -61,6 +62,7 @@ export default buildConfig({
     Portfolios,
     Visitors,
     PricingFaq,
+    News,
   ],
   globals: [AboutUs],
   editor: lexicalEditor(),
