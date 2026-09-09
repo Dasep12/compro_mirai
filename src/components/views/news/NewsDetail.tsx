@@ -64,7 +64,7 @@ export default function NewsDetail({ newsItem }: NewsDetailProps) {
               alt={imageAlt || "News Cover"}
               fill
               priority
-              quality={100}
+              quality={85}
               sizes="(max-width: 1280px) 100vw, 1000px"
               className="object-cover rounded-[20px]"
             />

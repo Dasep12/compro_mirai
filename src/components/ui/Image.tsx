@@ -45,7 +45,7 @@ export default function Image({ className = "", onLoad, onError, alt, src, ...pr
         {...props}
         src={src}
         alt={alt || "image"}
-        quality={props.quality || 100}
+        quality={props.quality || 82}
         // unoptimized={false}
         sizes={props.sizes || (props.fill ? "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" : undefined)}
         className={`w-full h-full object-contain transition-opacity duration-500 ease-in-out ${

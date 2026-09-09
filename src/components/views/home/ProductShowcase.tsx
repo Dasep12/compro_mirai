@@ -153,7 +153,7 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
                 alt={mockupAlt || "Mockup Product"}
                 fill
                 priority 
-                quality={100} 
+                quality={85}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover rounded-xl"
               />

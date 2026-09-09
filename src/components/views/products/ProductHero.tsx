@@ -66,7 +66,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
             alt={imageAlt || "Hero Illustration"}
             fill
             priority
-            quality={100}
+            quality={85}
             sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
           />

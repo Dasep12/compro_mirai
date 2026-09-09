@@ -59,10 +59,28 @@ export default function PortfolioShowcase({
       <div className="w-full flex flex-col items-center gap-6 lg:gap-8">
         <div
           key={activeIndex}
-          className="w-full h-[550px] sm:h-[650px] lg:h-[480px] xl:h-[560px] flex flex-col-reverse lg:flex-row items-start bg-[#fdfdfd] shadow-[2px_4px_8px_1px_rgba(0,0,0,0.1)] rounded-mirai overflow-hidden animate-in fade-in zoom-in-[0.98] duration-500"
+          className="relative grid isolate w-full min-h-[420px] sm:min-h-[460px] lg:min-h-[500px] rounded-mirai overflow-hidden shadow-[2px_4px_8px_1px_rgba(0,0,0,0.1)] animate-in fade-in zoom-in-[0.98] duration-500"
         >
-          <div className="flex-1 flex flex-col items-start justify-center p-5 sm:p-6 lg:p-10 xl:p-[60px] gap-4 lg:gap-5 overflow-hidden">
-            
+          {/* Gambar mengisi seluruh tinggi kartu (grid-stack) - kalau teks di bawah butuh
+              ruang lebih banyak, kartu ikut memanjang dan gambar otomatis ikut, jadi tidak
+              ada lagi konten yang ketutup meski teksnya diletakkan menumpuk di atas gambar. */}
+          <div className="col-start-1 row-start-1 relative">
+            {imageUrl ? (
+              <Image
+                src={imageUrl}
+                alt={imageAlt || "Portfolio Image"}
+                fill
+                quality={85}
+                sizes="(max-width: 1024px) 100vw, 1200px"
+                className="object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200" />
+            )}
+          </div>
+
+          <div className="col-start-1 row-start-1 self-end z-10 bg-gradient-to-t from-white via-white/90 to-white/0 pt-24 sm:pt-28 lg:pt-32 px-5 sm:px-6 lg:px-10 xl:px-[60px] pb-5 sm:pb-6 lg:pb-10 flex flex-col items-start gap-3 lg:gap-4">
+
             <h3 className="text-[20px] sm:text-[24px] lg:text-[28px] xl:text-[32px] font-bold leading-[125%] shrink-0 line-clamp-2 text-ellipsis">
               {activePortfolio.clientName}
             </h3>
@@ -99,23 +117,6 @@ export default function PortfolioShowcase({
                     </span>
                   );
                 })}
-              </div>
-            )}
-          </div>
-
-          <div className="w-full lg:w-[45%] xl:w-[50%] h-[240px] sm:h-[300px] lg:h-full relative shrink-0">
-            {imageUrl ? (
-              <Image
-                src={imageUrl}
-                alt={imageAlt || "Portfolio Image"}
-                fill
-                quality={100}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-              />
-            ) : (
-              <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
-                Tidak ada gambar
               </div>
             )}
           </div>

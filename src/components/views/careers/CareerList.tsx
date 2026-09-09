@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "@/components/ui/Image";
 import Link from "next/link";
+import { getMediaUrl } from "@/lib/utils";
 import { Career } from "../../../../payload-types"; // Sesuaikan path
 
 interface CareerListProps {
@@ -60,8 +61,7 @@ export default function CareerList({ careers }: CareerListProps) {
       {urgentJobs.length > 0 && (
         <div className="w-full flex flex-col gap-[20px]">
           {(urgentJobs ?? []).map((job) => {
-            const imageUrl =
-              job.image && typeof job.image === "object" ? job.image.url : null;
+            const imageUrl = getMediaUrl(job.image, "card");
             return (
               <div
                 key={job.id}
@@ -73,6 +73,7 @@ export default function CareerList({ careers }: CareerListProps) {
                       src={imageUrl}
                       alt={job.title}
                       fill
+                      sizes="(max-width: 1024px) 100vw, 40vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   )}
@@ -147,8 +148,7 @@ export default function CareerList({ careers }: CareerListProps) {
       {regularJobs.length > 0 && (
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {(regularJobs ?? []).map((job) => {
-            const imageUrl =
-              job.image && typeof job.image === "object" ? job.image.url : null;
+            const imageUrl = getMediaUrl(job.image, "card");
             return (
               <div
                 key={job.id}
@@ -160,6 +160,7 @@ export default function CareerList({ careers }: CareerListProps) {
                       src={imageUrl}
                       alt={job.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   )}

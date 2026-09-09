@@ -1,196 +1,118 @@
 # MiraiSoftNet Company Profile
 
-Company profile website built with Next.js 16 and PayloadCMS 3, featuring a headless CMS architecture for managing business content.
+Platform website profil perusahaan resmi **Mirai Softnet & Technology** yang dibangun menggunakan arsitektur modern **Headless Fullstack** memadukan **Next.js 16 (App Router)**, **React 19**, **PayloadCMS 3**, **Tailwind CSS v4**, dan **PostgreSQL (Supabase)**.
 
-## Tech Stack
+Aplikasi ini menyajikan informasi portofolio, katalog produk, rincian layanan IT, peluang karir, dan artikel berita dengan performa tinggi, animasi dinamis, serta panel manajemen konten terintegrasi.
 
-### Frontend
+---
 
-- Next.js 15.1.0 (Stable) with App Router
-- React 19.0.0
-- TypeScript 5
-- Tailwind CSS 4
-- Framer Motion 12.38.0 for animations
-- Lucide React for icons
+## Panduan Memulai (Getting Started)
 
-### Backend & CMS
+Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan pengembangan lokal:
 
-- PayloadCMS 3.84.1 (Headless CMS)
-- PostgreSQL database via @payloadcms/db-postgres
-- Lexical Rich Text Editor
-- GraphQL API
-- Supabase for authentication and database
+### 1. Konfigurasi Variabel Lingkungan (Environment Variables)
 
-### Development Tools
-
-- ESLint with Next.js config
-- Cross-env for environment variables
-- Sharp for image optimization
-
-## Project Structure
-
-```
-miraisoftnet-compro/
-├── src/
-│   ├── app/
-│   │   ├── (payload)/
-│   │   │   └── admin/              # PayloadCMS admin panel
-│   │   ├── api/
-│   │   │   └── [...slug]/          # API routes
-│   │   └── (public)/               # Public-facing pages
-│   ├── collections/                # PayloadCMS collections
-│   ├── components/                 # React components
-│   │   ├── ui/
-│   │   ├── views/
-│   │   └── screen/
-│   └── lib/
-│       └── utils.ts                # Utility functions
-├── payload.config.ts               # PayloadCMS configuration
-├── postcss.config.mjs
-├── tsconfig.json
-└── package.json
-```
-
-## Collections
-
-The CMS manages the following content types:
-
-- **Users** - Admin users and authentication
-- **Media** - Image and file uploads
-- **Services** - Company services offerings
-- **Customers** - Client testimonials and case studies
-- **Partnership** - Partner companies and collaborations
-- **Career** - Job openings and career opportunities
-- **Products** - Product catalog and descriptions
-- **Faqs** - Frequently asked questions
-
-## Prerequisites
-
-- Node.js 20 or higher
-- PostgreSQL database
-- Supabase account (for authentication)
-
-## Environment Variables
-
-Create a `.env.local` file in the root directory:
+Buat file `.env` di root direktori proyek dan sesuaikan konfigurasi kredensial database serta secret key:
 
 ```env
-# PayloadCMS
-PAYLOAD_SECRET=your-payload-secret-key
+# PayloadCMS Secret Key (Wajib diisi string acak aman)
+PAYLOAD_SECRET=your-secure-payload-secret-key
 
-# Database
-DATABASE_URI=postgresql://user:password@host:port/database
+# PostgreSQL Connection String (Supabase / Local Postgres)
+DATABASE_URI=postgresql://postgres.xxx:password@aws-0-region.pooler.supabase.com:6543/postgres
 
-# Supabase (optional, if using Supabase features)
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+# Supabase Client Keys (Opsional untuk integrasi storage/client)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-## Installation
+### 2. Unduh Dependensi Proyek
 
-1. Clone the repository:
-
-```bash
-git clone <repository-url>
-cd miraisoftnet-compro
-```
-
-2. Install dependencies:
+Pastikan Anda menggunakan **Node.js versi 20 atau lebih baru**:
 
 ```bash
 npm install
 ```
 
-3. Set up environment variables (see Environment Variables section)
+### 3. Generate Definisi Tipe TypeScript CMS
 
-4. Generate TypeScript types for PayloadCMS:
+Jalankan perintah ini untuk menyinkronkan seluruh skema koleksi Payload CMS ke file `payload-types.ts`:
 
 ```bash
 npm run generate:types
 ```
 
-5. Run the development server:
+### 4. Menjalankan Server Pengembangan (Development Mode)
 
 ```bash
 npm run dev
 ```
 
-6. Open [http://localhost:3000](http://localhost:3000) in your browser
+Buka peramban (browser) Anda:
 
-## Available Scripts
+- **Website Publik**: [http://localhost:3000](http://localhost:3000)
+- **Panel Admin CMS**: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run generate:types` - Generate TypeScript types from Payload collections
-
-## PayloadCMS Admin Panel
-
-Access the admin panel at [http://localhost:3000/admin](http://localhost:3000/admin)
-
-Default admin user must be created on first run through the setup wizard.
-
-## API Endpoints
-
-PayloadCMS automatically generates REST and GraphQL APIs for all collections:
-
-- REST API: `/api/[collection-name]`
-- GraphQL: `/api/graphql`
-
-Example endpoints:
-
-- GET `/api/services` - Fetch all services
-- GET `/api/products` - Fetch all products
-- GET `/api/customers` - Fetch all customers
-- POST `/api/media` - Upload media files
-
-## Deployment
-
-### Build for Production
+### 5. Kompilasi & Menjalankan Build Produksi
 
 ```bash
+# Build aplikasi untuk production
 npm run build
+
+# Menjalankan server production
+npm run start
 ```
 
-### Environment Setup
+---
 
-Ensure all environment variables are properly configured in your production environment:
+## Pusat Dokumentasi Teknis (Technical Documentation)
 
-- `PAYLOAD_SECRET` - Strong secret key for PayloadCMS
-- `DATABASE_URI` - Production PostgreSQL connection string
+Seluruh dokumentasi teknis, arsitektur sistem, dan panduan standarisasi kode telah disusun secara rapi di dalam folder [docs/](file:///c:/repository/compro_mirai/docs/):
 
-### Recommended Platforms
+| Dokumen | Topik Pembahasan |
+| :--- | :--- |
+| **[Pola Arsitektur](file:///c:/repository/compro_mirai/docs/ARCHITECTURE.md)** | Penjelasan arsitektur *Headless Fullstack* (Next.js 16 + PayloadCMS 3), pemisahan layer (Presentation, Data, CMS, Database), diagram alur Mermaid, dan keunggulan Payload Local API. |
+| **[Peta Struktur Folder](file:///c:/repository/compro_mirai/docs/PROJECT_STRUCTURE.md)** | Penjelasan mendalam mengenai tata letak direktori root dan folder `src/` (`app/(public)`, `app/(payload)`, `collections`, `components/views`, `components/ui`, `lib`). |
+| **[Data Layer & API](file:///c:/repository/compro_mirai/docs/DATA_LAYER_AND_API.md)** | Pola akses data Payload Local API (`getPayloadClient()`), strategi caching Next.js (`unstable_cache` dengan tag-based revalidation), ketersediaan endpoint REST (`/api/[...slug]`), dan GraphQL. |
+| **[Model & Code Generation](file:///c:/repository/compro_mirai/docs/MODELS_AND_CODEGEN.md)** | Panduan pembuatan skema koleksi Payload CMS (`CollectionConfig`), konfigurasi fields, lifecycle hooks (auto slug), dan panduan generate tipe TypeScript ke `payload-types.ts`. |
+| **[Manajemen State & Animasi](file:///c:/repository/compro_mirai/docs/STATE_MANAGEMENT.md)** | Pendekatan *Server-First Architecture* pada React Server Components (RSC), isolasi Client Components, implementasi React 19 hooks, dan animasi terstandarisasi dengan Framer Motion 12 (`FadeInUp`). |
+| **[Standarisasi Kode](file:///c:/repository/compro_mirai/docs/CODING_STANDARDS.md)** | Konvensi penamaan berkas & simbol, panduan styling Tailwind CSS v4 via helper `cn()`, aturan penanganan breaking changes Next.js 16, standar SEO (metadata & JSON-LD), serta checklist pra-commit. |
 
-- Vercel (optimized for Next.js)
-- Railway
-- DigitalOcean App Platform
-- AWS / Google Cloud / Azure
+---
 
-## Features
+## Navigasi Codebase Cepat dengan Graphify
 
-- Server-side rendering with Next.js App Router
-- Headless CMS with PayloadCMS
-- Type-safe development with TypeScript
-- Responsive design with Tailwind CSS
-- Smooth animations with Framer Motion
-- Image optimization with Sharp
-- PostgreSQL database integration
-- GraphQL and REST APIs
-- Rich text editing with Lexical
+Proyek ini telah dilengkapi dengan **Graphify Knowledge Graph** di direktori [graphify-out/](file:///c:/repository/compro_mirai/graphify-out/). Pengembang maupun AI agent tidak perlu memindai file satu per satu saat menganalisis relasi arsitektur:
 
-## Development Notes
+- **Visualisasi Interaktif Browser**: Buka [graphify-out/graph.html](file:///c:/repository/compro_mirai/graphify-out/graph.html) langsung di browser Anda untuk menjelajahi peta arsitektur dan klaster modul secara visual.
+- **Laporan Komunitas & Hubungan Modul**: Baca [graphify-out/GRAPH_REPORT.md](file:///c:/repository/compro_mirai/graphify-out/GRAPH_REPORT.md) untuk melihat daftar *God Nodes*, koneksi lintas modul, dan ringkasan struktur.
+- **Query Cepat Lewat Terminal**:
 
-- This project uses Next.js 16 with the App Router paradigm
-- PayloadCMS runs as an integrated admin panel at `/admin`
-- All collections are defined in `src/collections/`
-- TypeScript types are auto-generated from Payload collections
-- The project uses Tailwind CSS 4 with PostCSS
+  ```bash
+  # Menanyakan relasi atau alur modul tertentu
+  graphify query "bagaimana services diambil dan dirender?"
 
-## License
+  # Mengetahui jalur keterhubungan antara dua modul/simbol
+  graphify path "Services" "AppBar"
+  ```
 
-Private project for MiraiSoftNet
+- **Pembaruan Otomatis**: Git hook post-commit telah terpasang untuk memperbarui graph secara otomatis setiap kali Anda melakukan commit kode baru. Anda juga dapat memperbaruinya secara manual kapan saja dengan:
 
-## Support
+  ```bash
+  graphify update .
+  ```
 
-For questions or issues, contact the development team at MiraiSoftNet.
+---
+
+## Tech Stack & Ekosistem Utama
+
+- **Framework Web**: [Next.js 16](https://nextjs.org/) (App Router, Server Components)
+- **UI Library**: [React 19](https://react.dev/)
+- **Bahasa Pemrograman**: [TypeScript 5](https://www.typescriptlang.org/)
+- **Headless CMS Engine**: [PayloadCMS 3](https://payloadcms.com/) (Lexical Rich Text Editor, Postgres Adapter)
+- **Database**: [PostgreSQL](https://www.postgresql.org/) (terhubung via [Supabase](https://supabase.com/))
+- **Styling Engine**: [Tailwind CSS v4](https://tailwindcss.com/) & [PostCSS](https://postcss.org/)
+- **Animasi & Interaktivitas**: [Framer Motion 12](https://motion.dev/)
+- **Iconography**: [Lucide React](https://lucide.dev/)
+- **Optimasi Gambar**: [Sharp](https://sharp.pixelplumbing.com/)
+- **Code Intelligence**: [Graphify](https://github.com/safishamsi/graphify)

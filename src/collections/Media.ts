@@ -6,20 +6,37 @@ export const Media: CollectionConfig = {
     read: () => true, 
   },
   upload: {
-    staticDir: 'media', 
+    staticDir: 'media',
     mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'],
+    resizeOptions: {
+      width: 2560,
+      withoutEnlargement: true,
+    },
+    formatOptions: {
+      format: 'webp',
+      options: { quality: 82 },
+    },
     imageSizes: [
       {
         name: 'thumbnail',
         width: 400,
         height: 300,
         position: 'centre',
+        formatOptions: { format: 'webp', options: { quality: 82 } },
+      },
+      {
+        name: 'card',
+        width: 800,
+        height: 600,
+        position: 'centre',
+        formatOptions: { format: 'webp', options: { quality: 82 } },
       },
       {
         name: 'hero',
         width: 1920,
         height: 1080,
         position: 'centre',
+        formatOptions: { format: 'webp', options: { quality: 82 } },
       },
     ],
     adminThumbnail: 'thumbnail',

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "@/components/ui/Image";
 import Link from "next/link";
+import { getMediaUrl } from "@/lib/utils";
 import { News } from "../../../../payload-types";
 
 interface NewsListProps {
@@ -56,9 +57,8 @@ export default function NewsList({ newsList }: NewsListProps) {
       {filteredNews.length > 0 && (
         <div className="w-full flex flex-col gap-8 lg:gap-10">
           {(filteredNews ?? []).map((item) => {
-            const imageUrl =
-              item.image && typeof item.image === "object" ? item.image.url : null;
-              
+            const imageUrl = getMediaUrl(item.image, "card");
+
             const dateStr = item.date ? new Date(item.date).toLocaleDateString('id-ID', {
               day: 'numeric',
               month: 'long',
@@ -76,6 +76,7 @@ export default function NewsList({ newsList }: NewsListProps) {
                       src={imageUrl}
                       alt={item.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, 40vw"
                       className="object-cover group-hover:scale-101 transition-transform duration-500"
                     />
                   )}

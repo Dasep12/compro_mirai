@@ -52,7 +52,7 @@ export default function CareerDetail({ job }: CareerDetailProps) {
               alt={imageAlt || "Career Illustration"}
               fill
               priority
-              quality={100}
+              quality={85}
               sizes="(max-width: 1280px) 100vw, 630px"
               className="object-cover rounded-[20px]"
             />
