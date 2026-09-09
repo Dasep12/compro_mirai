@@ -104,7 +104,7 @@ export default function PortfolioShowcase({
                   )}
                 </div>
 
-                <div className="flex flex-col items-start p-5 sm:p-6 lg:p-8 gap-4 lg:gap-5">
+                <div className="flex flex-col items-start p-5 sm:p-6 lg:p-8 gap-2 lg:gap-3 h-[300px] sm:h-[320px] lg:h-[360px]">
                   <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-bold leading-[125%] shrink-0 line-clamp-2 text-ellipsis">
                     {portfolio.clientName}
                   </h3>
@@ -114,18 +114,25 @@ export default function PortfolioShowcase({
                   </p>
 
                   {portfolio.achievements && portfolio.achievements.length > 0 && (
-                    <ol className="list-decimal pl-5 flex flex-col gap-1.5 w-full text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90">
-                      {(portfolio.achievements ?? []).map((item, idx) => (
-                        <li key={idx} className="pl-1.5 line-clamp-2 text-ellipsis">
-                          {item.text}
-                        </li>
-                      ))}
-                    </ol>
+                    <div className="w-full flex flex-col gap-1">
+                      <ol className="list-decimal pl-5 flex flex-col gap-1 w-full text-[14px] sm:text-[15px] lg:text-[16px] leading-[150%] sm:leading-[160%] font-medium text-[#010101]/90">
+                        {portfolio.achievements.slice(0, 2).map((item, idx) => (
+                          <li key={idx} className="pl-1.5">
+                            {item.text}
+                          </li>
+                        ))}
+                      </ol>
+                      {portfolio.achievements.length > 2 && (
+                        <p className="text-[12px] sm:text-[13px] font-medium text-[#010101]/60 pl-5 italic">
+                          ...dan masih banyak lagi
+                        </p>
+                      )}
+                    </div>
                   )}
 
                   {portfolio.tags && portfolio.tags.length > 0 && (
                     <div className="flex flex-wrap items-center gap-2 mt-2 shrink-0">
-                      {(portfolio.tags ?? []).map((tag, idx) => {
+                      {portfolio.tags.slice(0, 4).map((tag, idx) => {
                         const isHardware = tag.theme === "hardware";
                         const colorClass = isHardware
                           ? "bg-[#fde4c3]/50 text-[#fa9f29]"
@@ -140,6 +147,11 @@ export default function PortfolioShowcase({
                           </span>
                         );
                       })}
+                      {portfolio.tags.length > 4 && (
+                        <span className="px-[12px] py-[4px] sm:px-[14px] sm:py-[5px] rounded-full text-[12px] sm:text-[14px] font-semibold bg-[#010101]/5 text-[#010101]/60">
+                          +{portfolio.tags.length - 4}
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>
