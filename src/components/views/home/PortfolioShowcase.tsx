@@ -1,8 +1,102 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "@/components/ui/Image";
 import { Portfolio } from "../../../../payload-types";
+
+interface AutoFitAchievementsProps {
+  achievements: NonNullable<Portfolio["achievements"]>;
+}
+
+function AutoFitAchievements({ achievements }: AutoFitAchievementsProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const measureListRef = useRef<HTMLOListElement>(null);
+  const [visibleCount, setVisibleCount] = useState(achievements.length);
+  const [hasOverflow, setHasOverflow] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const measureList = measureListRef.current;
+    if (!container || !measureList) return;
+
+    const checkFit = () => {
+      const availableHeight = container.clientHeight;
+      if (availableHeight <= 0) return;
+
+      const items = Array.from(measureList.children) as HTMLElement[];
+      if (items.length === 0) return;
+
+      const totalHeight = measureList.offsetHeight;
+      const moreNoteHeight = 24; // Perkiraan tinggi baris '...dan masih banyak lagi'
+
+      if (totalHeight <= availableHeight) {
+        setHasOverflow(false);
+        setVisibleCount(items.length);
+        return;
+      }
+
+      let count = 0;
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const itemBottom = item.offsetTop + item.offsetHeight;
+        if (itemBottom + moreNoteHeight <= availableHeight) {
+          count = i + 1;
+        } else {
+          break;
+        }
+      }
+
+      const finalCount = Math.max(1, count);
+      setVisibleCount(finalCount);
+      setHasOverflow(finalCount < achievements.length);
+    };
+
+    const observer = new ResizeObserver(() => {
+      checkFit();
+    });
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [achievements]);
+
+  if (!achievements || achievements.length === 0) return null;
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-full flex-1 min-h-0 overflow-hidden relative flex flex-col justify-start mt-1"
+    >
+      {/* List pengukuran tersembunyi (selalu merender seluruh item agar ketinggian aktualnya akurat) */}
+      <ol
+        ref={measureListRef}
+        aria-hidden="true"
+        className="list-decimal pl-5 flex flex-col gap-1 w-full text-[14px] sm:text-[15px] lg:text-[16px] leading-[150%] sm:leading-[160%] font-medium absolute top-0 left-0 invisible pointer-events-none -z-10"
+      >
+        {achievements.map((item, idx) => (
+          <li key={idx} className="pl-1.5">
+            {item.text}
+          </li>
+        ))}
+      </ol>
+
+      {/* List tampak yang hanya menampilkan item yang muat pada sisa ketinggian container */}
+      <ol className="list-decimal pl-5 flex flex-col gap-1 w-full text-[14px] sm:text-[15px] lg:text-[16px] leading-[150%] sm:leading-[160%] font-medium text-[#010101]/90">
+        {achievements.slice(0, visibleCount).map((item, idx) => (
+          <li key={idx} className="pl-1.5">
+            {item.text}
+          </li>
+        ))}
+      </ol>
+
+      {/* Teks indikator overflow yang muncul saat daftar melebihi batas ketinggian */}
+      {hasOverflow && (
+        <p className="text-[12px] sm:text-[13px] font-medium text-[#010101]/60 pl-5 italic mt-0.5 shrink-0">
+          ...dan masih banyak lagi
+        </p>
+      )}
+    </div>
+  );
+}
 
 interface PortfolioShowcaseProps {
   portfolios: Portfolio[];
@@ -104,34 +198,23 @@ export default function PortfolioShowcase({
                   )}
                 </div>
 
-                <div className="flex flex-col items-start p-5 sm:p-6 lg:p-8 gap-2 lg:gap-3 h-[300px] sm:h-[320px] lg:h-[360px]">
-                  <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-bold leading-[125%] shrink-0 line-clamp-2 text-ellipsis">
-                    {portfolio.clientName}
-                  </h3>
+                <div className="flex flex-col items-start p-5 sm:p-6 lg:p-8 gap-2 lg:gap-3 h-[280px] sm:h-[300px] lg:h-[340px]">
+                  <div className="flex flex-col w-full flex-1 min-h-0">
+                    <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-bold leading-[125%] shrink-0">
+                      {portfolio.clientName}
+                    </h3>
 
-                  <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90 line-clamp-3 sm:line-clamp-4 text-ellipsis">
-                    {portfolio.description}
-                  </p>
+                    <p className="text-[14px] sm:text-[15px] lg:text-[16px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90 shrink-0 mt-1">
+                      {portfolio.description}
+                    </p>
 
-                  {portfolio.achievements && portfolio.achievements.length > 0 && (
-                    <div className="w-full flex flex-col gap-1">
-                      <ol className="list-decimal pl-5 flex flex-col gap-1 w-full text-[14px] sm:text-[15px] lg:text-[16px] leading-[150%] sm:leading-[160%] font-medium text-[#010101]/90">
-                        {portfolio.achievements.slice(0, 2).map((item, idx) => (
-                          <li key={idx} className="pl-1.5">
-                            {item.text}
-                          </li>
-                        ))}
-                      </ol>
-                      {portfolio.achievements.length > 2 && (
-                        <p className="text-[12px] sm:text-[13px] font-medium text-[#010101]/60 pl-5 italic">
-                          ...dan masih banyak lagi
-                        </p>
-                      )}
-                    </div>
-                  )}
+                    {portfolio.achievements && portfolio.achievements.length > 0 && (
+                      <AutoFitAchievements achievements={portfolio.achievements} />
+                    )}
+                  </div>
 
                   {portfolio.tags && portfolio.tags.length > 0 && (
-                    <div className="flex flex-wrap items-center gap-2 mt-2 shrink-0">
+                    <div className="flex flex-wrap items-center gap-2 mt-auto shrink-0">
                       {portfolio.tags.slice(0, 4).map((tag, idx) => {
                         const isHardware = tag.theme === "hardware";
                         const colorClass = isHardware
