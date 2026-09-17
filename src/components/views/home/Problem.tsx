@@ -35,7 +35,7 @@ export default function Problem({ data }: ProblemProps) {
           return (
             <div
               key={index}
-              className="bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-xl flex flex-col items-start p-5 sm:p-6 lg:p-[24px_28px] gap-4 transition-transform hover:-translate-y-1 hover:shadow-lg duration-300"
+              className="bg-[#fdfdfd] shadow-[3px_3px_8px_1px_rgba(0,0,0,0.1)] rounded-xl flex flex-col items-center justify-center sm:items-start sm:justify-start p-5 sm:p-6 lg:p-[24px_28px] gap-4 transition-transform hover:-translate-y-1 hover:shadow-lg duration-300"
             >
               <div className="bg-[#7eb2fc]/10 rounded-xl p-2 shrink-0 flex items-center justify-center">
                 {iconUrl ? (
@@ -47,17 +47,17 @@ export default function Problem({ data }: ProblemProps) {
                     className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
                   />
                 ) : (
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-gray-400">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center sm:justify-start sm:items-start text-gray-400">
                     #
                   </div>
                 )}
               </div>
 
               <div className="flex flex-col gap-2 mt-1">
-                <h3 className="text-[18px] lg:text-[20px] font-bold leading-[125%]">
+                <h3 className="text-[18px] lg:text-[20px] font-bold leading-[125%] text-center sm:text-left sm:items-start sm:justify-start">
                   {card.title}
                 </h3>
-                <p className="text-[14px] lg:text-[15px] font-medium leading-[160%] text-[#010101]/80">
+                <p className="text-[14px] lg:text-[15px] font-medium leading-[160%] text-[#010101]/80 text-center sm:text-left sm:items-start sm:justify-start">
                   {card.description}
                 </p>
               </div>

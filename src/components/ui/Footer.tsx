@@ -44,6 +44,8 @@ export default function Footer({ services, products }: FooterProps) {
           </div>
         </div>
 
+        <div className="flex flex-col gap-3" /> 
+
         <div className="flex flex-col gap-3">
           <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
             Produk
@@ -74,10 +76,10 @@ export default function Footer({ services, products }: FooterProps) {
           ))}
         </div>
 
-        <div className="flex flex-col gap-3">
-          <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
+        {/* <div className="flex flex-col gap-3"> */}
+          {/* <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
             Akses Cepat
-          </h3>
+          </h3> */}
           {/* <Link
             href="/pricing"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
@@ -93,14 +95,14 @@ export default function Footer({ services, products }: FooterProps) {
             Karir
           </Link> */}
 
-          <Link
+          {/* <Link
             href="https://tokomirai.com/"
             target="_blank"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Katalog
-          </Link>
-        </div>
+          </Link> */}
+        {/* </div> */}
 
         <div className="flex flex-col gap-3">
           <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
