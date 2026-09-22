@@ -256,12 +256,12 @@ export default function AppBar({ services, products }: AppBarProps) {
             </div>
           </div>
 
-          <Link
+          {/* <Link
             href="/solution"
             className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
           >
             Solusi
-          </Link>
+          </Link> */}
 
           {/* <Link
             href="/pricing"
@@ -522,13 +522,13 @@ export default function AppBar({ services, products }: AppBarProps) {
               Karir
             </Link> */}
 
-            <Link
-            href="/solution"
-            onClick={closeMobileMenu}
-            className="py-3 font-medium border-t border-black/5 w-full hover:text-primary transition-colors"
-          >
-            Solusi
-          </Link>
+            {/* <Link
+              href="/solution"
+              onClick={closeMobileMenu}
+              className="py-3 font-medium border-t border-black/5 w-full hover:text-primary transition-colors"
+            >
+              Solusi
+            </Link> */}
 
             <Link
               href="/news"
