@@ -218,3 +218,83 @@ export async function getNewsBySlug(slug: string) {
   });
   return result.docs[0] ?? null;
 }
+
+export const getSolutions = unstable_cache(
+  async (limit = 100) => {
+    try {
+      const payload = await getPayloadClient();
+      const result = await payload.find({
+        collection: "solutions",
+        depth: 2,
+        limit,
+        sort: "-publishedDate",
+      });
+      return result.docs;
+    } catch (error) {
+      console.warn("[Warning] Failed to fetch solutions (table might not exist yet):", error);
+      return [];
+    }
+  },
+  ["solutions"],
+  { revalidate: 60, tags: ["solutions"] },
+);
+
+export async function getSolutionBySlug(slug: string) {
+  if (!slug) return null;
+
+  try {
+    const payload = await getPayloadClient();
+    const result = await payload.find({
+      collection: "solutions",
+      depth: 2,
+      where: { slug: { equals: slug } },
+      limit: 1,
+    });
+    return result?.docs?.[0] ?? null;
+  } catch (error) {
+    console.warn(`[Warning] Failed to fetch solution by slug (${slug}):`, error);
+    return null;
+  }
+}
+
+export const getIndustries = unstable_cache(
+  async (limit = 100) => {
+    try {
+      const payload = await getPayloadClient();
+      const result = await payload.find({
+        collection: "industries",
+        depth: 1,
+        limit,
+        sort: "order",
+      });
+      return result.docs;
+    } catch (error) {
+      console.warn("[Warning] Failed to fetch industries (table might not exist yet):", error);
+      return [];
+    }
+  },
+  ["industries"],
+  { revalidate: 60, tags: ["industries"] },
+);
+
+export const getSolutionCategories = unstable_cache(
+  async (limit = 100) => {
+    try {
+      const payload = await getPayloadClient();
+      const result = await payload.find({
+        collection: "solution-categories",
+        depth: 1,
+        limit,
+        sort: "name",
+      });
+      return result.docs;
+    } catch (error) {
+      console.warn("[Warning] Failed to fetch solution-categories (table might not exist yet):", error);
+      return [];
+    }
+  },
+  ["solution-categories"],
+  { revalidate: 60, tags: ["solution-categories"] },
+);
+
+

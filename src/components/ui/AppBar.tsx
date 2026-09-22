@@ -256,6 +256,13 @@ export default function AppBar({ services, products }: AppBarProps) {
             </div>
           </div>
 
+          <Link
+            href="/solution"
+            className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
+          >
+            Solusi
+          </Link>
+
           {/* <Link
             href="/pricing"
             className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
@@ -328,6 +335,7 @@ export default function AppBar({ services, products }: AppBarProps) {
             </svg>
           )}
         </button>
+
         <div
           className={`absolute top-[70px] left-0 w-full bg-[#fdfdfd] shadow-[0_4px_6px_1px_rgba(0,0,0,0.1)] flex flex-col lg:hidden transition-all duration-300 origin-top overflow-y-auto ${
             isMobileMenuOpen
@@ -513,6 +521,14 @@ export default function AppBar({ services, products }: AppBarProps) {
             >
               Karir
             </Link> */}
+
+            <Link
+            href="/solution"
+            onClick={closeMobileMenu}
+            className="py-3 font-medium border-t border-black/5 w-full hover:text-primary transition-colors"
+          >
+            Solusi
+          </Link>
 
             <Link
               href="/news"

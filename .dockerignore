@@ -1,0 +1,36 @@
+# Dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Next.js build output & cache
+.next
+out
+
+# Local media uploads (semua media disimpan di Supabase Storage)
+media/*
+!media/.gitkeep
+
+# Git & agents
+.git
+.gitignore
+.gitattributes
+.agents
+graphify-out
+
+# Logs & temp files
+*.log
+output.log
+output_utf8.log
+*.tsbuildinfo
+next-env.d.ts
+
+# Documentation & IDE
+docs
+README.md
+CLAUDE.md
+AGENTS.md
+.vscode
+.idea

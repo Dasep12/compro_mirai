@@ -80,6 +80,9 @@ export interface Config {
     visitors: Visitor;
     'pricing-faqs': PricingFaq;
     news: News;
+    industries: Industry;
+    'solution-categories': SolutionCategory;
+    solutions: Solution;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -100,6 +103,9 @@ export interface Config {
     visitors: VisitorsSelect<false> | VisitorsSelect<true>;
     'pricing-faqs': PricingFaqsSelect<false> | PricingFaqsSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
+    industries: IndustriesSelect<false> | IndustriesSelect<true>;
+    'solution-categories': SolutionCategoriesSelect<false> | SolutionCategoriesSelect<true>;
+    solutions: SolutionsSelect<false> | SolutionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -642,6 +648,154 @@ export interface News {
   createdAt: string;
 }
 /**
+ * Daftar Sektor Industri untuk Filter Use Case Solusi.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: number;
+  name: string;
+  /**
+   * Dibuat otomatis dari nama industri.
+   */
+  slug?: string | null;
+  description?: string | null;
+  /**
+   * Urutan prioritas saat ditampilkan di filter (angka kecil muncul lebih awal).
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Daftar Kategori / Bidang Solusi (Badge pada Use Case).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solution-categories".
+ */
+export interface SolutionCategory {
+  id: number;
+  name: string;
+  /**
+   * Dibuat otomatis dari nama kategori.
+   */
+  slug?: string | null;
+  badgeColor?: ('teal' | 'blue' | 'orange' | 'purple' | 'green') | null;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Daftar Solusi & Use Case Industri (Halaman /solution).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions".
+ */
+export interface Solution {
+  id: number;
+  title: string;
+  /**
+   * Otomatis di-generate dari nama use case saat disimpan.
+   */
+  slug?: string | null;
+  /**
+   * Ditampilkan di daftar use case: 'Posted on DD MMMM YYYY'
+   */
+  publishedDate: string;
+  /**
+   * Pilih sektor industri dari koleksi Industries.
+   */
+  industry: number | Industry;
+  /**
+   * Pilih satu atau lebih kategori solusi dari koleksi Solution Categories.
+   */
+  solutionCategories: (number | SolutionCategory)[];
+  /**
+   * Teks ini muncul di kolom Description pada tabel use case sebelum link Details.
+   */
+  excerpt: string;
+  coverImage: number | Media;
+  /**
+   * Uraikan tantangan atau risiko yang dihadapi industri sebelum solusi ini diimplementasikan.
+   */
+  businessChallenge?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Jelaskan bagaimana solusi ini bekerja menjawab tantangan di atas.
+   */
+  solutionOverview?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Visualisasi teknis alur perangkat, cloud, atau integrasi software.
+   */
+  architectureDiagram?: (number | null) | Media;
+  keyFeatures?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  keyBenefits?:
+    | {
+        metric?: string | null;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Pilih partner vendor resmi yang teknologinya digunakan dalam solusi ini.
+   */
+  partners?: (number | Partnership)[] | null;
+  /**
+   * Layanan jasa yang terlibat dalam implementasi solusi ini.
+   */
+  relatedServices?: (number | Service)[] | null;
+  /**
+   * Produk internal Mirai yang digunakan dalam solusi ini.
+   */
+  relatedProducts?: (number | Product)[] | null;
+  /**
+   * Contoh implementasi nyata solusi ini pada portofolio klien terdahulu.
+   */
+  relatedPortfolios?: (number | Portfolio)[] | null;
+  ctaText?: string | null;
+  /**
+   * Brosur atau whitepaper yang bisa di-download pengunjung.
+   */
+  solutionDocument?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -716,6 +870,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news';
         value: number | News;
+      } | null)
+    | ({
+        relationTo: 'industries';
+        value: number | Industry;
+      } | null)
+    | ({
+        relationTo: 'solution-categories';
+        value: number | SolutionCategory;
+      } | null)
+    | ({
+        relationTo: 'solutions';
+        value: number | Solution;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1167,6 +1333,69 @@ export interface NewsSelect<T extends boolean = true> {
   image?: T;
   shortDescription?: T;
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries_select".
+ */
+export interface IndustriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solution-categories_select".
+ */
+export interface SolutionCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  badgeColor?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions_select".
+ */
+export interface SolutionsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  publishedDate?: T;
+  industry?: T;
+  solutionCategories?: T;
+  excerpt?: T;
+  coverImage?: T;
+  businessChallenge?: T;
+  solutionOverview?: T;
+  architectureDiagram?: T;
+  keyFeatures?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  keyBenefits?:
+    | T
+    | {
+        metric?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  partners?: T;
+  relatedServices?: T;
+  relatedProducts?: T;
+  relatedPortfolios?: T;
+  ctaText?: T;
+  solutionDocument?: T;
   updatedAt?: T;
   createdAt?: T;
 }
