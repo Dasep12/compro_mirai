@@ -71,7 +71,6 @@ export default function SolutionList({ solutions, industries }: SolutionListProp
         <h3 className="text-[20px] font-bold text-[#010101] mb-5 tracking-tight">Filter</h3>
 
         <div className="flex flex-col gap-4">
-          <h4 className="text-[16px] font-semibold text-[#010101]">Industry</h4>
 
           <div className="flex flex-col gap-3">
             {/* "All" option */}
