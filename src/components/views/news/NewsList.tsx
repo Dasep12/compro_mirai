@@ -57,7 +57,8 @@ export default function NewsList({ newsList }: NewsListProps) {
       {filteredNews.length > 0 && (
         <div className="w-full flex flex-col gap-8 lg:gap-10">
           {(filteredNews ?? []).map((item) => {
-            const imageUrl = getMediaUrl(item.image, "card");
+            const imageUrl =
+              getMediaUrl(item.thumbnail, "card");
 
             const dateStr = item.date ? new Date(item.date).toLocaleDateString('id-ID', {
               day: 'numeric',
@@ -70,16 +71,14 @@ export default function NewsList({ newsList }: NewsListProps) {
                 key={item.id}
                 className="group w-full shadow-[0px_4px_10px_1px_rgba(0,0,0,0.1)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-[20px] bg-[#fdfdfd] overflow-hidden flex flex-col md:flex-row items-stretch gap-0 border border-gray-100"
               >
-                <div className="w-full md:w-[40%] lg:w-[35%] h-[240px] sm:h-[300px] md:h-auto md:min-h-[300px] shrink-0 relative">
-                  {imageUrl && (
-                    <Image
-                      src={imageUrl}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 40vw"
-                      className="object-cover group-hover:scale-101 transition-transform duration-500"
-                    />
-                  )}
+                <div className="w-full md:w-[40%] lg:w-[35%] aspect-[4/3] shrink-0 relative">
+                  <Image
+                    src={imageUrl}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    className="object-cover group-hover:scale-101 transition-transform duration-500"
+                  />
                 </div>
 
                 <div className="flex flex-col items-start p-5 sm:p-6 md:p-8 lg:p-10 gap-4 w-full flex-1">

@@ -40,17 +40,17 @@ export default function AppBar({ services, products }: AppBarProps) {
         />
       )}
 
-      <nav className="fixed top-0 w-full h-[70px] bg-[#fdfdfd] shadow-[4px_4px_6px_1px_rgba(0,0,0,0.1)] flex items-center justify-between px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] z-50 text-[#010101] text-[15px]">
+      <nav className="fixed top-0 w-full h-[80px] bg-[#fdfdfd] shadow-[4px_4px_6px_1px_rgba(0,0,0,0.1)] flex items-center justify-between px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] z-50 text-[#010101] text-[15px]">
         <Link
           href="/"
-          className="relative h-[70px] w-[164px] shrink-0 flex items-center"
+          className="relative h-[80px] w-[175px] shrink-0 flex items-center"
           onClick={closeMobileMenu}
         >
           <Image
             src="/api/media/file/mirai-black.png"
             alt="Mirai Softnet Logo"
-            width={164}
-            height={50}
+            width={175}
+            height={80}
             className="object-contain w-auto h-auto"
             priority
           />
@@ -256,12 +256,12 @@ export default function AppBar({ services, products }: AppBarProps) {
             </div>
           </div>
 
-          {/* <Link
+          <Link
             href="/solution"
             className="font-medium relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#010101] after:transition-all after:duration-300 hover:after:w-full"
           >
             Solusi
-          </Link> */}
+          </Link>
 
           {/* <Link
             href="/pricing"
@@ -522,13 +522,13 @@ export default function AppBar({ services, products }: AppBarProps) {
               Karir
             </Link> */}
 
-            {/* <Link
+            <Link
               href="/solution"
               onClick={closeMobileMenu}
               className="py-3 font-medium border-t border-black/5 w-full hover:text-primary transition-colors"
             >
               Solusi
-            </Link> */}
+            </Link>
 
             <Link
               href="/news"

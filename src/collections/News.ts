@@ -64,7 +64,17 @@ export const News: CollectionConfig = {
       type: "upload",
       relationTo: "media",
       required: true,
-      label: "Gambar / Cover Berita",
+      label: "Gambar / Cover Berita, , Aspect Ratio: 16:9",
+    },
+    {
+      name: "thumbnail",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+      label: "Thumbnail Berita (Card), Aspect Ratio: 4:3",
+      admin: {
+        description: "Gambar thumbnail khusus untuk card di halaman daftar berita.",
+      },
     },
     {
       name: "shortDescription",

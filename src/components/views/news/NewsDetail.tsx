@@ -26,7 +26,7 @@ export default function NewsDetail({ newsItem }: NewsDetailProps) {
       <div className="w-full max-w-4xl flex flex-col items-start gap-4 sm:gap-5 xl:gap-[20px]">
         <Link
           href="/news"
-          className="group rounded-[10px] bg-[#fdfdfd] border border-gray-200 lg:border-none flex items-center gap-[10px] p-2 text-[#0451bf] font-semibold text-[15px] sm:text-[16px] leading-[175%] no-underline hover:opacity-80 transition-all duration-300 hover:-translate-x-1"
+          className="group rounded-[10px] bg-[#fdfdfd] border-none flex items-center gap-[10px] p-2 text-[#0451bf] font-semibold text-[15px] sm:text-[16px] leading-[175%] no-underline hover:opacity-80 transition-all duration-300 hover:-translate-x-1"
         >
           <svg
             className="w-[23px] h-[23px]"
@@ -57,7 +57,7 @@ export default function NewsDetail({ newsItem }: NewsDetailProps) {
           {newsItem.title}
         </h1>
 
-        <div className="w-full aspect-video sm:h-[400px] md:h-[500px] xl:h-[550px] shrink-0 rounded-[20px] overflow-hidden relative bg-gray-50 p-4 shadow-sm animate-in fade-in zoom-in-95 duration-700 mt-4 mb-4">
+        <div className="w-full aspect-video shrink-0 rounded-[20px] overflow-hidden relative bg-gray-50 p-4 shadow-sm animate-in fade-in zoom-in-95 duration-700 mt-4 mb-4">
           {imageUrl ? (
             <Image
               src={imageUrl}

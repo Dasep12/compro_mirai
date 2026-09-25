@@ -21,6 +21,7 @@ import { News } from "@/collections/News.ts";
 import { Solutions } from "./src/collections/Solutions.ts";
 import { Industries } from "./src/collections/Industries.ts";
 import { SolutionCategories } from "./src/collections/SolutionCategories.ts";
+import { PartnershipSolutions } from "./src/collections/PartnershipSolutions.ts";
 import { s3Storage } from "@payloadcms/storage-s3";
 // import { CustomLogo } from "@/components/payloads/CustomLogo.tsx";
 
@@ -69,6 +70,7 @@ export default buildConfig({
     News,
     Industries,
     SolutionCategories,
+    PartnershipSolutions,
     Solutions,
   ],
   globals: [AboutUs],

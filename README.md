@@ -39,6 +39,7 @@ npm install
 Jalankan perintah ini untuk menyinkronkan seluruh skema koleksi Payload CMS ke file `payload-types.ts`:
 
 ```bash
+npm run generate:importmap
 npm run generate:types
 ```
 

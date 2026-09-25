@@ -34,7 +34,7 @@ export default async function SolutionDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="w-full min-h-screen pt-20 sm:pt-24 overflow-hidden bg-[#fdfdfd]">
+    <div className="w-full min-h-screen overflow-hidden bg-[#fdfdfd]">
       <FadeInUp>
         <SolutionDetail solution={solution} />
       </FadeInUp>

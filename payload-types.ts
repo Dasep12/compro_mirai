@@ -82,6 +82,7 @@ export interface Config {
     news: News;
     industries: Industry;
     'solution-categories': SolutionCategory;
+    'partnership-solutions': PartnershipSolution;
     solutions: Solution;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -105,6 +106,7 @@ export interface Config {
     news: NewsSelect<false> | NewsSelect<true>;
     industries: IndustriesSelect<false> | IndustriesSelect<true>;
     'solution-categories': SolutionCategoriesSelect<false> | SolutionCategoriesSelect<true>;
+    'partnership-solutions': PartnershipSolutionsSelect<false> | PartnershipSolutionsSelect<true>;
     solutions: SolutionsSelect<false> | SolutionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -628,6 +630,10 @@ export interface News {
   category: 'berita' | 'pengumuman' | 'acara' | 'penghargaan' | 'teknologi';
   date: string;
   image: number | Media;
+  /**
+   * Gambar thumbnail khusus untuk card di halaman daftar berita.
+   */
+  thumbnail?: (number | null) | Media;
   shortDescription: string;
   content: {
     root: {
@@ -687,6 +693,18 @@ export interface SolutionCategory {
   createdAt: string;
 }
 /**
+ * Daftar Mitra / Brand Teknologi Khusus Use Case Solusi Industri.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partnership-solutions".
+ */
+export interface PartnershipSolution {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Daftar Solusi & Use Case Industri (Halaman /solution).
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -712,14 +730,17 @@ export interface Solution {
    */
   solutionCategories: (number | SolutionCategory)[];
   /**
+   * Pilih satu atau lebih mitra/brand teknologi dari koleksi Partnership Solutions.
+   */
+  partnership_solution?: (number | PartnershipSolution)[] | null;
+  /**
    * Teks ini muncul di kolom Description pada tabel use case sebelum link Details.
    */
   excerpt: string;
-  coverImage: number | Media;
   /**
-   * Uraikan tantangan atau risiko yang dihadapi industri sebelum solusi ini diimplementasikan.
+   * Deskripsi lengkap mengenai solusi (dapat menggunakan heading H1-H6, list, bold, dll).
    */
-  businessChallenge?: {
+  description?: {
     root: {
       type: string;
       children: {
@@ -734,64 +755,7 @@ export interface Solution {
     };
     [k: string]: unknown;
   } | null;
-  /**
-   * Jelaskan bagaimana solusi ini bekerja menjawab tantangan di atas.
-   */
-  solutionOverview?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Visualisasi teknis alur perangkat, cloud, atau integrasi software.
-   */
-  architectureDiagram?: (number | null) | Media;
-  keyFeatures?:
-    | {
-        title: string;
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
-  keyBenefits?:
-    | {
-        metric?: string | null;
-        title: string;
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Pilih partner vendor resmi yang teknologinya digunakan dalam solusi ini.
-   */
-  partners?: (number | Partnership)[] | null;
-  /**
-   * Layanan jasa yang terlibat dalam implementasi solusi ini.
-   */
-  relatedServices?: (number | Service)[] | null;
-  /**
-   * Produk internal Mirai yang digunakan dalam solusi ini.
-   */
-  relatedProducts?: (number | Product)[] | null;
-  /**
-   * Contoh implementasi nyata solusi ini pada portofolio klien terdahulu.
-   */
-  relatedPortfolios?: (number | Portfolio)[] | null;
-  ctaText?: string | null;
-  /**
-   * Brosur atau whitepaper yang bisa di-download pengunjung.
-   */
-  solutionDocument?: (number | null) | Media;
+  coverImage?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -878,6 +842,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'solution-categories';
         value: number | SolutionCategory;
+      } | null)
+    | ({
+        relationTo: 'partnership-solutions';
+        value: number | PartnershipSolution;
       } | null)
     | ({
         relationTo: 'solutions';
@@ -1331,6 +1299,7 @@ export interface NewsSelect<T extends boolean = true> {
   category?: T;
   date?: T;
   image?: T;
+  thumbnail?: T;
   shortDescription?: T;
   content?: T;
   updatedAt?: T;
@@ -1362,6 +1331,15 @@ export interface SolutionCategoriesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partnership-solutions_select".
+ */
+export interface PartnershipSolutionsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "solutions_select".
  */
 export interface SolutionsSelect<T extends boolean = true> {
@@ -1370,32 +1348,10 @@ export interface SolutionsSelect<T extends boolean = true> {
   publishedDate?: T;
   industry?: T;
   solutionCategories?: T;
+  partnership_solution?: T;
   excerpt?: T;
+  description?: T;
   coverImage?: T;
-  businessChallenge?: T;
-  solutionOverview?: T;
-  architectureDiagram?: T;
-  keyFeatures?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        id?: T;
-      };
-  keyBenefits?:
-    | T
-    | {
-        metric?: T;
-        title?: T;
-        description?: T;
-        id?: T;
-      };
-  partners?: T;
-  relatedServices?: T;
-  relatedProducts?: T;
-  relatedPortfolios?: T;
-  ctaText?: T;
-  solutionDocument?: T;
   updatedAt?: T;
   createdAt?: T;
 }
