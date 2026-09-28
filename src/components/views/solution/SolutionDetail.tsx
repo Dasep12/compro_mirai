@@ -133,7 +133,7 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
 
       {/* 3. CINEMATIC HERO COVER BANNER */}
       <section className="w-full">
-        <div className="w-full aspect-[16/9] sm:aspect-[21/9] lg:aspect-[2.3/1] max-h-[480px] rounded-[18px] sm:rounded-[24px] overflow-hidden relative shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-gray-100 bg-gray-50 group">
+        <div className="w-full aspect-[16/9] rounded-[18px] sm:rounded-[24px] overflow-hidden relative shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-gray-100 bg-gray-50 group">
           {coverUrl ? (
             <Image
               src={coverUrl}
@@ -149,23 +149,16 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
               <span className="text-sm font-medium">Use Case Illustration</span>
             </div>
           )}
-
-          {/* Floating Subtle Badge di Banner */}
-          <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/60 shadow-xs flex items-center gap-2 text-[11px] sm:text-[12px] font-semibold text-gray-800">
-            <span className="w-2 h-2 rounded-full bg-[#0451bf] animate-pulse" />
-            <span>Mirai Enterprise Solution</span>
-          </div>
         </div>
       </section>
 
       {/* 4. MAIN EDITORIAL CONTENT & ENTERPRISE SPECIFICATION SIDEBAR (70% - 30%) */}
-      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-        {/* LEFT COLUMN: ARTIKEL DEEP-DIVE & DETAIL (Col 8) */}
-        <div className="w-full lg:col-span-8 flex flex-col gap-8 sm:gap-10">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-y-8 sm:gap-y-10 lg:gap-x-12 items-start">
+        {/* 1. ARTIKEL DEEP-DIVE & DETAIL (Col 8, Order 1) */}
+        <div className="w-full lg:col-span-8 lg:col-start-1 lg:row-start-1 order-1 flex flex-col gap-4 text-left">
           {/* RichText Content Body */}
           {solution.description ? (
             <div className="w-full flex flex-col gap-4 text-left">
-
               <div
                 className="w-full text-[15px] sm:text-[16px] leading-[185%] font-normal text-[#010101]/90 text-left whitespace-pre-line break-words
         [&_h1]:text-[24px] [&_h1]:sm:text-[28px] [&_h1]:md:text-[32px] [&_h1]:font-bold [&_h1]:leading-[130%] [&_h1]:text-[#010101] [&_h1]:mb-3 [&_h1]:mt-6
@@ -191,45 +184,10 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
               Uraian detail use case sedang dalam tahap pembaruan.
             </div>
           )}
-
-          {/* Consultation CTA Banner Box (Cocok untuk Company Profile) */}
-          <div className="w-full rounded-[20px] bg-primary text-[#fdfdfd] p-6 sm:p-9 lg:p-10 relative overflow-hidden shadow-sm">
-            <div className="flex flex-col items-start gap-4 sm:gap-5">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 text-[13px] sm:text-[14px] font-semibold tracking-wide">
-                <span>Konsultasi Solusi & Kebutuhan Bisnis</span>
-              </div>
-
-              <h3 className="text-[24px] sm:text-[30px] lg:text-[34px] font-bold leading-[125%] text-[#fdfdfd]">
-                Ingin Mengimplementasikan Solusi Ini di Perusahaan Anda?
-              </h3>
-
-              <p className="text-[15px] sm:text-[16px] lg:text-[17px] leading-[175%] text-white/90 max-w-2xl">
-                Diskusikan arsitektur sistem, pemilihan perangkat keras/lunak, dan estimasi biaya implementasi bersama tim engineer berpengalaman dari PT Mirai Softnet Technology.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-3 pt-2 w-full sm:w-auto">
-                <a
-                  href={waUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-mirai bg-[#fdfdfd] text-primary font-bold text-[15px] sm:text-[16px] shadow-xs hover:bg-gray-100 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  <span>Konsultasi Solusi Ini</span>
-                </a>
-
-                <Link
-                  href="/solution"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-mirai bg-white/10 hover:bg-white/20 text-[#fdfdfd] font-semibold text-[15px] sm:text-[16px] transition-all duration-300 border border-white/20"
-                >
-                  <span>Lihat Solusi Lainnya</span>
-                </Link>
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* RIGHT COLUMN: ENTERPRISE SPECIFICATION & VALUE PROPS SIDEBAR (Col 4 - Sticky) */}
-        <aside className="w-full lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24">
+        {/* 2. DETAIL USE CASE SIDEBAR (Col 4 on Desktop, Order 2 on Mobile - Muncul sebelum CTA di mobile) */}
+        <aside className="w-full lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:row-span-2 order-2 flex flex-col gap-6 lg:sticky lg:top-24">
           {/* Card 1: Quick Specs & Meta */}
           <div className="w-full rounded-[20px] bg-white border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-6 sm:p-7 flex flex-col gap-6">
             <div className="flex items-center justify-between pb-3.5 border-b border-gray-100">
@@ -333,6 +291,41 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
             )}
           </div>          
         </aside>
+
+        {/* 3. CONSULTATION CTA BANNER BOX (Col 8 on Desktop, Order 3 on Mobile - Muncul setelah Detail Use Case di mobile) */}
+        <div className="w-full lg:col-span-8 lg:col-start-1 lg:row-start-2 order-3 rounded-[20px] bg-primary text-[#fdfdfd] p-6 sm:p-9 lg:p-10 relative overflow-hidden shadow-sm">
+          <div className="flex flex-col items-start gap-4 sm:gap-5">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 text-[13px] sm:text-[14px] font-semibold tracking-wide">
+              <span>Konsultasi Solusi & Kebutuhan Bisnis</span>
+            </div>
+
+            <h3 className="text-[24px] sm:text-[30px] lg:text-[34px] font-bold leading-[125%] text-[#fdfdfd]">
+              Ingin Mengimplementasikan Solusi Ini di Perusahaan Anda?
+            </h3>
+
+            <p className="text-[15px] sm:text-[16px] lg:text-[17px] leading-[175%] text-white/90 max-w-2xl">
+              Diskusikan arsitektur sistem, pemilihan perangkat keras/lunak, dan estimasi biaya implementasi bersama tim engineer berpengalaman dari PT Mirai Softnet Technology.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2 w-full sm:w-auto">
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-mirai bg-[#fdfdfd] text-primary font-bold text-[15px] sm:text-[16px] shadow-xs hover:bg-gray-100 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span>Konsultasi Solusi Ini</span>
+              </a>
+
+              <Link
+                href="/solution"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-mirai bg-white/10 hover:bg-white/20 text-[#fdfdfd] font-semibold text-[15px] sm:text-[16px] transition-all duration-300 border border-white/20"
+              >
+                <span>Lihat Solusi Lainnya</span>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </article>
   );
