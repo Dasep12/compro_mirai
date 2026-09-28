@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "@/components/ui/Image";
 import {
   Search,
   SlidersHorizontal,
@@ -10,9 +12,9 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
-  Loader2,
 } from "lucide-react";
 import Badge, { getBadgeColorClass } from "@/components/ui/Badge";
+import { getMediaUrl } from "@/lib/utils";
 import type { Industry, PartnershipSolution, Solution, SolutionCategory } from "../../../../payload-types";
 
 interface SolutionListProps {
@@ -258,7 +260,7 @@ export default function SolutionList({
       </aside>
 
       {/* Content */}
-      <main className="flex-1 w-full flex flex-col gap-4">
+      <main className="w-full lg:w-0 flex-1 min-w-0 flex flex-col gap-4">
         {/* Search Bar */}
         <div className="w-full relative">
           <div className="absolute left-4.5 top-1/2 -translate-y-1/2 pointer-events-none flex items-center text-gray-400">
@@ -350,7 +352,7 @@ export default function SolutionList({
           </div>
         </div>
 
-        {/* --- DESKTOP TABLE VIEW (hidden on md/mobile) --- */}
+        {/* --- KODE LAMA (TABLE VIEW) DI-KOMENTAR SESUAI PERMINTAAN ---
         <div className="hidden md:block w-full overflow-x-auto rounded-2xl border border-gray-200/80 bg-white shadow-[0_2px_16px_rgba(0,0,0,0.02)]">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -374,7 +376,6 @@ export default function SolutionList({
                 <tr>
                   <td colSpan={4} className="py-16 px-6 text-center">
                     {solutions.length === 0 ? (
-                      /* CMS Data is currently empty */
                       <div className="flex flex-col items-center max-w-xl mx-auto text-center gap-3">
                         <h4 className="text-[20px] lg:text-[22px] font-bold text-[#010101]">
                           Studi Kasus Solusi Sedang Diperbarui
@@ -393,7 +394,6 @@ export default function SolutionList({
                         </a>
                       </div>
                     ) : (
-                      /* Filter or Search returned 0 */
                       <div className="flex flex-col items-center max-w-md mx-auto text-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-gray-100 text-gray-400 flex items-center justify-center mb-1">
                           <Search className="w-6 h-6" />
@@ -430,7 +430,6 @@ export default function SolutionList({
 
                   return (
                     <tr key={item.id} className="hover:bg-blue-50/30 transition-colors group">
-                      {/* Use Case */}
                       <td className="py-5 px-6 align-top">
                         <Link
                           href={`/solution/${item.slug || item.id}`}
@@ -440,7 +439,6 @@ export default function SolutionList({
                         </Link>
                       </td>
 
-                      {/* Description */}
                       <td className="py-5 px-6 align-top">
                         <p className="text-[14px] lg:text-[15px] leading-[175%] text-[#010101]/85 line-clamp-3">
                           {item.excerpt}
@@ -454,12 +452,10 @@ export default function SolutionList({
                         </Link>
                       </td>
 
-                      {/* Industry Badge */}
                       <td className="py-5 px-6 align-top">
                         <Badge color="blue">{industryLabel}</Badge>
                       </td>
 
-                      {/* Solution Category Badges */}
                       <td className="py-5 px-6 align-top">
                         <div className="flex flex-wrap gap-1.5">
                           {item.solutionCategories && item.solutionCategories.length > 0 ? (
@@ -491,12 +487,155 @@ export default function SolutionList({
             </tbody>
           </table>
         </div>
+        --- AKHIR KODE LAMA --- */}
 
-        {/* --- DESKTOP PAGINATION CONTROLS (Pojok Kanan Bawah) --- */}
+        {/* --- CARD VIEW (Responsive untuk Mobile, Tablet & Desktop) --- */}
+        <div className="flex flex-col gap-3.5 w-full min-w-0">
+          {filteredSolutions.length === 0 ? (
+            <div className="py-16 px-6 text-center bg-white rounded-2xl border border-gray-200/80 shadow-[0_2px_16px_rgba(0,0,0,0.02)]">
+              {solutions.length === 0 ? (
+                /* CMS Data is currently empty */
+                <div className="flex flex-col items-center max-w-xl mx-auto text-center gap-3">
+                  <h4 className="text-[20px] lg:text-[22px] font-bold text-[#010101]">
+                    Studi Kasus Solusi Sedang Diperbarui
+                  </h4>
+                  <p className="text-[15px] lg:text-[16px] text-gray-600 leading-[175%]">
+                    Kami sedang menyiapkan dokumentasi implementasi solusi dan studi kasus terbaru untuk kategori ini. Ingin mengetahui solusi yang tepat untuk kebutuhan industri Anda? Diskusikan langsung bersama tim konsultan kami.
+                  </p>
+                  <a
+                    href="https://wa.me/6281188862020?text=Halo%20Mirai,%20saya%20ingin%20berkonsultasi%20mengenai%20solusi%20teknologi%20untuk%20perusahaan%20kami"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#0451bf] text-white font-semibold text-[15px] hover:bg-[#033b8c] transition-all shadow-sm hover:shadow-md cursor-pointer"
+                  >
+                    <MessageSquare className="w-5 h-5" />
+                    <span>Konsultasi Gratis via WhatsApp</span>
+                  </a>
+                </div>
+              ) : (
+                /* Filter or Search returned 0 */
+                <div className="flex flex-col items-center max-w-md mx-auto text-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-gray-100 text-gray-400 flex items-center justify-center mb-1">
+                    <Search className="w-6 h-6" />
+                  </div>
+                  <h4 className="text-[18px] lg:text-[20px] font-bold text-[#010101]">
+                    Tidak Ada Solusi yang Cocok
+                  </h4>
+                  <p className="text-[14px] lg:text-[15px] text-gray-500 leading-relaxed">
+                    Tidak ditemukan use case yang cocok dengan kriteria filter{" "}
+                    {searchQuery && (
+                      <span>
+                        kata kunci <strong>&ldquo;{searchQuery}&rdquo;</strong>
+                      </span>
+                    )}
+                    {searchQuery && selectedIndustry !== "all" && " dan "}
+                    {selectedIndustry !== "all" && (
+                      <span>
+                        sektor <strong>&ldquo;{activeIndustryName}&rdquo;</strong>
+                      </span>
+                    )}
+                    .
+                  </p>
+                </div>
+              )}
+            </div>
+          ) : (
+            paginatedDesktopSolutions.map((item) => {
+              const industryObj =
+                typeof item.industry === "object" && item.industry !== null
+                  ? (item.industry as Industry)
+                  : null;
+              const industryLabel = industryObj?.name || "General";
+              const imageUrl =
+                getMediaUrl(item.coverImage, "card") ||
+                getMediaUrl(item.coverImage, "thumbnail") ||
+                (typeof item.coverImage === "object" && item.coverImage !== null ? item.coverImage.url : null);
+
+              return (
+                <Link
+                  key={item.id}
+                  href={`/solution/${item.slug || item.id}`}
+                  className="group w-full bg-white border border-gray-200/80 rounded-2xl p-3 sm:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(4,81,191,0.08)] hover:border-[#0451bf]/40 transition-all duration-300 flex items-stretch justify-between gap-3 sm:gap-4 cursor-pointer"
+                >
+                  {/* Bagian Kiri: Gambar dan Kolom Teks Use Case */}
+                  <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                    {/* Gambar di Sebelah Kiri */}
+                    <div className="relative w-24 h-20 sm:w-28 sm:h-20 lg:w-36 lg:h-22 shrink-0 rounded-xl overflow-hidden bg-gray-100 border border-gray-100/80 self-center">
+                      <Image
+                        src={imageUrl}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 640px) 96px, (max-width: 1024px) 120px, 160px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+
+                    {/* Kolom Tengah: Judul Use Case, Deskripsi, Badge Kategori Solusi */}
+                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1 sm:gap-1.5 py-0.5">
+                      {/* Judul Use Case (max line 1 overflow ellipsis) */}
+                      <h4 className="font-bold text-[14.5px] sm:text-[16px] lg:text-[17px] text-[#010101] group-hover:text-[#0451bf] transition-colors truncate leading-snug">
+                        {item.title}
+                      </h4>
+
+                      {/* Deskripsi Singkat (max line 1 overflow ellipsis) */}
+                      <p className="text-[12.5px] sm:text-[13px] lg:text-[14px] text-gray-500 truncate leading-relaxed">
+                        {item.excerpt}
+                      </p>
+
+                      {/* Badge Kategori Solusi */}
+                      <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
+                        {item.solutionCategories && item.solutionCategories.length > 0 ? (
+                          item.solutionCategories.map((catItem) => {
+                            const catObj =
+                              typeof catItem === "object" && catItem !== null
+                                ? (catItem as SolutionCategory)
+                                : null;
+                            const label = catObj?.name || String(catItem);
+
+                            return (
+                              <Badge
+                                key={catObj?.id || String(catItem)}
+                                color={catObj?.badgeColor}
+                                size="sm"
+                              >
+                                {label}
+                              </Badge>
+                            );
+                          })
+                        ) : (
+                          <span className="text-[11px] sm:text-[12px] text-gray-400">-</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Sisi Kanan: Pojok Kanan Atas (Badge Sektor) & Di Tengah Kanan Bawahnya (Panah Langsung Bersih) */}
+                  <div className="shrink-0 flex flex-col items-end justify-between self-stretch pl-1.5 sm:pl-3 py-0.5">
+                    {/* Pojok Kanan Atas: Badge Sektor */}
+                    <Badge
+                      color="blue"
+                      size="sm"
+                      className="sm:text-[12px] sm:px-3 sm:py-1 max-w-[130px] sm:max-w-[200px] truncate"
+                    >
+                      {industryLabel}
+                    </Badge>
+
+                    {/* Di Tengah Kanan Tepat di Bawah Badge Sektor: Panah Langsung Tanpa Lingkaran Container */}
+                    <div className="flex-1 flex items-center justify-end w-full pt-1">
+                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#0451bf] transition-all duration-300 group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                </Link>
+              );
+            })
+          )}
+        </div>
+
+        {/* --- PAGINATION CONTROLS (Responsive untuk Mobile, Tablet & Desktop) --- */}
         {filteredSolutions.length > 0 && (
-          <div className="hidden md:flex items-center justify-between w-full pt-2 pb-2 px-1">
-            {/* Info Counter Kiri */}
-            <div className="text-[13px] text-gray-500">
+          <div className="flex flex-col sm:flex-row items-center justify-between w-full pt-3 pb-2 px-1 gap-3">
+            {/* Info Counter */}
+            <div className="text-[12.5px] sm:text-[13px] text-gray-500 order-2 sm:order-1 text-center sm:text-left">
               Menampilkan{" "}
               <span className="font-semibold text-gray-800">
                 {(safeCurrentPage - 1) * pageSize + 1}
@@ -512,22 +651,22 @@ export default function SolutionList({
               solusi
             </div>
 
-            {/* Pojok Kanan: Selector Limit & Tombol Halaman */}
-            <div className="flex items-center gap-4">
+            {/* Selector Limit & Tombol Halaman */}
+            <div className="flex items-center gap-2.5 sm:gap-4 order-1 sm:order-2 flex-wrap justify-center">
               {/* Limit Selector */}
-              <div className="flex items-center gap-2 text-[13px] text-gray-500">
+              <div className="flex items-center gap-1.5 sm:gap-2 text-[12px] sm:text-[13px] text-gray-500">
                 <span>Tampilkan:</span>
                 <select
                   value={pageSize}
                   onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-                  className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg text-gray-700 text-[13px] font-medium focus:outline-none focus:border-[#0451bf] focus:ring-2 focus:ring-[#0451bf]/10 cursor-pointer transition-all"
+                  className="px-2 py-1 bg-white border border-gray-200 rounded-lg text-gray-700 text-[12px] sm:text-[13px] font-medium focus:outline-none focus:border-[#0451bf] focus:ring-2 focus:ring-[#0451bf]/10 cursor-pointer transition-all"
                 >
                   <option value={5}>5</option>
                   <option value={10}>10</option>
                   <option value={20}>20</option>
                   <option value={50}>50</option>
                 </select>
-                <span>per halaman</span>
+                <span className="hidden xs:inline">per halaman</span>
               </div>
 
               {/* Page Buttons */}
@@ -550,7 +689,7 @@ export default function SolutionList({
                       return (
                         <span
                           key={`ellipsis-${idx}`}
-                          className="w-8 h-8 flex items-center justify-center text-gray-400 text-[13px]"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-gray-400 text-[12px] sm:text-[13px]"
                         >
                           ...
                         </span>
@@ -565,7 +704,7 @@ export default function SolutionList({
                         key={pageNum}
                         type="button"
                         onClick={() => setCurrentPage(pageNum)}
-                        className={`w-8 h-8 flex items-center justify-center rounded-lg text-[13px] font-semibold transition-all cursor-pointer ${
+                        className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-[12px] sm:text-[13px] font-semibold transition-all cursor-pointer ${
                           isActive
                             ? "bg-[#0451bf] text-white shadow-sm shadow-[#0451bf]/30"
                             : "text-gray-700 hover:bg-gray-100 hover:text-[#0451bf]"
@@ -592,9 +731,9 @@ export default function SolutionList({
           </div>
         )}
 
-        {/* --- MOBILE VIEW: CARDS & INFINITE SCROLL (block on md/mobile) --- */}
+        {/* --- KODE LAMA: MOBILE VIEW DENGAN INFINITE SCROLL (DI-KOMENTAR KARENA DIGANTIKAN RESPONSIVE CARDS & PAGINATION) ---
         <div className="block md:hidden w-full flex flex-col gap-4">
-          {/* Mobile Header / Limit Selector */}
+          <!-- Mobile Header / Limit Selector -->
           {filteredSolutions.length > 0 && (
             <div className="flex items-center justify-between text-[12px] sm:text-[13px] text-gray-500 px-1">
               <span>
@@ -624,7 +763,7 @@ export default function SolutionList({
           {filteredSolutions.length === 0 ? (
             <div className="py-10 px-5 text-center bg-white rounded-2xl border border-gray-200/80 shadow-sm flex flex-col items-center gap-3">
               {solutions.length === 0 ? (
-                /* CMS Data is currently empty */
+                // CMS Data is currently empty
                 <>
                   <h4 className="text-[19px] font-bold text-[#010101]">
                     Studi Kasus Solusi Sedang Diperbarui
@@ -643,7 +782,7 @@ export default function SolutionList({
                   </a>
                 </>
               ) : (
-                /* Filter or Search returned 0 */
+                // Filter or Search returned 0
                 <>
                   <div className="w-12 h-12 rounded-2xl bg-gray-100 text-gray-400 flex items-center justify-center">
                     <Search className="w-6 h-6" />
@@ -726,7 +865,7 @@ export default function SolutionList({
             })
           )}
 
-          {/* Infinite Scroll Sentinel / Loading Indicator */}
+          <!-- Infinite Scroll Sentinel / Loading Indicator -->
           {filteredSolutions.length > 0 && mobileVisibleCount < filteredSolutions.length && (
             <div
               ref={sentinelRef}
@@ -763,6 +902,7 @@ export default function SolutionList({
               </div>
             )}
         </div>
+        --- AKHIR KODE LAMA MOBILE --- */}
       </main>
     </div>
   );

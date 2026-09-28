@@ -12,7 +12,6 @@ import {
   Calendar,
   Share2,
   Check,
-  ArrowRight,
 } from "lucide-react";
 import type { Industry, PartnershipSolution, Solution, SolutionCategory } from "../../../../payload-types";
 
@@ -223,7 +222,6 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-mirai bg-white/10 hover:bg-white/20 text-[#fdfdfd] font-semibold text-[15px] sm:text-[16px] transition-all duration-300 border border-white/20"
                 >
                   <span>Lihat Solusi Lainnya</span>
-                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

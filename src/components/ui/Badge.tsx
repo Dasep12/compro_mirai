@@ -1,4 +1,5 @@
 import React from "react";
+import { cn } from "@/lib/utils";
 
 export type BadgeColor =
   | "blue"
@@ -98,7 +99,12 @@ export default function Badge({
 
   return (
     <span
-      className={`inline-flex items-center justify-center gap-1.5 rounded-full font-semibold leading-normal tracking-wide whitespace-nowrap transition-colors select-none ${sizeClass} ${colorClass} ${className}`}
+      className={cn(
+        "inline-flex items-center justify-center gap-1.5 rounded-full font-semibold leading-normal tracking-wide whitespace-nowrap transition-colors select-none",
+        sizeClass,
+        colorClass,
+        className
+      )}
       {...props}
     >
       {icon && <span className="shrink-0">{icon}</span>}
