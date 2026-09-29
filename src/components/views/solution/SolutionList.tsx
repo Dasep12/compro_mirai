@@ -558,15 +558,15 @@ export default function SolutionList({
                   className="group w-full bg-white border border-gray-200/80 rounded-2xl p-3 sm:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(4,81,191,0.08)] hover:border-[#0451bf]/40 transition-all duration-300 flex items-stretch justify-between gap-3 sm:gap-4 cursor-pointer"
                 >
                   {/* Bagian Kiri: Gambar dan Kolom Teks Use Case */}
-                  <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
-                    {/* Gambar di Sebelah Kiri */}
-                    <div className="relative w-24 h-20 sm:w-28 sm:h-20 lg:w-36 lg:h-22 shrink-0 rounded-xl overflow-hidden bg-gray-100 border border-gray-100/80 self-center">
+                  <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
+                    {/* Gambar di Sebelah Kiri (Aspect Ratio 16:9) */}
+                    <div className="relative w-32 sm:w-40 lg:w-52 aspect-video shrink-0 rounded-xl overflow-hidden bg-gray-100 border border-gray-100/80">
                       <Image
                         src={imageUrl}
                         alt={item.title}
                         fill
-                        sizes="(max-width: 640px) 96px, (max-width: 1024px) 120px, 160px"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 128px, (max-width: 1024px) 160px, 208px"
+                        className="object-cover transition-transform duration-500"
                       />
                     </div>
 

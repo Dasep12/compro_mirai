@@ -43,10 +43,11 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
     getMediaUrl(solution.coverImage, "hero") ||
     (typeof solution.coverImage === "object" ? solution.coverImage?.url : null);
 
-  // Partnership brands
+  // Partnership brands (diurutkan berdasarkan abjad A-Z)
   const partnershipsList = (solution.partnership_solution || [])
     .map((p) => (typeof p === "object" && p !== null ? (p as PartnershipSolution) : null))
-    .filter((p): p is PartnershipSolution => p !== null);
+    .filter((p): p is PartnershipSolution => p !== null)
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
 
   // WhatsApp consultation link
   const waMessage = `Halo Tim Mirai Softnet Technology,\n\nSaya tertarik berkonsultasi mengenai solusi: *${solution.title}*.\n\nMohon informasi teknis, arsitektur, dan estimasi implementasinya untuk perusahaan kami.\nTerima kasih.`;
@@ -119,16 +120,6 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
             </span>
           )}
         </div>
-
-
-        {/* Ringkasan Eksekutif (Excerpt / Lead Summary) */}
-        {solution.excerpt && (
-          <div className="w-full relative pl-4 sm:pl-5 pr-4 py-3.5 sm:py-4 border-l-4 border-primary bg-primary/5 rounded-r-xl">
-            <p className="text-[15px] sm:text-[17px] font-normal leading-[180%] text-gray-700 text-left">
-              {solution.excerpt}
-            </p>
-          </div>
-        )}
       </header>
 
       {/* 3. CINEMATIC HERO COVER BANNER */}
@@ -141,7 +132,7 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
               fill
               priority
               sizes="(max-width: 1280px) 100vw, 1200px"
-              className="object-cover group-hover:scale-[1.015] transition-transform duration-700 ease-out"
+              className="object-cover transition-transform duration-700 ease-out"
             />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 gap-2">
