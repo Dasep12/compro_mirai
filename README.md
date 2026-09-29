@@ -75,8 +75,11 @@ Proyek ini telah dikonfigurasi penuh dengan **Dockerfile multi-stage** (Next.js 
 Setiap kali ada pembaruan kode di server, cukup jalankan:
 
 ```bash
-# Untuk Linux / macOS:
-./deploy.sh
+# Untuk Linux / macOS (pilih salah satu):
+bash deploy.sh\
+
+# atau:
+chmod +x deploy.sh && ./deploy.sh
 
 # Untuk Windows Server:
 .\deploy.ps1
