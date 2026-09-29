@@ -25,6 +25,21 @@ interface SolutionListProps {
 
 export const getCategoryBadgeClass = getBadgeColorClass;
 
+const formatDate = (dateStr?: string | null) => {
+  if (!dateStr) return "";
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  } catch {
+    return "";
+  }
+};
+
 export default function SolutionList({
   solutions,
   industries,
@@ -490,7 +505,7 @@ export default function SolutionList({
         --- AKHIR KODE LAMA --- */}
 
         {/* --- CARD VIEW (Responsive untuk Mobile, Tablet & Desktop) --- */}
-        <div className="flex flex-col gap-3.5 w-full min-w-0">
+        <div className="flex flex-col gap-4 sm:gap-5 lg:gap-3.5 w-full min-w-0">
           {filteredSolutions.length === 0 ? (
             <div className="py-16 px-6 text-center bg-white rounded-2xl border border-gray-200/80 shadow-[0_2px_16px_rgba(0,0,0,0.02)]">
               {solutions.length === 0 ? (
@@ -550,40 +565,52 @@ export default function SolutionList({
                 getMediaUrl(item.coverImage, "card") ||
                 getMediaUrl(item.coverImage, "thumbnail") ||
                 (typeof item.coverImage === "object" && item.coverImage !== null ? item.coverImage.url : null);
+              const dateStr = formatDate(item.publishedDate || item.createdAt);
 
               return (
-                <Link
-                  key={item.id}
-                  href={`/solution/${item.slug || item.id}`}
-                  className="group w-full bg-white border border-gray-200/80 rounded-2xl p-3 sm:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(4,81,191,0.08)] hover:border-[#0451bf]/40 transition-all duration-300 flex items-stretch justify-between gap-3 sm:gap-4 cursor-pointer"
-                >
-                  {/* Bagian Kiri: Gambar dan Kolom Teks Use Case */}
-                  <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
-                    {/* Gambar di Sebelah Kiri (Aspect Ratio 16:9) */}
-                    <div className="relative w-32 sm:w-40 lg:w-52 aspect-video shrink-0 rounded-xl overflow-hidden bg-gray-100 border border-gray-100/80">
+                <React.Fragment key={item.id}>
+                  {/* --- 1. CARD KHUSUS MOBILE & TABLET (< lg) --- */}
+                  <Link
+                    href={`/solution/${item.slug || item.id}`}
+                    className="group w-full shadow-[0px_4px_10px_1px_rgba(0,0,0,0.08)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-[20px] bg-[#fdfdfd] overflow-hidden flex flex-col items-stretch gap-0 border border-gray-100 cursor-pointer lg:hidden"
+                  >
+                    {/* Gambar di Bagian Atas (Aspect Ratio 16:9) */}
+                    <div className="w-full aspect-video shrink-0 relative overflow-hidden bg-gray-100">
                       <Image
                         src={imageUrl}
                         alt={item.title}
                         fill
-                        sizes="(max-width: 640px) 128px, (max-width: 1024px) 160px, 208px"
-                        className="object-cover transition-transform duration-500"
+                        sizes="(max-width: 1024px) 100vw, 500px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
 
-                    {/* Kolom Tengah: Judul Use Case, Deskripsi, Badge Kategori Solusi */}
-                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1 sm:gap-1.5 py-0.5">
-                      {/* Judul Use Case (max line 1 overflow ellipsis) */}
-                      <h4 className="font-bold text-[14.5px] sm:text-[16px] lg:text-[17px] text-[#010101] group-hover:text-[#0451bf] transition-colors truncate leading-snug">
-                        {item.title}
-                      </h4>
+                    {/* Informasi Konten Card Mobile & Tablet */}
+                    <div className="flex flex-col items-start p-5 sm:p-6 gap-3 sm:gap-4 w-full flex-1">
+                      {/* Bawah Gambar: Sektor Industri (Kiri) & Tanggal (Kanan) */}
+                      <div className="flex items-center justify-between w-full gap-2">
+                        <div className="bg-[#7eb2fc]/25 text-[#0451bf] rounded-[99px] px-[14px] py-[4px] font-semibold text-[13px] sm:text-[14px] leading-[170%] flex items-center justify-center">
+                          {industryLabel}
+                        </div>
+                        {dateStr && (
+                          <span className="text-[12px] sm:text-[13px] font-medium text-gray-500 shrink-0">
+                            {dateStr}
+                          </span>
+                        )}
+                      </div>
 
-                      {/* Deskripsi Singkat (max line 1 overflow ellipsis) */}
-                      <p className="text-[12.5px] sm:text-[13px] lg:text-[14px] text-gray-500 truncate leading-relaxed">
+                      {/* Bawahnya: Judul Use Case */}
+                      <h3 className="text-[18px] sm:text-[20px] font-bold leading-[140%] text-[#010101] line-clamp-2 group-hover:text-[#0451bf] transition-colors">
+                        {item.title}
+                      </h3>
+
+                      {/* Bawahnya: Deskripsi Singkat */}
+                      <p className="text-[13.5px] sm:text-[14px] font-normal leading-[170%] text-[#010101]/80 line-clamp-2 sm:line-clamp-3">
                         {item.excerpt}
                       </p>
 
-                      {/* Badge Kategori Solusi */}
-                      <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
+                      {/* Bawahnya lagi: Badge Kategori Solusi */}
+                      <div className="flex flex-wrap items-center gap-1.5 pt-1 mt-auto">
                         {item.solutionCategories && item.solutionCategories.length > 0 ? (
                           item.solutionCategories.map((catItem) => {
                             const catObj =
@@ -602,30 +629,86 @@ export default function SolutionList({
                               </Badge>
                             );
                           })
-                        ) : (
-                          <span className="text-[11px] sm:text-[12px] text-gray-400">-</span>
-                        )}
+                        ) : null}
                       </div>
                     </div>
-                  </div>
+                  </Link>
 
-                  {/* Sisi Kanan: Pojok Kanan Atas (Badge Sektor) & Di Tengah Kanan Bawahnya (Panah Langsung Bersih) */}
-                  <div className="shrink-0 flex flex-col items-end justify-between self-stretch pl-1.5 sm:pl-3 py-0.5">
-                    {/* Pojok Kanan Atas: Badge Sektor */}
-                    <Badge
-                      color="blue"
-                      size="sm"
-                      className="sm:text-[12px] sm:px-3 sm:py-1 max-w-[130px] sm:max-w-[200px] truncate"
-                    >
-                      {industryLabel}
-                    </Badge>
+                  {/* --- 2. CARD KHUSUS LAPTOP KECIL & LAPTOP BIASA (>= lg) --- */}
+                  <Link
+                    href={`/solution/${item.slug || item.id}`}
+                    className="group w-full bg-white border border-gray-200/80 rounded-2xl p-3.5 xl:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_20px_rgba(4,81,191,0.08)] hover:border-[#0451bf]/40 transition-all duration-300 hidden lg:flex items-stretch justify-between gap-4 cursor-pointer"
+                  >
+                    {/* Bagian Kiri: Gambar dan Kolom Teks Use Case */}
+                    <div className="flex items-start gap-4 flex-1 min-w-0">
+                      {/* Gambar di Sebelah Kiri (Aspect Ratio 16:9) */}
+                      <div className="relative w-44 xl:w-52 aspect-video shrink-0 rounded-xl overflow-hidden bg-gray-100 border border-gray-100/80">
+                        <Image
+                          src={imageUrl}
+                          alt={item.title}
+                          fill
+                          sizes="208px"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
 
-                    {/* Di Tengah Kanan Tepat di Bawah Badge Sektor: Panah Langsung Tanpa Lingkaran Container */}
-                    <div className="flex-1 flex items-center justify-end w-full pt-1">
-                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#0451bf] transition-all duration-300 group-hover:translate-x-1" />
+                      {/* Kolom Tengah: Judul Use Case, Deskripsi, Badge Kategori Solusi */}
+                      <div className="flex-1 min-w-0 flex flex-col justify-center gap-1.5 py-0.5">
+                        {/* Judul Use Case (max line 1 overflow ellipsis) */}
+                        <h4 className="font-bold text-[15.5px] xl:text-[17px] text-[#010101] group-hover:text-[#0451bf] transition-colors truncate leading-snug">
+                          {item.title}
+                        </h4>
+
+                        {/* Deskripsi Singkat (max line 1 overflow ellipsis) */}
+                        <p className="text-[13px] xl:text-[14px] text-gray-500 truncate leading-relaxed">
+                          {item.excerpt}
+                        </p>
+
+                        {/* Badge Kategori Solusi */}
+                        <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
+                          {item.solutionCategories && item.solutionCategories.length > 0 ? (
+                            item.solutionCategories.map((catItem) => {
+                              const catObj =
+                                typeof catItem === "object" && catItem !== null
+                                  ? (catItem as SolutionCategory)
+                                  : null;
+                              const label = catObj?.name || String(catItem);
+
+                              return (
+                                <Badge
+                                  key={catObj?.id || String(catItem)}
+                                  color={catObj?.badgeColor}
+                                  size="sm"
+                                >
+                                  {label}
+                                </Badge>
+                              );
+                            })
+                          ) : (
+                            <span className="text-[11px] xl:text-[12px] text-gray-400">-</span>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+
+                    {/* Sisi Kanan: Pojok Kanan Atas (Badge Sektor) & Di Tengah Kanan Bawahnya (Panah Langsung Bersih) */}
+                    <div className="shrink-0 flex flex-col items-end justify-between self-stretch pl-2 xl:pl-3 py-0.5">
+                      {/* Pojok Kanan Atas: Badge Sektor */}
+                      <Badge
+                        color="blue"
+                        size="sm"
+                        className="text-[12px] px-3 py-1 max-w-[160px] xl:max-w-[200px] truncate"
+                      >
+                        {industryLabel}
+                      </Badge>
+
+                      {/* Di Tengah Kanan Tepat di Bawah Badge Sektor: Panah Langsung Bersih */}
+                      <div className="flex-1 flex items-center justify-end w-full pt-1">
+                        <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#0451bf] transition-all duration-300 group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </Link>
+                </React.Fragment>
               );
             })
           )}
