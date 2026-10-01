@@ -435,8 +435,7 @@ export default function SolutionList({
                   : null;
               const industryLabel = industryObj?.name || "General";
               const imageUrl =
-                getMediaUrl(item.coverImage, "card") ||
-                getMediaUrl(item.coverImage, "thumbnail") ||
+                getMediaUrl(item.coverImage, "hero") ||
                 (typeof item.coverImage === "object" && item.coverImage !== null ? item.coverImage.url : null);
               const dateStr = formatDate(item.publishedDate || item.createdAt);
 
@@ -448,13 +447,13 @@ export default function SolutionList({
                     className="group w-full shadow-[0px_4px_10px_1px_rgba(0,0,0,0.08)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-[20px] bg-[#fdfdfd] overflow-hidden flex flex-col items-stretch gap-0 border border-gray-100 cursor-pointer lg:hidden"
                   >
                     {/* Gambar di Bagian Atas (Aspect Ratio 16:9) */}
-                    <div className="w-full aspect-video shrink-0 relative overflow-hidden bg-gray-100">
+                    <div className="w-full aspect-[16/9] shrink-0 relative overflow-hidden bg-gray-100">
                       <Image
                         src={imageUrl}
                         alt={item.title}
                         fill
                         sizes="(max-width: 1024px) 100vw, 500px"
-                        className="aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover object-center"
                       />
                     </div>
 
@@ -515,13 +514,13 @@ export default function SolutionList({
                     {/* Bagian Kiri: Gambar dan Kolom Teks Use Case */}
                     <div className="flex items-start gap-4 flex-1 min-w-0">
                       {/* Gambar di Sebelah Kiri (Aspect Ratio 16:9) */}
-                      <div className="relative w-44 xl:w-52 aspect-video shrink-0 self-start rounded-xl overflow-hidden bg-gray-100 border border-gray-100/80">
+                      <div className="relative w-44 xl:w-52 aspect-[16/9] shrink-0 self-start rounded-xl overflow-hidden bg-gray-100 border border-gray-100/80">
                         <Image
                           src={imageUrl}
                           alt={item.title}
                           fill
                           sizes="208px"
-                          className="aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover object-center"
                         />
                       </div>
 

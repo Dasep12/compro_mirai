@@ -2,6 +2,7 @@
 
 import NextImage, { ImageProps } from "next/image";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export interface CustomImageProps extends Omit<ImageProps, "src"> {
   src?: ImageProps["src"] | null;
@@ -25,7 +26,7 @@ export default function Image({
   const hasNoImage = !src;
 
   return (
-    <div className={`${baseWrapper} ${layoutWrapper} ${className}`}>
+    <div className={cn(baseWrapper, layoutWrapper, className)}>
       {(hasNoImage || isError) && (
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-gray-100 text-gray-400">
           <svg
@@ -63,9 +64,11 @@ export default function Image({
             ? "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             : undefined)
         }
-        className={`w-full h-full object-contain transition-opacity duration-300 ease-in-out ${
-          isLoading || isError ? "opacity-0" : "opacity-100"
-        } ${className}`}
+        className={cn(
+          "w-full h-full object-contain transition-opacity duration-300 ease-in-out",
+          isLoading || isError ? "opacity-0" : "opacity-100",
+          className
+        )}
         onLoad={(e) => {
           setIsLoading(false);
           if (onLoad) {
