@@ -139,7 +139,7 @@ export default function Footer({ services, products }: FooterProps) {
 
       <div className="w-full border-t border-[#fdfdfd]/20 flex flex-col sm:flex-row items-center justify-between pt-5 gap-4 text-[13px] text-[#fdfdfd]/70">
         <p className="text-center sm:text-left order-2 sm:order-1">
-          &copy; {currentYear} PT Mirai Softnet Teknologi. Hak Cipta Dilindungi
+          &copy; {currentYear} PT Mirai Softnet & Technology. Hak Cipta Dilindungi
           Undang-Undang.
         </p>
         <div className="flex items-center gap-6 order-1 sm:order-2">
