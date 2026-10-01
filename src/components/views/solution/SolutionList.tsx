@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "@/components/ui/Image";
 import {
@@ -27,6 +27,7 @@ export const getCategoryBadgeClass = getBadgeColorClass;
 
 const formatDate = (dateStr?: string | null) => {
   if (!dateStr) return "";
+
   try {
     const d = new Date(dateStr);
     if (isNaN(d.getTime())) return "";
@@ -48,12 +49,43 @@ export default function SolutionList({
   const [selectedIndustry, setSelectedIndustry] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Pagination & Infinite Scroll States
+  // Pagination States
   const [pageSize, setPageSize] = useState<number>(initialPageSize);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [mobileVisibleCount, setMobileVisibleCount] = useState<number>(initialPageSize);
-  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  // Helper shuffle array dengan Fisher-Yates
+  const shuffleSolutions = (items: Solution[]) => {
+    const array = [...items];
+
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    
+    return array;
+  };
+
+  // Helper deterministik shuffle awal agar SSR dan hidrasi client 100% konsisten (bebas mismatch)
+  const getDeterministicSolutions = (items: Solution[]) => {
+    return [...(items || [])].sort((a, b) => {
+      const hashA = ((a.id * 1664525 + 1013904223) >>> 0) % 100000;
+      const hashB = ((b.id * 1664525 + 1013904223) >>> 0) % 100000;
+
+      return hashA - hashB;
+    });
+  };
+
+  // State data solusi yang diacak khusus untuk tab "Semua Industri"
+  const [prevSolutions, setPrevSolutions] = useState<Solution[]>(solutions);
+  const [shuffledAllSolutions, setShuffledAllSolutions] = useState<Solution[]>(() =>
+    getDeterministicSolutions(solutions)
+  );
+
+  // Jika prop solutions berubah dari luar, sinkronkan langsung saat render (pola resmi React tanpa cascading renders)
+  if (solutions !== prevSolutions) {
+    setPrevSolutions(solutions);
+    setShuffledAllSolutions(getDeterministicSolutions(solutions));
+  }
 
   // Menghitung jumlah solusi per industri secara dinamis
   const industryCounts = useMemo(() => {
@@ -68,12 +100,17 @@ export default function SolutionList({
         counts[key] = (counts[key] || 0) + 1;
       }
     });
+
     return counts;
   }, [solutions]);
 
   // Filter solutions berdasarkan industri dan pencarian kata kunci
   const filteredSolutions = useMemo(() => {
-    return (solutions || []).filter((item) => {
+    // Jika "Semua Industri" dipilih, gunakan urutan yang telah diacak agar tidak monoton mengikuti urutan DB
+    const baseSource =
+      selectedIndustry === "all" ? shuffledAllSolutions : (solutions || []);
+
+    return baseSource.filter((item) => {
       // 1. Industry filter matching
       const itemIndustrySlug =
         typeof item.industry === "object" && item.industry !== null
@@ -103,6 +140,7 @@ export default function SolutionList({
           const catObj = cat as SolutionCategory;
           const catName =
             typeof catObj === "object" && catObj !== null ? catObj.name : "";
+
           return catName.toLowerCase().includes(q);
         }) ||
         // 4. Teknologi: Brand / Mitra Prinsipal (Cisco, Fortinet, Aruba, dll)
@@ -112,70 +150,39 @@ export default function SolutionList({
             typeof partnerObj === "object" && partnerObj !== null
               ? partnerObj.name
               : "";
+
           return partnerName.toLowerCase().includes(q);
         });
 
       return matchIndustry && matchQuery;
     });
-  }, [solutions, selectedIndustry, searchQuery]);
+  }, [solutions, shuffledAllSolutions, selectedIndustry, searchQuery]);
 
-  // Total Halaman untuk Desktop Pagination
+  // Total Halaman untuk Pagination
   const totalPages = Math.ceil(filteredSolutions.length / pageSize) || 1;
   const safeCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
 
-  // Data terpaginasi untuk Desktop Table
-  const paginatedDesktopSolutions = useMemo(() => {
+  // Data terpaginasi untuk Card List
+  const paginatedSolutions = useMemo(() => {
     const start = (safeCurrentPage - 1) * pageSize;
+    
     return filteredSolutions.slice(start, start + pageSize);
   }, [filteredSolutions, safeCurrentPage, pageSize]);
-
-  // Data terpaginasi untuk Mobile Infinite Scroll
-  const paginatedMobileSolutions = useMemo(() => {
-    return filteredSolutions.slice(0, mobileVisibleCount);
-  }, [filteredSolutions, mobileVisibleCount]);
-
-  // Intersection Observer untuk Infinite Scroll di Mobile
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (
-          entry.isIntersecting &&
-          !isLoadingMore &&
-          mobileVisibleCount < filteredSolutions.length
-        ) {
-          setIsLoadingMore(true);
-          setTimeout(() => {
-            setMobileVisibleCount((prev) =>
-              Math.min(prev + pageSize, filteredSolutions.length)
-            );
-            setIsLoadingMore(false);
-          }, 250);
-        }
-      },
-      { rootMargin: "150px" }
-    );
-
-    observer.observe(sentinel);
-    return () => {
-      observer.disconnect();
-    };
-  }, [filteredSolutions.length, mobileVisibleCount, pageSize, isLoadingMore]);
 
   // Helper untuk deretan angka halaman (smart pagination dengan ellipsis)
   const pageNumbers = useMemo(() => {
     if (totalPages <= 7) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
+
     if (safeCurrentPage <= 3) {
       return [1, 2, 3, 4, "...", totalPages];
     }
+
     if (safeCurrentPage >= totalPages - 2) {
       return [1, "...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
     }
+
     return [1, "...", safeCurrentPage - 1, safeCurrentPage, safeCurrentPage + 1, "...", totalPages];
   }, [safeCurrentPage, totalPages]);
 
@@ -185,32 +192,35 @@ export default function SolutionList({
     const found = (industries || []).find(
       (ind) => (ind.slug || String(ind.id)) === selectedIndustry
     );
+    
     return found?.name || selectedIndustry;
   }, [selectedIndustry, industries]);
 
   const handleResetFilters = () => {
+    if (solutions && solutions.length > 0) {
+      setShuffledAllSolutions(shuffleSolutions(solutions));
+    }
     setSelectedIndustry("all");
     setSearchQuery("");
     setCurrentPage(1);
-    setMobileVisibleCount(pageSize);
   };
 
   const handleSelectIndustry = (val: string) => {
+    if (val === "all") {
+      setShuffledAllSolutions(shuffleSolutions(solutions || []));
+    }
     setSelectedIndustry(val);
     setCurrentPage(1);
-    setMobileVisibleCount(pageSize);
   };
 
   const handleSearchChange = (val: string) => {
     setSearchQuery(val);
     setCurrentPage(1);
-    setMobileVisibleCount(pageSize);
   };
 
   const handlePageSizeChange = (newSize: number) => {
     setPageSize(newSize);
     setCurrentPage(1);
-    setMobileVisibleCount(newSize);
   };
 
   return (
@@ -418,7 +428,7 @@ export default function SolutionList({
               )}
             </div>
           ) : (
-            paginatedDesktopSolutions.map((item) => {
+            paginatedSolutions.map((item) => {
               const industryObj =
                 typeof item.industry === "object" && item.industry !== null
                   ? (item.industry as Industry)
@@ -444,7 +454,7 @@ export default function SolutionList({
                         alt={item.title}
                         fill
                         sizes="(max-width: 1024px) 100vw, 500px"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
 
@@ -505,13 +515,13 @@ export default function SolutionList({
                     {/* Bagian Kiri: Gambar dan Kolom Teks Use Case */}
                     <div className="flex items-start gap-4 flex-1 min-w-0">
                       {/* Gambar di Sebelah Kiri (Aspect Ratio 16:9) */}
-                      <div className="relative w-44 xl:w-52 aspect-video shrink-0 rounded-xl overflow-hidden bg-gray-100 border border-gray-100/80">
+                      <div className="relative w-44 xl:w-52 aspect-video shrink-0 self-start rounded-xl overflow-hidden bg-gray-100 border border-gray-100/80">
                         <Image
                           src={imageUrl}
                           alt={item.title}
                           fill
                           sizes="208px"
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
 
