@@ -26,27 +26,28 @@ export const GET = async (
           const remoteTarget = `${remoteUrl}${url.pathname}${url.search}`
           const remoteRes = await fetch(remoteTarget)
 
-        if (remoteRes.ok) {
-          const contentType = remoteRes.headers.get('content-type') || 'application/octet-stream'
-          const buffer = await remoteRes.arrayBuffer()
+          if (remoteRes.ok) {
+            const contentType = remoteRes.headers.get('content-type') || 'application/octet-stream'
+            const buffer = await remoteRes.arrayBuffer()
 
-          // Simpan file ke folder media lokal secara otomatis untuk caching lokal
-          try {
-            const filename = decodeURIComponent(url.pathname.replace('/api/media/file/', ''))
-            const localPath = path.join(process.cwd(), 'media', filename)
-            fs.mkdirSync(path.dirname(localPath), { recursive: true })
-            fs.writeFileSync(localPath, Buffer.from(buffer))
-          } catch {
-            // Abaikan jika gagal menulis ke disk lokal
+            // Simpan file ke folder media lokal secara otomatis untuk caching lokal
+            try {
+              const filename = decodeURIComponent(url.pathname.replace('/api/media/file/', ''))
+              const localPath = path.join(process.cwd(), 'media', filename)
+              fs.mkdirSync(path.dirname(localPath), { recursive: true })
+              fs.writeFileSync(localPath, Buffer.from(buffer))
+            } catch {
+              // Abaikan jika gagal menulis ke disk lokal
+            }
+
+            return new Response(buffer, {
+              status: 200,
+              headers: {
+                'Content-Type': contentType,
+                'Cache-Control': 'public, max-age=31536000, immutable',
+              },
+            })
           }
-
-          return new Response(buffer, {
-            status: 200,
-            headers: {
-              'Content-Type': contentType,
-              'Cache-Control': 'public, max-age=31536000, immutable',
-            },
-          })
         }
       } catch (err) {
         console.error('Failed to proxy media from remote VPS:', err)
