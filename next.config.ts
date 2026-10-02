@@ -10,9 +10,30 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.supabase.co',
+        hostname: 'miraisoftnet.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
       },
     ],
+  },
+  async rewrites() {
+    const remoteUrl = process.env.NEXT_PUBLIC_REMOTE_MEDIA_URL || "https://miraisoftnet.com";
+    return {
+      beforeFiles: [],
+      afterFiles: [],
+      fallback: [
+        {
+          source: "/api/media/file/:path*",
+          destination: `${remoteUrl}/api/media/file/:path*`,
+        },
+      ],
+    };
   },
   serverExternalPackages: ["@payloadcms/db-postgres", "drizzle-kit", "esbuild"],
 };
