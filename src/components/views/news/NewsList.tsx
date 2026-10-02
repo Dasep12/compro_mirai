@@ -10,7 +10,7 @@ interface NewsListProps {
   newsList: News[];
 }
 
-export default function NewsList({ newsList }: NewsListProps) {
+export default function NewsList({ newsList = [] }: NewsListProps) {
   const [activeCategory, setActiveCategory] = useState("Semua");
   const categories = [
     "Semua",
@@ -21,7 +21,8 @@ export default function NewsList({ newsList }: NewsListProps) {
     "Teknologi",
   ];
 
-  const filteredNews = newsList.filter(
+  const safeNewsList = Array.isArray(newsList) ? newsList : [];
+  const filteredNews = safeNewsList.filter(
     (item) =>
       activeCategory === "Semua" ||
       item.category === activeCategory.toLowerCase(),

@@ -10,7 +10,7 @@ interface CareerListProps {
   careers: Career[];
 }
 
-export default function CareerList({ careers }: CareerListProps) {
+export default function CareerList({ careers = [] }: CareerListProps) {
   const [activeCategory, setActiveCategory] = useState("Semua");
   const categories = [
     "Semua",
@@ -21,7 +21,8 @@ export default function CareerList({ careers }: CareerListProps) {
     "Freelance",
   ];
 
-  const filteredCareers = careers.filter(
+  const safeCareers = Array.isArray(careers) ? careers : [];
+  const filteredCareers = safeCareers.filter(
     (job) =>
       activeCategory === "Semua" ||
       job.category === activeCategory.toLowerCase(),
