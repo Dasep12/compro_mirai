@@ -1,1 +1,4 @@
 graphify-out/graph.json merge=graphify
+*.sh text eol=lf
+*.sql text eol=lf
+*.env* text eol=lf
