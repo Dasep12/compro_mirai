@@ -1,18 +1,18 @@
 # MiraiSoftNet Company Profile
 
-Platform website profil perusahaan resmi **Mirai Softnet & Technology** yang dibangun menggunakan arsitektur modern **Headless Fullstack** memadukan **Next.js 16 (App Router)**, **React 19**, **PayloadCMS 3**, **Tailwind CSS v4**, dan **PostgreSQL 16 (Self-Hosted Docker)**.
+Platform website profil perusahaan resmi **Mirai Softnet & Technology** yang dibangun menggunakan arsitektur modern **Headless Fullstack** memadukan **Next.js 16 (App Router)**, **React 19**, **PayloadCMS 3**, **Tailwind CSS v4**, dan **PostgreSQL 16 (Self-Hosted Docker)** dengan penyimpanan media lokal mandiri tanpa ketergantungan pada layanan cloud pihak ketiga (Supabase-free).
 
-Aplikasi ini menyajikan informasi portofolio, katalog produk, rincian layanan IT, peluang karir, dan artikel berita dengan performa tinggi, animasi dinamis, serta panel manajemen konten terintegrasi dan penyimpanan media mandiri.
+Aplikasi ini menyajikan informasi portofolio, katalog produk, rincian layanan IT, peluang karir, dan artikel berita dengan performa tinggi, animasi dinamis, serta panel manajemen konten terintegrasi.
 
 ---
 
-## Panduan Memulai (Getting Started)
+## Panduan Memulai (Getting Started - Local Development)
 
-Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan pengembangan lokal:
+Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan pengembangan lokal laptop/PC:
 
 ### 1. Konfigurasi Variabel Lingkungan (Environment Variables)
 
-Salin `.env.example` menjadi `.env` di root direktori proyek dan sesuaikan konfigurasi kredensial:
+Salin `.env.example` menjadi `.env` di root direktori proyek dan sesuaikan konfigurasi:
 
 ```env
 # ==============================================================================
@@ -43,24 +43,38 @@ NEXT_PUBLIC_REMOTE_MEDIA_URL=https://miraisoftnet.com
 ```
 
 > [!TIP]
-> **Hemat Penyimpanan Laptop:** Anda tidak perlu menyalin ratusan file media ke laptop. Berkat konfigurasi `NEXT_PUBLIC_REMOTE_MEDIA_URL`, Next.js development server akan otomatis mengambil gambar yang belum ada di laptop langsung dari server VPS produksi via rewrite fallback secara transparan!
+> **Hemat Penyimpanan Laptop (Zero-Media Footprint):**
+> Anda tidak perlu menyalin ratusan file media (~290 MB) ke laptop. Berkat konfigurasi `NEXT_PUBLIC_REMOTE_MEDIA_URL=https://miraisoftnet.com`, Next.js dev server otomatis mengambil fallback gambar langsung dari server produksi via rewrite transparan. Folder `media/` juga telah diabaikan dari Git (`.gitignore`) dan disembunyikan di VS Code explorer agar workspace tetap bersih dan ringan.
 
-### 2. Unduh Dependensi Proyek
+---
+
+### 2. Menjalankan Database PostgreSQL Lokal (via Docker)
+
+Jika Anda tidak menginstall PostgreSQL secara langsung di OS laptop, Anda cukup menjalankan container database PostgreSQL menggunakan Docker Compose:
+
+```bash
+docker compose up -d postgres
+```
+
+> [!NOTE]
+> **Prerender Resilience:** Jika database belum dijalankan, Next.js tetap dapat berjalan (`npm run dev`) dan melayani halaman dengan aman tanpa crash (`200 OK`) berkat sistem penanganan fallback data koleksi yang tangguh.
+
+---
+
+### 3. Unduh Dependensi & Sinkronisasi Tipe CMS
 
 Pastikan Anda menggunakan **Node.js versi 20 atau lebih baru**:
 
 ```bash
+# 1. Unduh package
 npm install
-```
 
-### 3. Generate Definisi Tipe TypeScript CMS
-
-Jalankan perintah ini untuk menyinkronkan seluruh skema koleksi Payload CMS ke file `payload-types.ts`:
-
-```bash
+# 2. Sinkronkan skema Payload CMS ke TypeScript
 npm run generate:importmap
 npm run generate:types
 ```
+
+---
 
 ### 4. Menjalankan Server Pengembangan (Development Mode)
 
@@ -69,45 +83,49 @@ npm run dev
 ```
 
 Buka peramban (browser) Anda:
-
 - **Website Publik**: [http://localhost:3000](http://localhost:3000)
 - **Panel Admin CMS**: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-### 5. Kompilasi & Menjalankan Build Produksi
+---
+
+### 5. Kompilasi & Menjalankan Build Produksi (Manual)
 
 ```bash
-# Build aplikasi untuk production
+# Build aplikasi Next.js (Standalone mode)
 npm run build
 
-# Menjalankan server production
+# Menjalankan server build
 npm run start
 ```
 
 ---
 
-## Panduan Deployment dengan Docker (Production)
+## Panduan Deployment Server VPS (Production Docker)
 
-Proyek ini telah dikonfigurasi penuh dengan **Dockerfile multi-stage** (Next.js 16 Standalone mode) dan **Docker Compose** yang memadukan service aplikasi dan PostgreSQL lokal mandiri.
+Proyek ini telah dikonfigurasi penuh dengan **Dockerfile multi-stage** (Next.js 16 Standalone mode) dan **Docker Compose** yang memadukan service aplikasi Next.js/Payload dan database PostgreSQL lokal mandiri.
 
 ### Ringkasan Perintah Cepat (TL;DR)
 
-Setiap kali ada pembaruan kode di server, cukup jalankan:
+Setiap kali ada pembaruan kode di server VPS, Anda hanya perlu menjalankan satu perintah:
 
 ```bash
-# Untuk Linux VPS (pilih salah satu):
+# Untuk Linux VPS (otomatis git pull, fix izin media, build & restart):
 bash deploy.sh
 
 # atau:
 chmod +x deploy.sh && ./deploy.sh
+```
 
+```powershell
 # Untuk Windows Server:
 .\deploy.ps1
 ```
 
-Atau jika ingin menjalankan secara manual:
+Atau jika ingin menjalankan proses deployment secara manual:
 
 ```bash
 git pull origin main
+chmod -R 777 media
 docker compose up -d --build --remove-orphans
 docker compose ps
 ```
@@ -116,81 +134,113 @@ docker compose ps
 
 ### 1. Prasyarat di Server
 
-- **Git** terpasang (`sudo apt update && sudo apt install -y git`)
-- File `.env` sudah dikonfigurasi di root direktori proyek (lihat `.env.example`).
-- **Docker & Docker Compose** terpasang.
+1. **Git** terpasang (`sudo apt update && sudo apt install -y git`).
+2. **Docker & Docker Compose** terpasang.
+3. File `.env` sudah dibuat di root proyek dengan koneksi database antar-container:
+   ```env
+   # Di Server VPS, aplikasi terhubung ke service postgres lewat network Docker:
+   DATABASE_URI=postgresql://postgres:YOUR_STRONG_PASSWORD@postgres:5432/miraisoftnet_compro
+   POSTGRES_DB=miraisoftnet_compro
+   POSTGRES_USER=postgres
+   POSTGRES_PASSWORD=YOUR_STRONG_PASSWORD
+   PAYLOAD_SECRET=YOUR_32_CHAR_SECRET
+   NEXT_PUBLIC_SERVER_URL=https://miraisoftnet.com
+   STORAGE_DRIVER=local
+   ```
 
 > [!IMPORTANT]
-> **Jika Docker belum diinstall di server:**
->
-> **A. Di Server Linux (Ubuntu / Debian VPS):**
-> Jalankan perintah resmi berikut di terminal:
->
+> **Instalasi Docker di Linux VPS (Ubuntu / Debian):**
 > ```bash
 > curl -fsSL https://get.docker.com -o get-docker.sh
 > sudo sh get-docker.sh
 > ```
->
-> **B. Di Server Windows (Windows Server / Windows 10/11 VPS):**
-> Jalankan perintah berikut di PowerShell (Run as Administrator):
->
-> ```powershell
-> winget install Docker.DockerDesktop --accept-package-agreements --accept-source-agreements
-> ```
->
-> *(Atau download langsung installer resminya di [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/))*.
 
 ---
 
-### 2. Penjelasan Alur Script Otomatis (`deploy.sh` / `deploy.ps1`)
+### 2. Cara Kerja Script Otomatis `deploy.sh`
 
-Script otomatis `deploy.sh` dan `deploy.ps1` telah mengurus semua tahapan penting berikut secara aman:
+Script `deploy.sh` melakukan urutan berikut secara otomatis dan aman:
 
-1. **Menarik kode terbaru**: Menjalankan `git pull origin main`.
-2. **Pemeriksaan `.env`**: Memastikan variabel lingkungan krusial sudah ada.
-3. **Pemberian Izin Akses Media**: Memastikan folder `media/` dapat ditulis oleh user container non-root (`nextjs`).
-4. **Build & Restart Container**: Menjalankan `docker compose up -d --build --remove-orphans` (otomatis meregenerasi import map Payload dan mengompilasi Next.js mode standalone).
-5. **Verifikasi Status**: Menampilkan daftar container yang sedang aktif dan sehat (`docker compose ps`).
-
-> [!TIP]
-> Di Linux/macOS, pastikan script sudah memiliki izin eksekusi sebelum pertama kali dijalankan:
->
-> ```bash
-> chmod +x deploy.sh
-> ```
+1. **Git Sync**: Menjalankan `git pull origin main`.
+2. **Environment Check**: Memvalidasi keberadaan file `.env` dan variabel krusial.
+3. **Izin Folder Media**: Menyiapkan direktori `media/` dengan izin `chmod -R 777` atau kepemilikan UID non-root `1001:1001` agar container aplikasi Next.js dapat mengunggah file tanpa kendala permission (`EACCES`).
+4. **Build & Up**: Menjalankan `docker compose up -d --build --remove-orphans` untuk mem-build image baru dan merestart kontainer tanpa downtime lama.
+5. **Healthcheck & Status**: Menampilkan status kesehatan seluruh container (`docker compose ps`).
 
 ---
 
-### 3. Alur Deployment Manual (Langkah demi Langkah)
+## Pemeliharaan & Operasional Database (Database Maintenance)
 
-Jika ingin menjalankan setiap proses secara mandiri atau memverifikasi sebelum build kontainer:
+Semua data kini tersimpan secara mandiri di container PostgreSQL `miraisoftnet-db`. Berikut panduan operasional penting:
+
+### 1. Sinkronisasi Sequence PostgreSQL (Setelah Restore Dump)
+
+Jika Anda baru saja merestore database dari file dump `.sql`, nomor sequence auto-increment ID PostgreSQL biasanya belum tersinkronkan dengan nilai ID tertinggi. Hal ini dapat menyebabkan error saat mengunggah media atau menambah data baru di panel admin CMS:
+`"The following field is invalid: id"` (karena bentrok duplikasi kunci primer `id = 1`).
+
+Jalankan perintah one-liner berikut di terminal server untuk menyinkronkan seluruh sequence tabel secara otomatis:
 
 ```bash
-# 1. Ambil update terbaru dari repository
-git pull origin main
+docker exec -i miraisoftnet-db psql -U postgres -d miraisoftnet_compro -c "
+DO \$\$
+DECLARE seq RECORD;
+BEGIN
+    FOR seq IN (
+        SELECT t.table_name, s.sequence_name
+        FROM information_schema.tables t
+        JOIN information_schema.sequences s ON s.sequence_name = t.table_name || '_id_seq'
+        WHERE t.table_schema = 'public'
+    ) LOOP
+        EXECUTE format('SELECT setval(%L, COALESCE((SELECT MAX(id) FROM %I), 1));', seq.sequence_name, seq.table_name);
+    END LOOP;
+END \$\$;"
+```
 
-# 2. Pastikan file .env sudah ada di root proyek (lihat .env.example)
-cp .env.example .env   # (jika belum ada)
-nano .env              # sesuaikan kredensial Database & Payload Secret
+### 2. Backup Database Mandiri
 
-# 3. (Opsional) Verifikasi build secara lokal sebelum memasukkannya ke Docker
-npm install
-npm run generate:importmap
-npm run build
+Untuk mencadangkan seluruh skema dan data database ke file SQL:
 
-# 4. Pastikan izin akses folder media
+```bash
+docker exec -t miraisoftnet-db pg_dump -U postgres miraisoftnet_compro > backup_$(date +%Y%m%d_%H%M%S).sql
+```
+
+### 3. Restore Database dari File SQL
+
+Untuk merestore file cadangan database:
+
+```bash
+cat backup_file.sql | docker exec -i miraisoftnet-db psql -U postgres -d miraisoftnet_compro
+```
+*Catatan: Setelah restore selesai, jalankan script sinkronisasi sequence di poin 1.*
+
+### 4. Backup & Restore File Media
+
+Folder `media/` berada di host direktori `./media` yang di-mount langsung ke dalam container `/app/media`:
+
+```bash
+# Backup file media ke arsip kompresi:
+tar -czvf media_backup_$(date +%Y%m%d).tar.gz media/
+
+# Ekstrak arsip media:
+tar -xzvf media_backup_YYYYMMDD.tar.gz
 chmod -R 777 media
-
-# 5. Build Docker image dan jalankan container di latar belakang
-docker compose up -d --build --remove-orphans
-
-# 6. Verifikasi kontainer sudah berjalan sehat (healthy)
-docker compose ps
 ```
 
 ---
 
-### 4. Perintah Operasional Docker yang Berguna
+## Panduan Penyelesaian Masalah (Troubleshooting)
+
+| Gejala / Error | Penyebab | Solusi |
+| :--- | :--- | :--- |
+| `connect ECONNREFUSED 127.0.0.1:5432` | Container PostgreSQL belum berjalan di laptop saat menjalankan `npm run dev`. | Jalankan `docker compose up -d postgres` di terminal laptop. |
+| `{"errors":[{"message":"There was a problem while uploading the file."}]}` | User container non-root (`nextjs`, UID 1001) tidak memiliki izin tulis ke folder `./media` di host VPS. | Jalankan `chmod -R 777 media` di VPS, atau jalankan `bash deploy.sh`. |
+| `{"errors":[{"message":"The following field is invalid: id"}]}` | Sequence PostgreSQL out-of-sync setelah restore data dump SQL. | Jalankan script sinkronisasi sequence di bagian **Pemeliharaan Database**. |
+| `database "miraisoftnet_c" does not exist` atau terminal loncat saat eksekusi script bash | File `.sh` atau `.env` memiliki format newline Windows (CRLF `\r`). | Simpan file dengan format Unix (LF). Proyek telah dilengkapi `.gitattributes` untuk memastikan LF otomatis. |
+| Gambar di laptop tidak muncul saat development | File media belum ada di laptop dan `NEXT_PUBLIC_REMOTE_MEDIA_URL` belum diatur. | Pastikan `NEXT_PUBLIC_REMOTE_MEDIA_URL=https://miraisoftnet.com` ada di `.env` lokal Anda. |
+
+---
+
+## Perintah Operasional Docker yang Berguna
 
 | Kebutuhan | Perintah Terminal |
 | :--- | :--- |
@@ -199,9 +249,11 @@ docker compose ps
 | **Melihat Log Khusus Database** | `docker compose logs -f postgres` |
 | **Melihat Status & Port Kontainer** | `docker compose ps` |
 | **Restart Kontainer Aplikasi** | `docker compose restart app` |
+| **Restart Kontainer Database** | `docker compose restart postgres` |
+| **Masuk ke Shell Interaktif PostgreSQL (psql)** | `docker exec -it miraisoftnet-db psql -U postgres -d miraisoftnet_compro` |
 | **Hentikan Seluruh Kontainer** | `docker compose down` |
 | **Build Ulang Tanpa Cache (Fresh Build)** | `docker compose build --no-cache && docker compose up -d` |
-| **Mengecek Penggunaan Resource (CPU/RAM)** | `docker stats miraisoftnet-compro` |
+| **Mengecek Penggunaan Resource (CPU/RAM)** | `docker stats miraisoftnet-compro miraisoftnet-db` |
 
 ---
 
@@ -254,5 +306,5 @@ Proyek ini telah dilengkapi dengan **Graphify Knowledge Graph** di direktori [gr
 - **Styling Engine**: [Tailwind CSS v4](https://tailwindcss.com/) & [PostCSS](https://postcss.org/)
 - **Animasi & Interaktivitas**: [Framer Motion 12](https://motion.dev/)
 - **Iconography**: [Lucide React](https://lucide.dev/)
-- **Optimasi Gambar**: [Sharp](https://sharp.pixelplumbing.com/)
+- **Optimasi Gambar**: [Sharp](https://sharp.pixelplumbing.com/) (AVIF / WebP Native Pipeline)
 - **Code Intelligence**: [Graphify](https://github.com/safishamsi/graphify)
