@@ -5,9 +5,13 @@
 # ==============================================================================
 set -e
 
+if [ -f .env ]; then
+  export $(grep -v '^#' .env | xargs)
+fi
+
 CONTAINER_NAME="miraisoftnet-db"
-DB_NAME="miraisoftnet_compro"
-DB_USER="postgres"
+DB_NAME="${POSTGRES_DB:-miraisoftnet_compro}"
+DB_USER="${POSTGRES_USER:-postgres}"
 
 echo "=== Memeriksa status container PostgreSQL ($CONTAINER_NAME) ==="
 if [ ! "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
