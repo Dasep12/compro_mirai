@@ -75,28 +75,32 @@ export default buildConfig({
   ],
   globals: [AboutUs],
   plugins: [
-    s3Storage({
-      collections: {
-        media: {
-          generateFileURL: ({ filename, prefix }) => {
-            const base = `https://${process.env.SUPABASE_PROJECT_ID || "rrovzatthpkjuwwwqxat"}.supabase.co/storage/v1/object/public/${process.env.SUPABASE_STORAGE_BUCKET || "media"}`;
-            return prefix ? `${base}/${prefix}/${filename}` : `${base}/${filename}`;
-          },
-        },
-      },
-      bucket: process.env.SUPABASE_STORAGE_BUCKET || "media",
-      config: {
-        credentials: {
-          accessKeyId: process.env.SUPABASE_S3_ACCESS_KEY_ID || "",
-          secretAccessKey: process.env.SUPABASE_S3_SECRET_ACCESS_KEY || "",
-        },
-        region: process.env.SUPABASE_S3_REGION || "ap-southeast-1",
-        endpoint:
-          process.env.SUPABASE_S3_ENDPOINT ||
-          `https://${process.env.SUPABASE_PROJECT_ID || "rrovzatthpkjuwwwqxat"}.storage.supabase.co/storage/v1/s3`,
-        forcePathStyle: true,
-      },
-    }),
+    ...(process.env.STORAGE_DRIVER !== "local" && process.env.SUPABASE_S3_ACCESS_KEY_ID
+      ? [
+          s3Storage({
+            collections: {
+              media: {
+                generateFileURL: ({ filename, prefix }) => {
+                  const base = `https://${process.env.SUPABASE_PROJECT_ID || "rrovzatthpkjuwwwqxat"}.supabase.co/storage/v1/object/public/${process.env.SUPABASE_STORAGE_BUCKET || "media"}`;
+                  return prefix ? `${base}/${prefix}/${filename}` : `${base}/${filename}`;
+                },
+              },
+            },
+            bucket: process.env.SUPABASE_STORAGE_BUCKET || "media",
+            config: {
+              credentials: {
+                accessKeyId: process.env.SUPABASE_S3_ACCESS_KEY_ID || "",
+                secretAccessKey: process.env.SUPABASE_S3_SECRET_ACCESS_KEY || "",
+              },
+              region: process.env.SUPABASE_S3_REGION || "ap-southeast-1",
+              endpoint:
+                process.env.SUPABASE_S3_ENDPOINT ||
+                `https://${process.env.SUPABASE_PROJECT_ID || "rrovzatthpkjuwwwqxat"}.storage.supabase.co/storage/v1/s3`,
+              forcePathStyle: true,
+            },
+          }),
+        ]
+      : []),
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET,

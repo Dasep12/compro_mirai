@@ -43,5 +43,5 @@ next-env.d.ts
 graphify-out/
 
 # Media uploads
-/media/*
-!/media/.gitkeep
+# /media/*
+# !/media/.gitkeep
