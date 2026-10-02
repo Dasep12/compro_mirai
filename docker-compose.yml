@@ -26,8 +26,13 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - HOSTNAME=0.0.0.0
+    volumes:
+      - next_cache:/app/.next/cache
     logging:
       driver: "json-file"
       options:
         max-size: "20m"
         max-file: "3"
+
+volumes:
+  next_cache:

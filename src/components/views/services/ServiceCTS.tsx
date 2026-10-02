@@ -31,12 +31,12 @@ export default function ServiceCTA({ service }: ServiceCTAProps) {
           Jadwalkan Konsultasi Gratis
         </Link>
 
-        <Link
+        {/* <Link
           href={service.heroBtn2Link || "https://tokomirai.com/" || "#"}
           className="bg-[#fa9f29] text-[#fdfdfd] font-semibold px-6 py-3 rounded-mirai hover:bg-[#e08b20] transition-colors no-underline flex items-center justify-center w-full sm:w-auto text-center shadow-sm"
         >
           Lihat Katalog
-        </Link>
+        </Link> */}
       </div>
     </section>
   );

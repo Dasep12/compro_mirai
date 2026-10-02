@@ -77,12 +77,12 @@ RUN groupadd --system --gid 1001 nodejs && \
 # Salin public assets
 COPY --from=builder /app/public ./public
 
-# Buat direktori .next dengan permission yang sesuai
-RUN mkdir .next && chown nextjs:nodejs .next
-
 # Salin output standalone Next.js dan file statis yang dioptimasi
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Pastikan folder cache Next.js ada dan dapat ditulis oleh user nextjs
+RUN mkdir -p .next/cache/images && chown -R nextjs:nodejs .next
 
 USER nextjs
 
