@@ -17,6 +17,10 @@ if [ ! -f .env ]; then
 fi
 echo "File .env ditemukan."
 
+echo "Memastikan izin folder media untuk container..."
+mkdir -p media
+chown -R 1001:1001 media 2>/dev/null || chmod -R 777 media 2>/dev/null || true
+
 echo "[3/5] Memulai proses build Docker image & menjalankan container..."
 docker compose up -d --build --remove-orphans
 
