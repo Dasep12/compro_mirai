@@ -83,6 +83,7 @@ npm run dev
 ```
 
 Buka peramban (browser) Anda:
+
 - **Website Publik**: [http://localhost:3000](http://localhost:3000)
 - **Panel Admin CMS**: [http://localhost:3000/admin](http://localhost:3000/admin)
 
@@ -137,6 +138,7 @@ docker compose ps
 1. **Git** terpasang (`sudo apt update && sudo apt install -y git`).
 2. **Docker & Docker Compose** terpasang.
 3. File `.env` sudah dibuat di root proyek dengan koneksi database antar-container:
+
    ```env
    # Di Server VPS, aplikasi terhubung ke service postgres lewat network Docker:
    DATABASE_URI=postgresql://postgres:YOUR_STRONG_PASSWORD@postgres:5432/miraisoftnet_compro
@@ -150,6 +152,7 @@ docker compose ps
 
 > [!IMPORTANT]
 > **Instalasi Docker di Linux VPS (Ubuntu / Debian):**
+>
 > ```bash
 > curl -fsSL https://get.docker.com -o get-docker.sh
 > sudo sh get-docker.sh
@@ -211,6 +214,7 @@ Untuk merestore file cadangan database:
 ```bash
 cat backup_file.sql | docker exec -i miraisoftnet-db psql -U postgres -d miraisoftnet_compro
 ```
+
 *Catatan: Setelah restore selesai, jalankan script sinkronisasi sequence di poin 1.*
 
 ### 4. Backup & Restore File Media
