@@ -13,6 +13,725 @@ SET row_security = off;
 
 SET session_replication_role = 'replica';
 
+-- ============================================================================
+
+-- 1. EXTENSIONS & ENUM TYPES
+
+-- ============================================================================
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_careers_category') THEN
+    CREATE TYPE "enum_careers_category" AS ENUM ('developer', 'administrasi', 'marketing', 'internship', 'freelance');
+  END IF;
+END $$;
+
+
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_careers_location') THEN
+    CREATE TYPE "enum_careers_location" AS ENUM ('On-Site', 'Hybrid', 'Remote');
+  END IF;
+END $$;
+
+
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_careers_type') THEN
+    CREATE TYPE "enum_careers_type" AS ENUM ('Full-Time', 'Part-Time', 'Contract', 'Internship');
+  END IF;
+END $$;
+
+
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_news_category') THEN
+    CREATE TYPE "enum_news_category" AS ENUM ('berita', 'pengumuman', 'acara', 'penghargaan', 'teknologi');
+  END IF;
+END $$;
+
+
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_portfolios_tags_theme') THEN
+    CREATE TYPE "enum_portfolios_tags_theme" AS ENUM ('software', 'hardware');
+  END IF;
+END $$;
+
+
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_services_floating_cards_bottom_right_dot_color') THEN
+    CREATE TYPE "enum_services_floating_cards_bottom_right_dot_color" AS ENUM ('green', 'orange', 'blue');
+  END IF;
+END $$;
+
+
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_services_floating_cards_top_left_dot_color') THEN
+    CREATE TYPE "enum_services_floating_cards_top_left_dot_color" AS ENUM ('green', 'orange', 'blue');
+  END IF;
+END $$;
+
+
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'enum_solution_categories_badge_color') THEN
+    CREATE TYPE "enum_solution_categories_badge_color" AS ENUM ('teal', 'blue', 'orange', 'purple', 'green');
+  END IF;
+END $$;
+
+
+
+-- ============================================================================
+
+-- 2. SEQUENCES
+
+-- ============================================================================
+
+CREATE SEQUENCE IF NOT EXISTS "about_us_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "careers_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "customers_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "faqs_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "industries_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "media_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "news_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "partnership_solutions_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "partnerships_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "payload_kv_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "payload_locked_documents_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "payload_locked_documents_rels_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "payload_migrations_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "payload_preferences_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "payload_preferences_rels_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "portfolios_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "portfolios_rels_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "pricing_faqs_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "problems_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "products_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "services_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "solution_categories_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "solutions_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "solutions_rels_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "users_id_seq";
+
+CREATE SEQUENCE IF NOT EXISTS "visitors_id_seq";
+
+
+-- ============================================================================
+
+-- 3. TABLE DEFINITIONS (DDL)
+
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS "about_us" (
+  "id" integer DEFAULT nextval('about_us_id_seq'::regclass) NOT NULL,
+  "hero_headline" varchar DEFAULT 'Mendorong Transformasi Digital Indonesia'::character varying NOT NULL,
+  "hero_description" varchar NOT NULL,
+  "hero_image_id" integer,
+  "vision_text" varchar NOT NULL,
+  "milestone_headline" varchar DEFAULT 'Jejak Langkah Kami'::character varying,
+  "team_headline" varchar DEFAULT 'Kenali Orang-orang di Balik Mirai Softnet'::character varying NOT NULL,
+  "team_description" varchar,
+  "cta_headline" varchar DEFAULT 'Siap Memulai Transformasi Digital Anda?'::character varying NOT NULL,
+  "cta_description" varchar,
+  "cta_button_text" varchar DEFAULT 'Hubungi Kami'::character varying NOT NULL,
+  "cta_button_link" varchar DEFAULT '/contact'::character varying NOT NULL,
+  "updated_at" timestamp with time zone,
+  "created_at" timestamp with time zone,
+  CONSTRAINT "about_us_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "about_us_core_values" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "icon_id" integer,
+  "title" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  CONSTRAINT "about_us_core_values_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "about_us_industries" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "icon_id" integer,
+  "name" varchar NOT NULL,
+  CONSTRAINT "about_us_industries_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "about_us_milestones" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "year" varchar NOT NULL,
+  "title" varchar NOT NULL,
+  "description" varchar,
+  CONSTRAINT "about_us_milestones_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "about_us_mission_list" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "mission_text" varchar NOT NULL,
+  CONSTRAINT "about_us_mission_list_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "about_us_strengths" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "title" varchar NOT NULL,
+  "description" varchar,
+  CONSTRAINT "about_us_strengths_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "about_us_team_members" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "photo_id" integer,
+  "name" varchar NOT NULL,
+  "position" varchar NOT NULL,
+  "linkedin" varchar,
+  CONSTRAINT "about_us_team_members_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "careers" (
+  "id" integer DEFAULT nextval('careers_id_seq'::regclass) NOT NULL,
+  "title" varchar NOT NULL,
+  "slug" varchar NOT NULL,
+  "is_urgent" boolean DEFAULT false,
+  "category" "enum_careers_category" NOT NULL,
+  "image_id" integer NOT NULL,
+  "short_description" varchar NOT NULL,
+  "skill" varchar NOT NULL,
+  "experience" varchar NOT NULL,
+  "location" "enum_careers_location" NOT NULL,
+  "type" "enum_careers_type" NOT NULL,
+  "content" jsonb NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "careers_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "customers" (
+  "id" integer DEFAULT nextval('customers_id_seq'::regclass) NOT NULL,
+  "name" varchar NOT NULL,
+  "logo_id" integer NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "customers_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "faqs" (
+  "id" integer DEFAULT nextval('faqs_id_seq'::regclass) NOT NULL,
+  "category_name" varchar NOT NULL,
+  "icon_id" integer,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "faqs_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "faqs_qna_list" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "question" varchar NOT NULL,
+  "answer" varchar NOT NULL,
+  CONSTRAINT "faqs_qna_list_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "industries" (
+  "id" integer DEFAULT nextval('industries_id_seq'::regclass) NOT NULL,
+  "name" varchar NOT NULL,
+  "slug" varchar,
+  "description" varchar,
+  "order" numeric DEFAULT 0,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "industries_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "media" (
+  "id" integer DEFAULT nextval('media_id_seq'::regclass) NOT NULL,
+  "alt" varchar NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "url" varchar,
+  "thumbnail_u_r_l" varchar,
+  "filename" varchar,
+  "mime_type" varchar,
+  "filesize" numeric,
+  "width" numeric,
+  "height" numeric,
+  "focal_x" numeric,
+  "focal_y" numeric,
+  "sizes_thumbnail_url" varchar,
+  "sizes_thumbnail_width" numeric,
+  "sizes_thumbnail_height" numeric,
+  "sizes_thumbnail_mime_type" varchar,
+  "sizes_thumbnail_filesize" numeric,
+  "sizes_thumbnail_filename" varchar,
+  "sizes_hero_url" varchar,
+  "sizes_hero_width" numeric,
+  "sizes_hero_height" numeric,
+  "sizes_hero_mime_type" varchar,
+  "sizes_hero_filesize" numeric,
+  "sizes_hero_filename" varchar,
+  "sizes_card_url" varchar,
+  "sizes_card_width" numeric,
+  "sizes_card_height" numeric,
+  "sizes_card_mime_type" varchar,
+  "sizes_card_filesize" numeric,
+  "sizes_card_filename" varchar,
+  CONSTRAINT "media_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "news" (
+  "id" integer DEFAULT nextval('news_id_seq'::regclass) NOT NULL,
+  "title" varchar NOT NULL,
+  "slug" varchar NOT NULL,
+  "category" "enum_news_category" NOT NULL,
+  "date" timestamp with time zone NOT NULL,
+  "image_id" integer NOT NULL,
+  "short_description" varchar NOT NULL,
+  "content" jsonb NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "thumbnail_id" integer,
+  CONSTRAINT "news_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "partnership_solutions" (
+  "id" integer DEFAULT nextval('partnership_solutions_id_seq'::regclass) NOT NULL,
+  "name" varchar NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "partnership_solutions_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "partnerships" (
+  "id" integer DEFAULT nextval('partnerships_id_seq'::regclass) NOT NULL,
+  "name" varchar NOT NULL,
+  "logo_id" integer NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "partnerships_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "payload_kv" (
+  "id" integer DEFAULT nextval('payload_kv_id_seq'::regclass) NOT NULL,
+  "key" varchar NOT NULL,
+  "data" jsonb NOT NULL,
+  CONSTRAINT "payload_kv_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "payload_locked_documents" (
+  "id" integer DEFAULT nextval('payload_locked_documents_id_seq'::regclass) NOT NULL,
+  "global_slug" varchar,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "payload_locked_documents_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "payload_locked_documents_rels" (
+  "id" integer DEFAULT nextval('payload_locked_documents_rels_id_seq'::regclass) NOT NULL,
+  "order" integer,
+  "parent_id" integer NOT NULL,
+  "path" varchar NOT NULL,
+  "users_id" integer,
+  "media_id" integer,
+  "services_id" integer,
+  "customers_id" integer,
+  "partnerships_id" integer,
+  "careers_id" integer,
+  "products_id" integer,
+  "faqs_id" integer,
+  "portfolios_id" integer,
+  "visitors_id" integer,
+  "pricing_faqs_id" integer,
+  "problems_id" integer,
+  "news_id" integer,
+  "solutions_id" integer,
+  "industries_id" integer,
+  "solution_categories_id" integer,
+  "partnership_solutions_id" integer,
+  CONSTRAINT "payload_locked_documents_rels_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "payload_migrations" (
+  "id" integer DEFAULT nextval('payload_migrations_id_seq'::regclass) NOT NULL,
+  "name" varchar,
+  "batch" numeric,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "payload_migrations_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "payload_preferences" (
+  "id" integer DEFAULT nextval('payload_preferences_id_seq'::regclass) NOT NULL,
+  "key" varchar,
+  "value" jsonb,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "payload_preferences_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "payload_preferences_rels" (
+  "id" integer DEFAULT nextval('payload_preferences_rels_id_seq'::regclass) NOT NULL,
+  "order" integer,
+  "parent_id" integer NOT NULL,
+  "path" varchar NOT NULL,
+  "users_id" integer,
+  CONSTRAINT "payload_preferences_rels_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "portfolios" (
+  "id" integer DEFAULT nextval('portfolios_id_seq'::regclass) NOT NULL,
+  "client_name" varchar NOT NULL,
+  "customer_id" integer,
+  "description" varchar NOT NULL,
+  "image_id" integer NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "portfolios_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "portfolios_achievements" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "text" varchar NOT NULL,
+  CONSTRAINT "portfolios_achievements_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "portfolios_rels" (
+  "id" integer DEFAULT nextval('portfolios_rels_id_seq'::regclass) NOT NULL,
+  "order" integer,
+  "parent_id" integer NOT NULL,
+  "path" varchar NOT NULL,
+  "services_id" integer,
+  CONSTRAINT "portfolios_rels_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "portfolios_tags" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "label" varchar NOT NULL,
+  "theme" "enum_portfolios_tags_theme" DEFAULT 'software'::enum_portfolios_tags_theme,
+  CONSTRAINT "portfolios_tags_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "pricing_faqs" (
+  "id" integer DEFAULT nextval('pricing_faqs_id_seq'::regclass) NOT NULL,
+  "question" varchar NOT NULL,
+  "answer" varchar NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "pricing_faqs_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "problems" (
+  "id" integer DEFAULT nextval('problems_id_seq'::regclass) NOT NULL,
+  "title" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "icon_id" integer NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "problems_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "products" (
+  "id" integer DEFAULT nextval('products_id_seq'::regclass) NOT NULL,
+  "name" varchar NOT NULL,
+  "product_url" varchar NOT NULL,
+  "badge" varchar,
+  "headline" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "image_id" integer NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "subtitle" varchar NOT NULL,
+  "icon_title_id" integer NOT NULL,
+  "cta_text" varchar DEFAULT 'Kunjungi Website'::character varying,
+  "full_description" jsonb,
+  "slug" varchar NOT NULL,
+  "benefit_title" varchar NOT NULL,
+  "benefit_description" varchar NOT NULL,
+  CONSTRAINT "products_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "products_benefits" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "title" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  CONSTRAINT "products_benefits_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "products_clients" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "client_logo_id" integer NOT NULL,
+  "client_name" varchar,
+  CONSTRAINT "products_clients_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "products_features" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "icon_id" integer,
+  "title" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "picture_id" integer,
+  CONSTRAINT "products_features_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "products_gallery" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "gallery_image_id" integer NOT NULL,
+  "caption" varchar,
+  CONSTRAINT "products_gallery_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "products_integrations" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "logo_id" integer,
+  "name" varchar NOT NULL,
+  CONSTRAINT "products_integrations_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "products_use_cases" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "industry" varchar NOT NULL,
+  CONSTRAINT "products_use_cases_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "services" (
+  "id" integer DEFAULT nextval('services_id_seq'::regclass) NOT NULL,
+  "title" varchar NOT NULL,
+  "slug" varchar NOT NULL,
+  "hero_badge" varchar,
+  "hero_description" varchar,
+  "hero_image_id" integer,
+  "hero_btn1_text" varchar,
+  "hero_btn1_link" varchar,
+  "hero_btn2_text" varchar,
+  "hero_btn2_link" varchar,
+  "show_problem" boolean DEFAULT true,
+  "problem_badge" varchar,
+  "problem_title" varchar,
+  "problem_subtitle" varchar,
+  "show_solution" boolean DEFAULT true,
+  "solution_badge" varchar,
+  "solution_title" varchar,
+  "show_process" boolean DEFAULT true,
+  "process_badge" varchar,
+  "process_title" varchar,
+  "process_subtitle" varchar,
+  "show_framework" boolean DEFAULT true,
+  "framework_title" varchar,
+  "framework_subtitle" varchar,
+  "show_benefit" boolean DEFAULT true,
+  "benefit_badge" varchar,
+  "benefit_title" varchar,
+  "benefit_subtitle" varchar,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "show_pricing" boolean DEFAULT true,
+  "pricing_pricing_headline" varchar,
+  "pricing_pricing_description" varchar,
+  "subtitle" varchar NOT NULL,
+  "icon_title_id" integer NOT NULL,
+  "dashboard_badge" varchar,
+  "dashboard_title" varchar,
+  "dashboard_subtitle" varchar,
+  "category" varchar,
+  "floating_cards_top_left_title" varchar,
+  "floating_cards_top_left_subtitle" varchar,
+  "floating_cards_top_left_dot_color" "enum_services_floating_cards_top_left_dot_color" DEFAULT 'green'::enum_services_floating_cards_top_left_dot_color,
+  "floating_cards_bottom_right_title" varchar,
+  "floating_cards_bottom_right_subtitle" varchar,
+  "floating_cards_bottom_right_dot_color" "enum_services_floating_cards_bottom_right_dot_color" DEFAULT 'orange'::enum_services_floating_cards_bottom_right_dot_color,
+  CONSTRAINT "services_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "services_benefit_cards" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "icon_id" integer,
+  "title" varchar,
+  "description" varchar,
+  CONSTRAINT "services_benefit_cards_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "services_framework_logos" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "logo_id" integer,
+  CONSTRAINT "services_framework_logos_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "services_pricing_tiers" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "is_popular" boolean DEFAULT false,
+  "tier_name" varchar,
+  "price" varchar,
+  "price_suffix" varchar,
+  "description" varchar,
+  "button_text" varchar,
+  "button_link" varchar,
+  CONSTRAINT "services_pricing_tiers_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "services_pricing_tiers_features" (
+  "_order" integer NOT NULL,
+  "_parent_id" varchar NOT NULL,
+  "id" varchar NOT NULL,
+  "feature_item" varchar,
+  CONSTRAINT "services_pricing_tiers_features_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "services_problem_cards" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "icon_id" integer,
+  "title" varchar,
+  "description" varchar,
+  CONSTRAINT "services_problem_cards_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "services_process_steps" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "icon_id" integer,
+  "title" varchar,
+  "description" varchar,
+  CONSTRAINT "services_process_steps_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "services_solution_list" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "badge" varchar,
+  "title" varchar,
+  "description" varchar,
+  "image_id" integer,
+  CONSTRAINT "services_solution_list_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "solution_categories" (
+  "id" integer DEFAULT nextval('solution_categories_id_seq'::regclass) NOT NULL,
+  "name" varchar NOT NULL,
+  "slug" varchar,
+  "badge_color" "enum_solution_categories_badge_color" DEFAULT 'teal'::enum_solution_categories_badge_color,
+  "description" varchar,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "solution_categories_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "solutions" (
+  "id" integer DEFAULT nextval('solutions_id_seq'::regclass) NOT NULL,
+  "title" varchar NOT NULL,
+  "slug" varchar,
+  "published_date" timestamp with time zone NOT NULL,
+  "excerpt" varchar NOT NULL,
+  "cover_image_id" integer,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "industry_id" integer NOT NULL,
+  "description" jsonb,
+  CONSTRAINT "solutions_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "solutions_rels" (
+  "id" integer DEFAULT nextval('solutions_rels_id_seq'::regclass) NOT NULL,
+  "order" integer,
+  "parent_id" integer NOT NULL,
+  "path" varchar NOT NULL,
+  "solution_categories_id" integer,
+  "partnership_solutions_id" integer,
+  CONSTRAINT "solutions_rels_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "users" (
+  "id" integer DEFAULT nextval('users_id_seq'::regclass) NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "email" varchar NOT NULL,
+  "reset_password_token" varchar,
+  "reset_password_expiration" timestamp with time zone,
+  "salt" varchar,
+  "hash" varchar,
+  "login_attempts" numeric DEFAULT 0,
+  "lock_until" timestamp with time zone,
+  CONSTRAINT "users_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "users_sessions" (
+  "_order" integer NOT NULL,
+  "_parent_id" integer NOT NULL,
+  "id" varchar NOT NULL,
+  "created_at" timestamp with time zone,
+  "expires_at" timestamp with time zone NOT NULL,
+  CONSTRAINT "users_sessions_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "visitors" (
+  "id" integer DEFAULT nextval('visitors_id_seq'::regclass) NOT NULL,
+  "name" varchar NOT NULL,
+  "email" varchar NOT NULL,
+  "phone" varchar NOT NULL,
+  "message" varchar NOT NULL,
+  "updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+  "created_at" timestamp with time zone DEFAULT now() NOT NULL,
+  CONSTRAINT "visitors_pkey" PRIMARY KEY ("id")
+);
+
+-- ============================================================================-- 4. DATA (INSERT INTO)-- ============================================================================
 -- Data untuk tabel: "about_us" (1 rows)
 TRUNCATE TABLE "about_us" CASCADE;
 INSERT INTO "about_us" ("id", "hero_headline", "hero_description", "hero_image_id", "vision_text", "milestone_headline", "team_headline", "team_description", "cta_headline", "cta_description", "cta_button_text", "cta_button_link", "updated_at", "created_at") VALUES
@@ -4296,4 +5015,339 @@ INSERT INTO "users_sessions" ("_order", "_parent_id", "id", "created_at", "expir
       END $$;
     
 
-SET session_replication_role = 'DEFAULT';
+SET session_replication_role = 'origin';
+
+
+-- ============================================================================
+
+-- 5. INDEXES
+
+-- ============================================================================
+
+CREATE INDEX IF NOT EXISTS about_us_hero_image_idx ON public.about_us USING btree (hero_image_id);
+
+CREATE INDEX IF NOT EXISTS about_us_core_values_icon_idx ON public.about_us_core_values USING btree (icon_id);
+
+CREATE INDEX IF NOT EXISTS about_us_core_values_order_idx ON public.about_us_core_values USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS about_us_core_values_parent_id_idx ON public.about_us_core_values USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS about_us_industries_icon_idx ON public.about_us_industries USING btree (icon_id);
+
+CREATE INDEX IF NOT EXISTS about_us_industries_order_idx ON public.about_us_industries USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS about_us_industries_parent_id_idx ON public.about_us_industries USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS about_us_milestones_order_idx ON public.about_us_milestones USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS about_us_milestones_parent_id_idx ON public.about_us_milestones USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS about_us_mission_list_order_idx ON public.about_us_mission_list USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS about_us_mission_list_parent_id_idx ON public.about_us_mission_list USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS about_us_strengths_order_idx ON public.about_us_strengths USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS about_us_strengths_parent_id_idx ON public.about_us_strengths USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS about_us_team_members_order_idx ON public.about_us_team_members USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS about_us_team_members_parent_id_idx ON public.about_us_team_members USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS about_us_team_members_photo_idx ON public.about_us_team_members USING btree (photo_id);
+
+CREATE INDEX IF NOT EXISTS careers_created_at_idx ON public.careers USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS careers_image_idx ON public.careers USING btree (image_id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS careers_slug_idx ON public.careers USING btree (slug);
+
+CREATE INDEX IF NOT EXISTS careers_updated_at_idx ON public.careers USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS customers_created_at_idx ON public.customers USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS customers_logo_idx ON public.customers USING btree (logo_id);
+
+CREATE INDEX IF NOT EXISTS customers_updated_at_idx ON public.customers USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS faqs_created_at_idx ON public.faqs USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS faqs_icon_idx ON public.faqs USING btree (icon_id);
+
+CREATE INDEX IF NOT EXISTS faqs_updated_at_idx ON public.faqs USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS faqs_qna_list_order_idx ON public.faqs_qna_list USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS faqs_qna_list_parent_id_idx ON public.faqs_qna_list USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS industries_created_at_idx ON public.industries USING btree (created_at);
+
+CREATE UNIQUE INDEX IF NOT EXISTS industries_slug_idx ON public.industries USING btree (slug);
+
+CREATE INDEX IF NOT EXISTS industries_updated_at_idx ON public.industries USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS media_created_at_idx ON public.media USING btree (created_at);
+
+CREATE UNIQUE INDEX IF NOT EXISTS media_filename_idx ON public.media USING btree (filename);
+
+CREATE INDEX IF NOT EXISTS media_sizes_card_sizes_card_filename_idx ON public.media USING btree (sizes_card_filename);
+
+CREATE INDEX IF NOT EXISTS media_sizes_hero_sizes_hero_filename_idx ON public.media USING btree (sizes_hero_filename);
+
+CREATE INDEX IF NOT EXISTS media_sizes_thumbnail_sizes_thumbnail_filename_idx ON public.media USING btree (sizes_thumbnail_filename);
+
+CREATE INDEX IF NOT EXISTS media_updated_at_idx ON public.media USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS news_created_at_idx ON public.news USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS news_image_idx ON public.news USING btree (image_id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS news_slug_idx ON public.news USING btree (slug);
+
+CREATE INDEX IF NOT EXISTS news_thumbnail_idx ON public.news USING btree (thumbnail_id);
+
+CREATE INDEX IF NOT EXISTS news_updated_at_idx ON public.news USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS partnership_solutions_created_at_idx ON public.partnership_solutions USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS partnership_solutions_updated_at_idx ON public.partnership_solutions USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS partnerships_created_at_idx ON public.partnerships USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS partnerships_logo_idx ON public.partnerships USING btree (logo_id);
+
+CREATE INDEX IF NOT EXISTS partnerships_updated_at_idx ON public.partnerships USING btree (updated_at);
+
+CREATE UNIQUE INDEX IF NOT EXISTS payload_kv_key_idx ON public.payload_kv USING btree (key);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_created_at_idx ON public.payload_locked_documents USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_global_slug_idx ON public.payload_locked_documents USING btree (global_slug);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_updated_at_idx ON public.payload_locked_documents USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_careers_id_idx ON public.payload_locked_documents_rels USING btree (careers_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_customers_id_idx ON public.payload_locked_documents_rels USING btree (customers_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_faqs_id_idx ON public.payload_locked_documents_rels USING btree (faqs_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_industries_id_idx ON public.payload_locked_documents_rels USING btree (industries_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_media_id_idx ON public.payload_locked_documents_rels USING btree (media_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_news_id_idx ON public.payload_locked_documents_rels USING btree (news_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_order_idx ON public.payload_locked_documents_rels USING btree ("order");
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_parent_idx ON public.payload_locked_documents_rels USING btree (parent_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_partnership_solutions_id_idx ON public.payload_locked_documents_rels USING btree (partnership_solutions_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_partnerships_id_idx ON public.payload_locked_documents_rels USING btree (partnerships_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_path_idx ON public.payload_locked_documents_rels USING btree (path);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_portfolios_id_idx ON public.payload_locked_documents_rels USING btree (portfolios_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_pricing_faqs_id_idx ON public.payload_locked_documents_rels USING btree (pricing_faqs_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_problems_id_idx ON public.payload_locked_documents_rels USING btree (problems_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_products_id_idx ON public.payload_locked_documents_rels USING btree (products_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_services_id_idx ON public.payload_locked_documents_rels USING btree (services_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_solution_categories_id_idx ON public.payload_locked_documents_rels USING btree (solution_categories_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_solutions_id_idx ON public.payload_locked_documents_rels USING btree (solutions_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_users_id_idx ON public.payload_locked_documents_rels USING btree (users_id);
+
+CREATE INDEX IF NOT EXISTS payload_locked_documents_rels_visitors_id_idx ON public.payload_locked_documents_rels USING btree (visitors_id);
+
+CREATE INDEX IF NOT EXISTS payload_migrations_created_at_idx ON public.payload_migrations USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS payload_migrations_updated_at_idx ON public.payload_migrations USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS payload_preferences_created_at_idx ON public.payload_preferences USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS payload_preferences_key_idx ON public.payload_preferences USING btree (key);
+
+CREATE INDEX IF NOT EXISTS payload_preferences_updated_at_idx ON public.payload_preferences USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS payload_preferences_rels_order_idx ON public.payload_preferences_rels USING btree ("order");
+
+CREATE INDEX IF NOT EXISTS payload_preferences_rels_parent_idx ON public.payload_preferences_rels USING btree (parent_id);
+
+CREATE INDEX IF NOT EXISTS payload_preferences_rels_path_idx ON public.payload_preferences_rels USING btree (path);
+
+CREATE INDEX IF NOT EXISTS payload_preferences_rels_users_id_idx ON public.payload_preferences_rels USING btree (users_id);
+
+CREATE INDEX IF NOT EXISTS portfolios_created_at_idx ON public.portfolios USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS portfolios_customer_idx ON public.portfolios USING btree (customer_id);
+
+CREATE INDEX IF NOT EXISTS portfolios_image_idx ON public.portfolios USING btree (image_id);
+
+CREATE INDEX IF NOT EXISTS portfolios_updated_at_idx ON public.portfolios USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS portfolios_achievements_order_idx ON public.portfolios_achievements USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS portfolios_achievements_parent_id_idx ON public.portfolios_achievements USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS portfolios_rels_order_idx ON public.portfolios_rels USING btree ("order");
+
+CREATE INDEX IF NOT EXISTS portfolios_rels_parent_idx ON public.portfolios_rels USING btree (parent_id);
+
+CREATE INDEX IF NOT EXISTS portfolios_rels_path_idx ON public.portfolios_rels USING btree (path);
+
+CREATE INDEX IF NOT EXISTS portfolios_rels_services_id_idx ON public.portfolios_rels USING btree (services_id);
+
+CREATE INDEX IF NOT EXISTS portfolios_tags_order_idx ON public.portfolios_tags USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS portfolios_tags_parent_id_idx ON public.portfolios_tags USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS pricing_faqs_created_at_idx ON public.pricing_faqs USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS pricing_faqs_updated_at_idx ON public.pricing_faqs USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS problems_created_at_idx ON public.problems USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS problems_icon_idx ON public.problems USING btree (icon_id);
+
+CREATE INDEX IF NOT EXISTS problems_updated_at_idx ON public.problems USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS products_created_at_idx ON public.products USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS products_icon_title_idx ON public.products USING btree (icon_title_id);
+
+CREATE INDEX IF NOT EXISTS products_image_idx ON public.products USING btree (image_id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS products_slug_idx ON public.products USING btree (slug);
+
+CREATE INDEX IF NOT EXISTS products_updated_at_idx ON public.products USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS products_benefits_order_idx ON public.products_benefits USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS products_benefits_parent_id_idx ON public.products_benefits USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS products_clients_client_logo_idx ON public.products_clients USING btree (client_logo_id);
+
+CREATE INDEX IF NOT EXISTS products_clients_order_idx ON public.products_clients USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS products_clients_parent_id_idx ON public.products_clients USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS products_features_icon_idx ON public.products_features USING btree (icon_id);
+
+CREATE INDEX IF NOT EXISTS products_features_order_idx ON public.products_features USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS products_features_parent_id_idx ON public.products_features USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS products_features_picture_idx ON public.products_features USING btree (picture_id);
+
+CREATE INDEX IF NOT EXISTS products_gallery_gallery_image_idx ON public.products_gallery USING btree (gallery_image_id);
+
+CREATE INDEX IF NOT EXISTS products_gallery_order_idx ON public.products_gallery USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS products_gallery_parent_id_idx ON public.products_gallery USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS products_integrations_logo_idx ON public.products_integrations USING btree (logo_id);
+
+CREATE INDEX IF NOT EXISTS products_integrations_order_idx ON public.products_integrations USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS products_integrations_parent_id_idx ON public.products_integrations USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS products_use_cases_order_idx ON public.products_use_cases USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS products_use_cases_parent_id_idx ON public.products_use_cases USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS services_created_at_idx ON public.services USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS services_hero_image_idx ON public.services USING btree (hero_image_id);
+
+CREATE INDEX IF NOT EXISTS services_icon_title_idx ON public.services USING btree (icon_title_id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS services_slug_idx ON public.services USING btree (slug);
+
+CREATE INDEX IF NOT EXISTS services_updated_at_idx ON public.services USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS services_benefit_cards_icon_idx ON public.services_benefit_cards USING btree (icon_id);
+
+CREATE INDEX IF NOT EXISTS services_benefit_cards_order_idx ON public.services_benefit_cards USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS services_benefit_cards_parent_id_idx ON public.services_benefit_cards USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS services_framework_logos_logo_idx ON public.services_framework_logos USING btree (logo_id);
+
+CREATE INDEX IF NOT EXISTS services_framework_logos_order_idx ON public.services_framework_logos USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS services_framework_logos_parent_id_idx ON public.services_framework_logos USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS services_pricing_tiers_order_idx ON public.services_pricing_tiers USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS services_pricing_tiers_parent_id_idx ON public.services_pricing_tiers USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS services_pricing_tiers_features_order_idx ON public.services_pricing_tiers_features USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS services_pricing_tiers_features_parent_id_idx ON public.services_pricing_tiers_features USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS services_problem_cards_icon_idx ON public.services_problem_cards USING btree (icon_id);
+
+CREATE INDEX IF NOT EXISTS services_problem_cards_order_idx ON public.services_problem_cards USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS services_problem_cards_parent_id_idx ON public.services_problem_cards USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS services_process_steps_icon_idx ON public.services_process_steps USING btree (icon_id);
+
+CREATE INDEX IF NOT EXISTS services_process_steps_order_idx ON public.services_process_steps USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS services_process_steps_parent_id_idx ON public.services_process_steps USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS services_solution_list_image_idx ON public.services_solution_list USING btree (image_id);
+
+CREATE INDEX IF NOT EXISTS services_solution_list_order_idx ON public.services_solution_list USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS services_solution_list_parent_id_idx ON public.services_solution_list USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS solution_categories_created_at_idx ON public.solution_categories USING btree (created_at);
+
+CREATE UNIQUE INDEX IF NOT EXISTS solution_categories_slug_idx ON public.solution_categories USING btree (slug);
+
+CREATE INDEX IF NOT EXISTS solution_categories_updated_at_idx ON public.solution_categories USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS solutions_cover_image_idx ON public.solutions USING btree (cover_image_id);
+
+CREATE INDEX IF NOT EXISTS solutions_created_at_idx ON public.solutions USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS solutions_industry_idx ON public.solutions USING btree (industry_id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS solutions_slug_idx ON public.solutions USING btree (slug);
+
+CREATE INDEX IF NOT EXISTS solutions_updated_at_idx ON public.solutions USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS solutions_rels_order_idx ON public.solutions_rels USING btree ("order");
+
+CREATE INDEX IF NOT EXISTS solutions_rels_parent_idx ON public.solutions_rels USING btree (parent_id);
+
+CREATE INDEX IF NOT EXISTS solutions_rels_partnership_solutions_id_idx ON public.solutions_rels USING btree (partnership_solutions_id);
+
+CREATE INDEX IF NOT EXISTS solutions_rels_path_idx ON public.solutions_rels USING btree (path);
+
+CREATE INDEX IF NOT EXISTS solutions_rels_solution_categories_id_idx ON public.solutions_rels USING btree (solution_categories_id);
+
+CREATE INDEX IF NOT EXISTS users_created_at_idx ON public.users USING btree (created_at);
+
+CREATE UNIQUE INDEX IF NOT EXISTS users_email_idx ON public.users USING btree (email);
+
+CREATE INDEX IF NOT EXISTS users_updated_at_idx ON public.users USING btree (updated_at);
+
+CREATE INDEX IF NOT EXISTS users_sessions_order_idx ON public.users_sessions USING btree (_order);
+
+CREATE INDEX IF NOT EXISTS users_sessions_parent_id_idx ON public.users_sessions USING btree (_parent_id);
+
+CREATE INDEX IF NOT EXISTS visitors_created_at_idx ON public.visitors USING btree (created_at);
+
+CREATE INDEX IF NOT EXISTS visitors_updated_at_idx ON public.visitors USING btree (updated_at);
+
+SET session_replication_role = 'origin';
