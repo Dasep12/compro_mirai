@@ -47,8 +47,8 @@ export default function AboutUsHero({ data }: AboutHeroProps) {
           </p>
         </div>
 
-        <div className="w-full lg:w-1/2 xl:w-[540px] 2xl:w-[600px] h-[280px] sm:h-[400px] md:h-[480px] lg:h-[500px] xl:h-[540px] 2xl:h-[600px] shrink-0 rounded-[20px] overflow-hidden relative bg-[#fdfdfd] p-3 sm:p-4 shadow-sm group">
-          {imageUrl ? (
+        {imageUrl ? (
+          <div className="w-full lg:w-1/2 xl:w-[540px] 2xl:w-[600px] h-[280px] sm:h-[400px] md:h-[480px] lg:h-[500px] xl:h-[540px] 2xl:h-[600px] shrink-0 rounded-[20px] overflow-hidden relative bg-[#fdfdfd] p-3 sm:p-4 shadow-sm group">
             <Image
               src={imageUrl}
               alt={imageAlt || "Mirai Softnet Overview"}
@@ -58,14 +58,9 @@ export default function AboutUsHero({ data }: AboutHeroProps) {
               sizes="(max-width: 1280px) 100vw, 600px"
               className="object-cover rounded-[20px]"
             />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-[#7eb2fc]/10 text-gray-400 font-medium rounded-[20px]">
-              Ilustrasi Company Profile
-            </div>
-          )}
-
-          <div className="absolute inset-0 border border-black/5 pointer-events-none rounded-[20px]" />
+            <div className="absolute inset-0 border border-black/5 pointer-events-none rounded-[20px]" />
         </div>
+        ) : (<></>)}
       </div>
     </section>
   );

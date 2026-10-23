@@ -82,8 +82,7 @@ export const metadata: Metadata = {
     url: "https://miraisoftnet.com",
     title: "Mirai Softnet & Technology",
     siteName: "Mirai Softnet",
-    description:
-      "Memberikan solusi teknologi terbaik untuk akselerasi bisnis Anda melalui layanan IT dan pengembangan produk unggulan.",
+    description: "Memberikan solusi teknologi terbaik untuk akselerasi bisnis Anda melalui layanan IT dan pengembangan produk unggulan.",
     images: [
       {
         url: "/api/media/file/mirai-black.png",
