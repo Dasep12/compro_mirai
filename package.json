@@ -12,32 +12,38 @@
     "generate:importmap": "payload generate:importmap"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "^3.84.1",
-    "@payloadcms/next": "^3.84.1",
-    "@payloadcms/richtext-lexical": "^3.84.1",
-    "@payloadcms/storage-s3": "^3.84.1",
+    "@payloadcms/db-postgres": "^3.92.0",
+    "@payloadcms/next": "^3.92.0",
+    "@payloadcms/richtext-lexical": "^3.92.0",
+    "@payloadcms/storage-s3": "^3.92.0",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.105.4",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "graphql": "^16.14.0",
     "lucide-react": "^1.16.0",
-    "next": "^16.2.6",
-    "payload": "^3.84.1",
+    "next": "^16.4.3",
+    "payload": "^3.92.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.5",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^24.19.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "cross-env": "^10.1.0",
     "eslint": "^9",
-    "eslint-config-next": "16.2.6",
+    "eslint-config-next": "^16.4.3",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "dompurify": "^3.4.17"
+  },
+  "engines": {
+    "node": ">=24.22.1"
   }
 }

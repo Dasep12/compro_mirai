@@ -6,7 +6,7 @@
 # ------------------------------------------------------------------------------
 # 1. Base Stage
 # ------------------------------------------------------------------------------
-FROM node:20-slim AS base
+FROM node:24.22.1-slim AS base
 WORKDIR /app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl ca-certificates && \
