@@ -37,14 +37,10 @@ export default function Footer({ services, products }: FooterProps) {
               <span className="font-semibold text-[#74e0d3]">Email:</span>{" "}
               marketing@miraisoftnet.com
             </span>
-            <span className="flex items-center gap-2">
-              <span className="font-semibold text-[#74e0d3]">Jam Kerja:</span>{" "}
-              Senin - Jumat (07.15 - 16:00)
-            </span>
           </div>
         </div>
 
-        <div className="flex flex-col gap-3" /> 
+        <div className="flex flex-col gap-3" />
 
         <div className="flex flex-col gap-3">
           <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
@@ -77,25 +73,25 @@ export default function Footer({ services, products }: FooterProps) {
         </div>
 
         {/* <div className="flex flex-col gap-3"> */}
-          {/* <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
+        {/* <h3 className="font-bold text-[#74e0d3] leading-[140%] uppercase tracking-wider text-[14px] mb-1">
             Akses Cepat
           </h3> */}
-          {/* <Link
+        {/* <Link
             href="/pricing"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Harga
           </Link> */}
 
-          {/* Open if there is a new product in the future */}
-          {/* <Link
+        {/* Open if there is a new product in the future */}
+        {/* <Link
             href="/careers"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
           >
             Karir
           </Link> */}
 
-          {/* <Link
+        {/* <Link
             href="https://tokomirai.com/"
             target="_blank"
             className="leading-[140%] font-semibold hover:text-[#74e0d3] transition-colors no-underline hover:no-underline opacity-90 hover:opacity-100 text-[14px] lg:text-[15px]"
@@ -139,8 +135,8 @@ export default function Footer({ services, products }: FooterProps) {
 
       <div className="w-full border-t border-[#fdfdfd]/20 flex flex-col sm:flex-row items-center justify-between pt-5 gap-4 text-[13px] text-[#fdfdfd]/70">
         <p className="text-center sm:text-left order-2 sm:order-1">
-          &copy; {currentYear} PT Mirai Softnet & Technology. Hak Cipta Dilindungi
-          Undang-Undang.
+          &copy; {currentYear} PT Mirai Softnet & Technology. Hak Cipta
+          Dilindungi Undang-Undang.
         </p>
         <div className="flex items-center gap-6 order-1 sm:order-2">
           <span className="text-[#74e0d3]/90 font-medium">
