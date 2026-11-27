@@ -1,4 +1,5 @@
 import { AboutUs } from "../../../../payload-types";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 interface AboutMilestonesProps {
   data: AboutUs;
@@ -12,9 +13,9 @@ export default function AboutMilestones({ data }: AboutMilestonesProps) {
   return (
     <section className="w-full relative overflow-hidden bg-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 xl:py-[80px] flex flex-col items-center gap-10 sm:gap-12 lg:gap-[60px] font-sans">
       <div className="flex flex-col items-center gap-3 sm:gap-4 text-center max-w-[800px]">
-        <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] text-[14px] font-medium leading-[120%] tracking-wide uppercase">
+        <SectionLabel align="center">
           REKAM JEJAK
-        </div>
+        </SectionLabel>
         <h2 className="text-[28px] sm:text-[34px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] text-[#010101]">
           {data.milestoneHeadline || "Jejak Langkah Perjalanan Kami"}
         </h2>

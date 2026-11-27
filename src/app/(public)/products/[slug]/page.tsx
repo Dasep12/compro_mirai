@@ -43,11 +43,11 @@ export default async function ProductPage({ params }: PageProps) {
       </FadeInUp>
 
       <FadeInUp>
-        <ProductEcosystem product={product} />
+        <ProductImplementation product={product} />
       </FadeInUp>
 
       <FadeInUp>
-        <ProductImplementation product={product} />
+        <ProductEcosystem product={product} />
       </FadeInUp>
 
       <FadeInUp>

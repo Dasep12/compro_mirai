@@ -1,4 +1,5 @@
 import React from "react";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { AboutUs } from "../../../../payload-types";
 
 interface AboutVisionMissionProps {
@@ -16,9 +17,9 @@ export default function AboutVisionMission({ data }: AboutVisionMissionProps) {
   return (
     <section className="w-full relative flex flex-col items-center px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 xl:py-[80px] gap-12 lg:gap-[80px] bg-[#fdfdfd] font-sans">
       <div className="w-full flex flex-col items-center justify-center text-center gap-4 sm:gap-6 lg:gap-[24px] max-w-[900px]">
-        <div className="bg-brand-100/15 text-primary rounded-full px-[14px] py-[5px] text-[14px] font-bold leading-[180%] tracking-wide uppercase">
+        <SectionLabel align="center">
           Visi Perusahaan
-        </div>
+        </SectionLabel>
 
         <div className="relative inline-flex flex-col items-center mt-4">
           <svg

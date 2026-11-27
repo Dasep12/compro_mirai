@@ -1,4 +1,5 @@
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { AboutUs } from "../../../../payload-types";
 
 interface AboutHeroProps {
@@ -32,9 +33,9 @@ export default function AboutUsHero({ data }: AboutHeroProps) {
       />
       <div className="w-full flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-[40px] xl:gap-[60px]">
         <div className="flex-1 flex flex-col items-start gap-3 sm:gap-4 lg:gap-[16px] w-full animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <div className="bg-[#0451bf] text-[#fdfdfd] rounded-full px-[14px] py-[5px] text-[14px] font-medium leading-[180%] tracking-wide uppercase">
+          <SectionLabel>
             TENTANG KAMI
-          </div>
+          </SectionLabel>
 
           <h1 className="text-[28px] sm:text-[36px] lg:text-[40px] xl:text-[46px] font-bold leading-[130%] sm:leading-[125%] text-[#010101] tracking-tight text-left max-w-2xl lg:max-w-full">
             {data?.heroHeadline || "Mendorong Transformasi Digital Indonesia"}

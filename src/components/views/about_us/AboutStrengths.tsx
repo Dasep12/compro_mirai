@@ -1,4 +1,5 @@
 import { AboutUs } from "../../../../payload-types";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 interface AboutStrengthsProps {
   data: AboutUs;
@@ -17,9 +18,9 @@ export default function AboutStrengths({ data }: AboutStrengthsProps) {
       <div className="w-full flex flex-col lg:flex-row gap-10 sm:gap-12 lg:gap-[60px] xl:gap-[100px] relative z-10">
         <div className="w-full lg:w-[420px] xl:w-[500px] shrink-0">
           <div className="sticky flex flex-col items-start gap-5">
-            <div className="bg-[#fdfdfd]/10 text-[#7eb2fc] border border-[#7eb2fc]/30 rounded-full px-[16px] py-[6px] text-[14px] font-bold leading-[120%] tracking-wider uppercase backdrop-blur-sm">
+            <SectionLabel tone="inverse">
               MENGAPA KAMI?
-            </div>
+            </SectionLabel>
 
             <h2 className="text-[28px] sm:text-[34px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] sm:leading-[120%] text-[#fdfdfd] tracking-tight">
               Keunggulan Kompetitif Kami

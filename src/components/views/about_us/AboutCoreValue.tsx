@@ -1,4 +1,5 @@
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { AboutUs } from "../../../../payload-types";
 
 interface AboutCoreValuesProps {
@@ -13,9 +14,9 @@ export default function AboutCoreValues({ data }: AboutCoreValuesProps) {
   return (
     <section className="w-full relative overflow-hidden flex flex-col items-center bg-[#7eb2fc]/5 px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 gap-8 lg:gap-10 text-[#010101] font-sans">
       <div className="flex flex-col items-center gap-4 text-center max-w-[800px]">
-        <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] text-[14px] font-medium leading-[120%] tracking-wide uppercase">
+        <SectionLabel align="center">
           NILAI INTI
-        </div>
+        </SectionLabel>
 
         <h2 className="text-[28px] sm:text-[36px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] max-w-4xl">
           Prinsip Kerja Kami

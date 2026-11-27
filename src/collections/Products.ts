@@ -250,17 +250,33 @@ export const Products: CollectionConfig = {
       label: "Gambar Utuh Cara Kerja (Opsional)",
       admin: {
         description:
-          "Jika diisi, gambar lebar penuh ditampilkan menggantikan tab dan daftar jalur. Kosongkan untuk menampilkan daftar jalur.",
+          "Gambar lebar penuh opsional yang ditampilkan di bawah seluruh langkah untuk menjelaskan alur lebih detail.",
       },
+    },
+    {
+      name: "workflowSteps",
+      type: "array",
+      label: "Tahapan Cara Kerja Produk",
+      labels: { singular: "Langkah", plural: "Langkah" },
+      admin: {
+        description:
+          "Satu urutan workflow dari awal sampai akhir. Jika lebih dari empat langkah, tampilan berlanjut ke baris berikutnya dengan arah berbalik.",
+        initCollapsed: true,
+      },
+      fields: [
+        { name: "title", type: "text", required: true, label: "Nama Langkah" },
+        { name: "description", type: "textarea", label: "Penjelasan Langkah (Opsional)" },
+      ],
     },
     {
       name: "workflowTracks",
       type: "array",
-      label: "Jalur Cara Kerja Produk",
+      label: "Jalur Cara Kerja Produk (Legacy)",
       labels: { singular: "Jalur", plural: "Jalur" },
       admin: {
+        hidden: true,
         description:
-          "Gunakan beberapa jalur untuk proses yang bercabang, misalnya Staff dan Non-Staff. Bagian tidak tampil jika tidak ada langkah.",
+          "Data lama yang dipertahankan agar perubahan workflow tidak menghapus data tersimpan.",
         initCollapsed: true,
       },
       fields: [
@@ -277,17 +293,8 @@ export const Products: CollectionConfig = {
           labels: { singular: "Langkah", plural: "Langkah" },
           minRows: 1,
           fields: [
-            {
-              name: "title",
-              type: "text",
-              required: true,
-              label: "Nama Langkah",
-            },
-            {
-              name: "description",
-              type: "textarea",
-              label: "Penjelasan Langkah (Opsional)",
-            },
+            { name: "title", type: "text", required: true, label: "Nama Langkah" },
+            { name: "description", type: "textarea", label: "Penjelasan Langkah (Opsional)" },
           ],
         },
       ],

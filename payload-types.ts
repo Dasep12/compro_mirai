@@ -536,11 +536,21 @@ export interface Product {
   workflowTitle?: string | null;
   workflowDescription?: string | null;
   /**
-   * Jika diisi, gambar lebar penuh ditampilkan menggantikan tab dan daftar jalur. Kosongkan untuk menampilkan daftar jalur.
+   * Gambar lebar penuh opsional yang ditampilkan di bawah seluruh langkah untuk menjelaskan alur lebih detail.
    */
   workflowImage?: (number | null) | Media;
   /**
-   * Gunakan beberapa jalur untuk proses yang bercabang, misalnya Staff dan Non-Staff. Bagian tidak tampil jika tidak ada langkah.
+   * Satu urutan workflow dari awal sampai akhir. Jika lebih dari empat langkah, tampilan berlanjut ke baris berikutnya dengan arah berbalik.
+   */
+  workflowSteps?:
+    | {
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Data lama yang dipertahankan agar perubahan workflow tidak menghapus data tersimpan.
    */
   workflowTracks?:
     | {
@@ -1261,6 +1271,13 @@ export interface ProductsSelect<T extends boolean = true> {
   workflowTitle?: T;
   workflowDescription?: T;
   workflowImage?: T;
+  workflowSteps?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   workflowTracks?:
     | T
     | {

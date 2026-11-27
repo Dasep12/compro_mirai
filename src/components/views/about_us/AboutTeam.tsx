@@ -1,5 +1,6 @@
 import Image from "@/components/ui/Image";
 import Link from "next/link";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { AboutUs } from "../../../../payload-types";
 
 interface AboutTeamProps {
@@ -16,9 +17,9 @@ export default function AboutTeam({ data }: AboutTeamProps) {
       <div className="absolute top-0 left-0 w-full h-[400px] bg-linear-to-b from-[#7eb2fc]/10 to-transparent -z-10" />
 
       <div className="flex flex-col items-center text-center gap-4 relative z-10 w-full">
-        <div className="bg-primary text-white rounded-full px-[16px] py-[6px] text-[14px] font-bold leading-[120%] tracking-wide uppercase">
+        <SectionLabel align="center">
           Tim Kami
-        </div>
+        </SectionLabel>
 
         <h2 className="text-[28px] sm:text-[34px] lg:text-[38px] xl:text-[42px] font-bold leading-[125%] text-[#010101] tracking-tight max-w-2xl">
           {data.teamHeadline || "Tim Pakar di Balik Mirai Softnet"}

@@ -1,4 +1,5 @@
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { AboutUs } from "../../../../payload-types";
 
 interface AboutIndustriesProps {
@@ -13,9 +14,9 @@ export default function AboutIndustries({ data }: AboutIndustriesProps) {
   return (
     <section className="w-full relative flex flex-col items-center bg-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 xl:py-[80px] gap-8 lg:gap-[40px] text-[#010101] font-sans">
       <div className="flex flex-col items-center gap-3 sm:gap-4 text-center max-w-[800px]">
-        <div className="bg-[#7eb2fc]/15 text-[#0451bf] rounded-full px-[16px] py-[6px] text-[14px] font-bold leading-[120%] tracking-wide uppercase">
+        <SectionLabel align="center">
           SEKTOR INDUSTRI
-        </div>
+        </SectionLabel>
 
         <h2 className="text-[28px] sm:text-[34px] lg:text-[38px] xl:text-[42px] font-bold leading-[125%] text-[#010101]">
           Industri <span className="text-[#0451bf]">yang Kami Layani</span>

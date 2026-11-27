@@ -61,40 +61,16 @@ Isi array `benefits`:
 
 ## Cara kerja produk
 
-Isi field `workflowTitle` dan `workflowDescription`, lalu array `workflowTracks`. Nama serta urutan tahap di bawah berasal dari bahan sumber; minta pemilik produk memverifikasinya sebelum dipublikasikan. Jika ingin menampilkan satu diagram utuh, isi `workflowImage`; gambar akan menggantikan tab dan daftar jalur. Jika gambar dikosongkan, daftar jalur kembali ditampilkan.
+Workflow menggunakan satu urutan langkah, maksimal empat kartu per baris. Baris berikutnya membalik arah dan berlanjut dari sisi tempat baris sebelumnya berakhir. `workflowImage` bersifat opsional dan ditampilkan selebar konten di bawah seluruh langkah, bukan menggantikannya.
 
-| Field Payload         | Nilai                                                                                                       |
-| --------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `workflowTitle`       | Dua Jalur Rekrutmen, Satu Sistem                                                                            |
-| `workflowDescription` | HRD memproses kandidat melalui jalur Staff atau Non-Staff dan memantau tahapan seleksi dalam satu aplikasi. |
+| Field Payload         | Nilai                                                                                                              |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `workflowTitle`       | Tentukan setelah pemilik produk menyetujui framing satu alur.                                                      |
+| `workflowDescription` | Jelaskan alur yang sudah dikonfirmasi; jangan menyiratkan Staff dan Non-Staff memiliki tahap identik.              |
+| `workflowSteps`       | Isi setelah HRD memvalidasi urutan workflow tunggal yang mewakili produk tanpa menggabungkan tahapan yang berbeda. |
+| `workflowImage`       | Opsional; diagram breakdown ditampilkan di bawah daftar `workflowSteps`.                                           |
 
-### Jalur Non-Staff
-
-Isi `workflowTracks` dengan `name`: `Non-Staff`.
-
-| Urutan | `title`             | `description`                                                                                             |
-| ------ | ------------------- | --------------------------------------------------------------------------------------------------------- |
-| 1      | Screening Data      | Kosongkan sampai detail tahap dikonfirmasi.                                                               |
-| 2      | Psikotes            | Psikotes CBT daring dengan pengawasan webcam.                                                             |
-| 3      | Interview User      | Jadwal interview dan data pewawancara dikelola di sistem; tersedia jadwal online/offline.                 |
-| 4      | Interview HR        | Jadwal interview dan data pewawancara dikelola di sistem; tersedia jadwal online/offline.                 |
-| 5      | Medical Check Up    | Surat MCU ke klinik rekanan dapat memerlukan approval atasan.                                             |
-| 6      | Pemanggilan Kontrak | Kandidat yang diterima melanjutkan ke proses kontrak; tanda tangan dapat dilakukan online atau di kantor. |
-
-### Jalur Staff
-
-Isi `workflowTracks` dengan `name`: `Staff`.
-
-| Urutan | `title`             | `description`                                                                                                  |
-| ------ | ------------------- | -------------------------------------------------------------------------------------------------------------- |
-| 1      | Pre Screening       | Kosongkan sampai detail tahap dikonfirmasi.                                                                    |
-| 2      | Interview HR & User | Jadwal interview dan data pewawancara dikelola di sistem; tersedia jadwal online/offline.                      |
-| 3      | Assessment          | Assessment dapat dilakukan melalui platform luar atau konsultan.                                               |
-| 4      | Medical Check Up    | Surat MCU ke klinik rekanan dapat memerlukan approval atasan.                                                  |
-| 5      | Offering Letter     | Offering Letter PDF resmi per perusahaan dikirim lewat email; kandidat dapat memberi konfirmasi secara daring. |
-| 6      | Pemanggilan Kontrak | Kandidat yang diterima melanjutkan ke proses kontrak; tanda tangan dapat dilakukan online atau di kantor.      |
-
-Deskripsi di atas merangkum bahan sumber; istilah proses dan detail operasionalnya tetap perlu diperiksa HRD Bonecom sebelum konten dianggap final.
+Data lama `workflowTracks` (Staff dan Non-Staff) dipertahankan di collection tetapi disembunyikan dari editor agar perubahan model tidak menghapus data. Jangan menyalin atau menggabungkan kedua jalur secara otomatis menjadi `workflowSteps`; konfirmasi urutan tunggal kepada HRD terlebih dahulu. Nama tahap yang tercantum pada bahan lama belum cukup untuk menyatakan satu alur lintas jalur yang akurat.
 
 ## Fitur utama
 
