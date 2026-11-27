@@ -164,6 +164,7 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -502,6 +503,22 @@ export interface Product {
         title: string;
         description: string;
         picture?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Kosongkan untuk memakai judul default.
+   */
+  implementationTitle?: string | null;
+  implementationDescription?: string | null;
+  /**
+   * Tahapan dari awal hingga produk siap digunakan. Section tidak tampil jika dikosongkan.
+   */
+  implementationSteps?:
+    | {
+        title: string;
+        description?: string | null;
+        duration?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -905,6 +922,7 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -1192,6 +1210,16 @@ export interface ProductsSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         picture?: T;
+        id?: T;
+      };
+  implementationTitle?: T;
+  implementationDescription?: T;
+  implementationSteps?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        duration?: T;
         id?: T;
       };
   useCases?:

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import ProductHero from "@/components/views/products/ProductHero";
 import ProductFeatures from "@/components/views/products/ProductFeatures";
 import ProductBenefits from "@/components/views/products/ProductBenefits";
+import ProductImplementation from "@/components/views/products/ProductImplementation";
 import ProductGallery from "@/components/views/products/ProductGallery";
 import ProductEcosystem from "@/components/views/products/ProductEcosystem";
 import FadeInUp from "@/components/ui/FadeInUp";
@@ -30,6 +31,10 @@ export default async function ProductPage({params}: PageProps){
 
             <FadeInUp>
                 <ProductBenefits product={product} />
+            </FadeInUp>
+
+            <FadeInUp>
+                <ProductImplementation product={product} />
             </FadeInUp>
             
             <FadeInUp>

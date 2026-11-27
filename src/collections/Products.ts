@@ -132,6 +132,32 @@ export const Products: CollectionConfig = {
       ],
     },
     {
+      name: "implementationTitle",
+      type: "text",
+      label: "Judul Bagian Alur Implementasi (Opsional)",
+      admin: { description: "Kosongkan untuk memakai judul default." },
+    },
+    {
+      name: "implementationDescription",
+      type: "textarea",
+      label: "Deskripsi Singkat Bagian Alur Implementasi (Opsional)",
+    },
+    {
+      name: "implementationSteps",
+      type: "array",
+      label: "Alur Implementasi (Opsional)",
+      labels: { singular: "Langkah", plural: "Langkah" },
+      admin: {
+        description: "Tahapan dari awal hingga produk siap digunakan. Section tidak tampil jika dikosongkan.",
+        initCollapsed: true,
+      },
+      fields: [
+        { name: "title", type: "text", required: true, label: "Nama Tahap (Misal: Konsultasi Kebutuhan)" },
+        { name: "description", type: "textarea", label: "Deskripsi Tahap" },
+        { name: "duration", type: "text", label: "Estimasi Durasi (Opsional, Misal: 1-2 Minggu)" },
+      ],
+    },
+    {
       name: "useCases",
       type: "array",
       label: "Target Pengguna / Industri (Use Cases)",
