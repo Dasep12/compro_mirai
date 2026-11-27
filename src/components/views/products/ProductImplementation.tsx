@@ -10,20 +10,23 @@ const COLUMNS = 3;
 
 const formatStep = (index: number) => String(index + 1).padStart(2, "0");
 
-export default function ProductImplementation({ product }: ProductImplementationProps) {
+export default function ProductImplementation({
+  product,
+}: ProductImplementationProps) {
   const steps = product.implementationSteps ?? [];
   if (steps.length === 0) return null;
 
   const lastIndex = steps.length - 1;
 
   return (
-    <section className="w-full relative overflow-hidden bg-brand-100/10 px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 xl:py-[80px] flex flex-col items-center gap-10 sm:gap-12 lg:gap-[60px] text-[#010101]">
-      <div className="flex flex-col items-center gap-3 sm:gap-4 text-center max-w-[800px]">
-        <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
+    <section className="w-full relative overflow-hidden bg-brand-100/10 px-4 sm:px-8 lg:px-30 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 xl:py-20 flex flex-col items-center gap-10 sm:gap-12 lg:gap-15 text-[#010101]">
+      <div className="flex flex-col items-center gap-3 sm:gap-4 text-center max-w-200">
+        <div className="bg-primary text-[#fdfdfd] rounded-full px-4 py-1.5 2xl:px-5 2xl:py-2 text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
           ALUR IMPLEMENTASI
         </div>
         <h2 className="text-[28px] sm:text-[34px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%]">
-          {product.implementationTitle || `Langkah mudah menuju implementasi ${product.name}`}
+          {product.implementationTitle ||
+            `Langkah mudah menuju implementasi ${product.name}`}
         </h2>
         {product.implementationDescription && (
           <p className="text-[15px] sm:text-[16px] text-[#010101]/70 leading-relaxed">
@@ -36,14 +39,17 @@ export default function ProductImplementation({ product }: ProductImplementation
         {/* Mobile & tablet: timeline vertikal */}
         <ol className="flex flex-col gap-6 relative lg:hidden">
           {steps.length > 1 && (
-            <div className="absolute top-6 bottom-6 left-[23px] w-[2px] bg-primary/25" />
+            <div className="absolute top-6 bottom-6 left-5.75 w-0.5 bg-primary/25" />
           )}
 
           {steps.map((step, index) => {
             const isLast = index === lastIndex;
 
             return (
-              <li key={step.id || index} className="flex items-start gap-5 relative">
+              <li
+                key={step.id || index}
+                className="flex items-start gap-5 relative"
+              >
                 <div
                   className={`relative z-10 w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-[15px] font-bold shadow-sm ${
                     isLast
@@ -66,7 +72,7 @@ export default function ProductImplementation({ product }: ProductImplementation
         </ol>
 
         {/* Desktop: pola ular kiri → kanan, turun, kanan → kiri */}
-        <ol className="hidden lg:grid grid-cols-3 gap-y-[60px] gap-x-[48px] w-full relative">
+        <ol className="hidden lg:grid grid-cols-3 gap-y-15 gap-x-12 w-full relative">
           {steps.map((step, i) => {
             const row = Math.floor(i / COLUMNS);
             const isEvenRow = row % 2 === 0;
@@ -76,7 +82,9 @@ export default function ProductImplementation({ product }: ProductImplementation
             const drawRight = isEvenRow && col < COLUMNS - 1 && !isLast;
             const drawLeft = !isEvenRow && col > 0 && !isLast;
             const drawDown =
-              ((isEvenRow && col === COLUMNS - 1) || (!isEvenRow && col === 0)) && !isLast;
+              ((isEvenRow && col === COLUMNS - 1) ||
+                (!isEvenRow && col === 0)) &&
+              !isLast;
 
             return (
               <li
@@ -86,24 +94,24 @@ export default function ProductImplementation({ product }: ProductImplementation
               >
                 {drawRight && (
                   <>
-                    <div className="absolute top-[23px] left-[24px] w-[calc(100%+48px)] h-[2px] bg-primary/25 -z-10" />
-                    <Arrow className="top-[24px] left-[calc(100%+24px)]">
+                    <div className="absolute top-5.75 left-6 w-[calc(100%+48px)] h-0.5 bg-primary/25 -z-10" />
+                    <Arrow className="top-6 left-[calc(100%+24px)]">
                       <ChevronRight className="w-4 h-4" />
                     </Arrow>
                   </>
                 )}
                 {drawLeft && (
                   <>
-                    <div className="absolute top-[23px] right-[calc(100%-24px)] w-[calc(100%+48px)] h-[2px] bg-primary/25 -z-10" />
-                    <Arrow className="top-[24px] left-[-24px]">
+                    <div className="absolute top-5.75 right-[calc(100%-24px)] w-[calc(100%+48px)] h-0.5 bg-primary/25 -z-10" />
+                    <Arrow className="top-6 -left-6">
                       <ChevronLeft className="w-4 h-4" />
                     </Arrow>
                   </>
                 )}
                 {drawDown && (
                   <>
-                    <div className="absolute top-[24px] left-[23px] h-[calc(100%+60px)] w-[2px] bg-primary/25 -z-10" />
-                    <Arrow className="top-[calc(100%+30px)] left-[24px]">
+                    <div className="absolute top-6 left-5.75 h-[calc(100%+60px)] w-0.5 bg-primary/25 -z-10" />
+                    <Arrow className="top-[calc(100%+30px)] left-6">
                       <ChevronDown className="w-4 h-4" />
                     </Arrow>
                   </>
@@ -168,7 +176,13 @@ function StepCard({ title, description, duration, isLast }: StepCardProps) {
   );
 }
 
-function Arrow({ className, children }: { className: string; children: ReactNode }) {
+function Arrow({
+  className,
+  children,
+}: {
+  className: string;
+  children: ReactNode;
+}) {
   return (
     <div
       className={`absolute z-10 -translate-x-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#fdfdfd] border border-primary/30 text-primary flex items-center justify-center shadow-sm ${className}`}
