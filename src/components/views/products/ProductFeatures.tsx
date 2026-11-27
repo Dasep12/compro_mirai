@@ -2,76 +2,144 @@
 
 import React from "react";
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { Product } from "../../../../payload-types";
 
 interface ProductFeaturesProps {
   product: Product;
 }
 
-export default function ProductFeatures({ product }: ProductFeaturesProps) {
-  if (!product.features || product.features.length === 0) return null;
+type ProductFeature = NonNullable<Product["features"]>[number];
+
+function FeatureImage({
+  feature,
+  className,
+  sizes,
+}: {
+  feature: ProductFeature;
+  className: string;
+  sizes: string;
+}) {
+  const image =
+    feature.picture && typeof feature.picture === "object"
+      ? feature.picture
+      : null;
 
   return (
-    <section className="w-full relative flex flex-col items-center px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 gap-8 lg:gap-10 text-[#010101] bg-[#fdfdfd]">
+    <div className={`relative overflow-hidden bg-brand-100/10 ${className}`}>
+      {image?.url ? (
+        <Image
+          src={image.url}
+          alt={image.alt || feature.title}
+          fill
+          sizes={sizes}
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+        />
+      ) : (
+        <div className="flex h-full min-h-[180px] items-center justify-center text-sm font-medium text-[#010101]/40 lg:min-h-0">
+          Gambar fitur belum tersedia
+        </div>
+      )}
+    </div>
+  );
+}
 
-      <div className="flex flex-col items-center gap-4 max-w-[900px] text-center mb-2 lg:mb-8">
-        <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
-          FITUR UNGGULAN
+export default function ProductFeatures({ product }: ProductFeaturesProps) {
+  const features = product.features ?? [];
+  if (features.length === 0) return null;
+
+  const [mainFeature, ...remainingFeatures] = features;
+  const secondaryFeatures = remainingFeatures.slice(0, 2);
+  const additionalFeatures = remainingFeatures.slice(2);
+
+  return (
+    <section className="w-full bg-[#fdfdfd] px-4 py-12 text-[#010101] sm:px-8 sm:py-16 lg:px-[120px] lg:py-20 2xl:px-[calc(50vw-600px)]">
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-8 lg:gap-10">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="flex max-w-[720px] flex-col items-start gap-4">
+            <SectionLabel>Fitur Unggulan</SectionLabel>
+            <h2 className="text-[30px] font-bold leading-[125%] sm:text-[38px] lg:text-[46px]">
+              Kemampuan {product.name}
+            </h2>
+          </div>
+          <p className="max-w-[360px] text-[14px] leading-[165%] text-[#010101]/65 sm:text-[15px] lg:pb-2">
+            Jelajahi fitur utama yang tersedia dalam produk.
+          </p>
         </div>
 
-        <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] max-w-6xl">
-          Modul esensial untuk memaksimalkan operasional bisnis Anda
-        </h2>
-      </div>
-
-      <div className="w-full flex flex-col gap-12 sm:gap-16 lg:gap-[80px]">
-        {(product.features ?? []).map((item, index) => {
-          const isReversed = index % 2 !== 0;
-
-          const imageUrl =
-            item.picture && typeof item.picture === "object"
-              ? item.picture.url
-              : null;
-          const imageAlt =
-            item.picture && typeof item.picture === "object"
-              ? item.picture.alt
-              : item.title;
-
-          return (
-            <div
-              key={item.id || index}
-              className={`group w-full flex flex-col gap-6 sm:gap-8 lg:gap-[80px] items-center ${
-                isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
-              }`}
-            >
-              <div className="w-full lg:w-1/2 h-[240px] sm:h-[350px] lg:h-[400px] relative shrink-0 shadow-[2px_4px_10px_1px_rgba(0,0,0,0.15)] rounded-2xl overflow-hidden bg-gray-50">
-                {imageUrl ? (
-                  <Image
-                    src={imageUrl}
-                    alt={imageAlt || "Solution Image"}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400 font-medium">
-                    Belum ada gambar
-                  </div>
-                )}
-              </div>
-
-              <div className="flex-1 w-full flex flex-col items-start justify-center gap-3 sm:gap-4">
-                <h3 className="text-[24px] sm:text-[28px] lg:text-[36px] xl:text-[40px] font-bold leading-[130%] lg:leading-[140%] text-[#010101]">
-                  {item.title}
-                </h3>
-
-                <p className="text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[18px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90 mt-1">
-                  {item.description}
-                </p>
-              </div>
+        <div
+          className={`grid gap-4 ${
+            secondaryFeatures.length > 0
+              ? "lg:grid-cols-[1.05fr_0.95fr]"
+              : ""
+          }`}
+        >
+          <article className="group overflow-hidden rounded-[24px] border border-black/5 bg-brand-100/10">
+            <FeatureImage
+              feature={mainFeature}
+              className="h-[210px] sm:h-[260px] lg:h-[280px]"
+              sizes="(max-width: 1024px) 100vw, 600px"
+            />
+            <div className="p-5 sm:p-7">
+              <h3 className="text-[24px] font-bold leading-[130%] sm:text-[30px]">
+                {mainFeature.title}
+              </h3>
+              <p className="mt-2 text-[14px] leading-[170%] text-[#010101]/70 sm:text-[15px]">
+                {mainFeature.description}
+              </p>
             </div>
-          );
-        })}
+          </article>
+
+          {secondaryFeatures.length > 0 && (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
+              {secondaryFeatures.map((feature, index) => (
+                <article
+                  key={feature.id || index}
+                  className="group flex min-h-[190px] overflow-hidden rounded-[24px] border border-black/5 bg-[#f7f7f7]"
+                >
+                  <FeatureImage
+                    feature={feature}
+                    className="min-h-[190px] w-[34%] shrink-0 self-stretch"
+                    sizes="(max-width: 1024px) 34vw, 220px"
+                  />
+                  <div className="flex min-w-0 flex-1 flex-col justify-center p-4 sm:p-5">
+                    <h3 className="text-[17px] font-bold leading-[130%] sm:text-[19px]">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-2 text-[13px] leading-[160%] text-[#010101]/70 sm:text-[14px]">
+                      {feature.description}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {additionalFeatures.length > 0 && (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {additionalFeatures.map((feature, index) => (
+              <article
+                key={feature.id || index}
+                className="group overflow-hidden rounded-[24px] border border-black/5 bg-[#f7f7f7]"
+              >
+                <FeatureImage
+                  feature={feature}
+                  className="aspect-[16/10]"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+                <div className="min-h-[190px] p-5 sm:p-7">
+                  <h3 className="text-[19px] font-bold leading-[130%] sm:text-[21px]">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-[170%] text-[#010101]/70 sm:text-[15px]">
+                    {feature.description}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -29,12 +29,32 @@ export const Products: CollectionConfig = {
       label: "Nama Produk (Untuk nama Tab. Misal: Bit HRMS)",
     },
     {
+      name: "showCTA",
+      type: "checkbox",
+      defaultValue: true,
+      label: "Tampilkan CTA ke Website Produk",
+      admin: {
+        description:
+          "Nonaktifkan jika halaman produk cukup berisi penjelasan dan tidak perlu tombol ke aplikasi/website eksternal.",
+      },
+    },
+    {
       name: "productUrl",
       type: "text",
-      required: true,
       label: "URL Website Produk",
       admin: {
-        description: "Link ke landing page eksternal produk ini (Misal: https://bithrms.com)",
+        condition: (_, siblingData) => siblingData.showCTA !== false,
+        description:
+          "Wajib diisi jika CTA aktif. Tombol pada showcase dan halaman detail akan menuju URL ini.",
+      },
+      validate: (
+        value: string | null | undefined,
+        { data }: { data: { showCTA?: boolean | null } },
+      ) => {
+        if (data?.showCTA !== false && !value?.trim()) {
+          return "URL Website Produk wajib diisi saat CTA aktif.";
+        }
+        return true;
       },
     },
     {
@@ -49,7 +69,11 @@ export const Products: CollectionConfig = {
       type: "text",
       defaultValue: "Kunjungi Website",
       label: "Teks Tombol CTA (Call to Action)",
-      admin: { description: "Teks tombol yang mengarahkan ke URL Website Produk di atas." },
+      admin: {
+        condition: (_, siblingData) => siblingData.showCTA !== false,
+        description:
+          "Teks tombol yang mengarahkan ke URL Website Produk di atas.",
+      },
     },
     {
       name: "subtitle",
@@ -57,7 +81,8 @@ export const Products: CollectionConfig = {
       required: true,
       label: "Sub-judul / Deskripsi Singkat",
       admin: {
-        description: "Teks ini akan muncul di tooltip navigasi AppBar dan Card daftar layanan.",
+        description:
+          "Teks ini akan muncul di tooltip navigasi AppBar dan Card daftar layanan.",
       },
     },
     {
@@ -66,7 +91,9 @@ export const Products: CollectionConfig = {
       relationTo: "media",
       required: true,
       label: "Ikon Menu Navigasi",
-      admin: { description: "Gunakan gambar berformat SVG atau PNG dengan rasio 1:1." },
+      admin: {
+        description: "Gunakan gambar berformat SVG atau PNG dengan rasio 1:1.",
+      },
     },
     {
       name: "badge",
@@ -84,7 +111,9 @@ export const Products: CollectionConfig = {
       type: "textarea",
       required: true,
       label: "Deskripsi Singkat Produk",
-      admin: { description: "Muncul di Hero section halaman muka dan halaman detail." },
+      admin: {
+        description: "Muncul di Hero section halaman muka dan halaman detail.",
+      },
     },
     {
       name: "image",
@@ -97,7 +126,10 @@ export const Products: CollectionConfig = {
       name: "fullDescription",
       type: "richText",
       label: "Deskripsi Lengkap Produk",
-      admin: { description: "Ceritakan latar belakang, visi, dan solusi menyeluruh dari produk ini." },
+      admin: {
+        description:
+          "Ceritakan latar belakang, visi, dan solusi menyeluruh dari produk ini.",
+      },
     },
     {
       name: "benefitTitle",
@@ -117,7 +149,12 @@ export const Products: CollectionConfig = {
       label: "Nilai Jual / Keuntungan Bisnis (Benefits)",
       fields: [
         { name: "title", type: "text", required: true, label: "Judul Benefit" },
-        { name: "description", type: "textarea", required: true, label: "Deskripsi Benefit" },
+        {
+          name: "description",
+          type: "textarea",
+          required: true,
+          label: "Deskripsi Benefit",
+        },
       ],
     },
     {
@@ -125,36 +162,134 @@ export const Products: CollectionConfig = {
       type: "array",
       label: "Daftar Fitur Utama",
       fields: [
-        { name: "icon", type: "upload", relationTo: "media", label: "Ikon Fitur (SVG/PNG)" },
+        {
+          name: "icon",
+          type: "upload",
+          relationTo: "media",
+          label: "Ikon Fitur (SVG/PNG)",
+        },
         { name: "title", type: "text", required: true, label: "Nama Fitur" },
-        { name: "description", type: "textarea", required: true, label: "Deskripsi Fitur" },
-        { name: "picture", type: "upload", relationTo: "media", label: "Gambar Detail Fitur" },
+        {
+          name: "description",
+          type: "textarea",
+          required: true,
+          label: "Deskripsi Fitur",
+        },
+        {
+          name: "picture",
+          type: "upload",
+          relationTo: "media",
+          label: "Gambar Detail Fitur",
+        },
       ],
     },
     {
       name: "implementationTitle",
       type: "text",
-      label: "Judul Bagian Alur Implementasi (Opsional)",
+      label: "Judul Bagian Tahapan Penerapan (Opsional)",
       admin: { description: "Kosongkan untuk memakai judul default." },
     },
     {
       name: "implementationDescription",
       type: "textarea",
-      label: "Deskripsi Singkat Bagian Alur Implementasi (Opsional)",
+      label: "Deskripsi Singkat Tahapan Penerapan (Opsional)",
+    },
+    {
+      name: "implementationImage",
+      type: "upload",
+      relationTo: "media",
+      label: "Gambar Utuh Tahapan Penerapan (Opsional)",
+      admin: {
+        description:
+          "Jika diisi, gambar lebar penuh ditampilkan menggantikan daftar tahapan. Kosongkan untuk menampilkan daftar.",
+      },
     },
     {
       name: "implementationSteps",
       type: "array",
-      label: "Alur Implementasi (Opsional)",
+      label: "Tahapan Penerapan Produk (Opsional)",
       labels: { singular: "Langkah", plural: "Langkah" },
       admin: {
-        description: "Tahapan dari awal hingga produk siap digunakan. Section tidak tampil jika dikosongkan.",
+        description:
+          "Tahapan onboarding/penerapan produk dari awal hingga siap digunakan. Tidak untuk alur kerja di dalam produk.",
         initCollapsed: true,
       },
       fields: [
-        { name: "title", type: "text", required: true, label: "Nama Tahap (Misal: Konsultasi Kebutuhan)" },
+        {
+          name: "title",
+          type: "text",
+          required: true,
+          label: "Nama Tahap (Misal: Konsultasi Kebutuhan)",
+        },
         { name: "description", type: "textarea", label: "Deskripsi Tahap" },
-        { name: "duration", type: "text", label: "Estimasi Durasi (Opsional, Misal: 1-2 Minggu)" },
+        {
+          name: "duration",
+          type: "text",
+          label: "Estimasi Durasi (Opsional, Misal: 1-2 Minggu)",
+        },
+      ],
+    },
+    {
+      name: "workflowTitle",
+      type: "text",
+      label: "Judul Bagian Cara Kerja Produk (Opsional)",
+      admin: {
+        description:
+          "Judul untuk alur penggunaan/proses yang dijalankan produk.",
+      },
+    },
+    {
+      name: "workflowDescription",
+      type: "textarea",
+      label: "Deskripsi Bagian Cara Kerja Produk (Opsional)",
+    },
+    {
+      name: "workflowImage",
+      type: "upload",
+      relationTo: "media",
+      label: "Gambar Utuh Cara Kerja (Opsional)",
+      admin: {
+        description:
+          "Jika diisi, gambar lebar penuh ditampilkan menggantikan tab dan daftar jalur. Kosongkan untuk menampilkan daftar jalur.",
+      },
+    },
+    {
+      name: "workflowTracks",
+      type: "array",
+      label: "Jalur Cara Kerja Produk",
+      labels: { singular: "Jalur", plural: "Jalur" },
+      admin: {
+        description:
+          "Gunakan beberapa jalur untuk proses yang bercabang, misalnya Staff dan Non-Staff. Bagian tidak tampil jika tidak ada langkah.",
+        initCollapsed: true,
+      },
+      fields: [
+        { name: "name", type: "text", required: true, label: "Nama Jalur" },
+        {
+          name: "description",
+          type: "textarea",
+          label: "Deskripsi Jalur (Opsional)",
+        },
+        {
+          name: "steps",
+          type: "array",
+          label: "Langkah dalam Jalur",
+          labels: { singular: "Langkah", plural: "Langkah" },
+          minRows: 1,
+          fields: [
+            {
+              name: "title",
+              type: "text",
+              required: true,
+              label: "Nama Langkah",
+            },
+            {
+              name: "description",
+              type: "textarea",
+              label: "Penjelasan Langkah (Opsional)",
+            },
+          ],
+        },
       ],
     },
     {
@@ -162,7 +297,12 @@ export const Products: CollectionConfig = {
       type: "array",
       label: "Target Pengguna / Industri (Use Cases)",
       fields: [
-        { name: "industry", type: "text", required: true, label: "Nama Industri / Target (Misal: Manufaktur)" },
+        {
+          name: "industry",
+          type: "text",
+          required: true,
+          label: "Nama Industri / Target (Misal: Manufaktur)",
+        },
       ],
     },
     {
@@ -170,7 +310,13 @@ export const Products: CollectionConfig = {
       type: "array",
       label: "Galeri / Screenshot Antarmuka (UI)",
       fields: [
-        { name: "galleryImage", type: "upload", relationTo: "media", required: true, label: "Gambar Screenshot" },
+        {
+          name: "galleryImage",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+          label: "Gambar Screenshot",
+        },
         { name: "caption", type: "text", label: "Caption Gambar (Opsional)" },
       ],
     },
@@ -178,10 +324,23 @@ export const Products: CollectionConfig = {
       name: "integrations",
       type: "array",
       label: "Integrasi & Teknologi Pendukung",
-      admin: { description: "Sistem yang bisa dihubungkan. Misal: SAP, Android, iOS, Hardware Khusus." },
+      admin: {
+        description:
+          "Sistem yang bisa dihubungkan. Misal: SAP, Android, iOS, Hardware Khusus.",
+      },
       fields: [
-        { name: "logo", type: "upload", relationTo: "media", label: "Logo Integrasi/Teknologi" },
-        { name: "name", type: "text", required: true, label: "Nama Sistem (Misal: SAP ERP)" },
+        {
+          name: "logo",
+          type: "upload",
+          relationTo: "media",
+          label: "Logo Integrasi/Teknologi",
+        },
+        {
+          name: "name",
+          type: "text",
+          required: true,
+          label: "Nama Sistem (Misal: SAP ERP)",
+        },
       ],
     },
     {
@@ -190,7 +349,13 @@ export const Products: CollectionConfig = {
       label: "Klien yang Menggunakan Produk Ini",
       admin: { description: "Tampilkan logo perusahaan sebagai social proof." },
       fields: [
-        { name: "clientLogo", type: "upload", relationTo: "media", required: true, label: "Logo Klien" },
+        {
+          name: "clientLogo",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+          label: "Logo Klien",
+        },
         { name: "clientName", type: "text", label: "Nama Klien" },
       ],
     },

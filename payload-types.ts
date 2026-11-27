@@ -447,9 +447,13 @@ export interface Product {
   id: number;
   name: string;
   /**
-   * Link ke landing page eksternal produk ini (Misal: https://bithrms.com)
+   * Nonaktifkan jika halaman produk cukup berisi penjelasan dan tidak perlu tombol ke aplikasi/website eksternal.
    */
-  productUrl: string;
+  showCTA?: boolean | null;
+  /**
+   * Wajib diisi jika CTA aktif. Tombol pada showcase dan halaman detail akan menuju URL ini.
+   */
+  productUrl?: string | null;
   slug: string;
   /**
    * Teks tombol yang mengarahkan ke URL Website Produk di atas.
@@ -512,13 +516,43 @@ export interface Product {
   implementationTitle?: string | null;
   implementationDescription?: string | null;
   /**
-   * Tahapan dari awal hingga produk siap digunakan. Section tidak tampil jika dikosongkan.
+   * Jika diisi, gambar lebar penuh ditampilkan menggantikan daftar tahapan. Kosongkan untuk menampilkan daftar.
+   */
+  implementationImage?: (number | null) | Media;
+  /**
+   * Tahapan onboarding/penerapan produk dari awal hingga siap digunakan. Tidak untuk alur kerja di dalam produk.
    */
   implementationSteps?:
     | {
         title: string;
         description?: string | null;
         duration?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Judul untuk alur penggunaan/proses yang dijalankan produk.
+   */
+  workflowTitle?: string | null;
+  workflowDescription?: string | null;
+  /**
+   * Jika diisi, gambar lebar penuh ditampilkan menggantikan tab dan daftar jalur. Kosongkan untuk menampilkan daftar jalur.
+   */
+  workflowImage?: (number | null) | Media;
+  /**
+   * Gunakan beberapa jalur untuk proses yang bercabang, misalnya Staff dan Non-Staff. Bagian tidak tampil jika tidak ada langkah.
+   */
+  workflowTracks?:
+    | {
+        name: string;
+        description?: string | null;
+        steps?:
+          | {
+              title: string;
+              description?: string | null;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -1184,6 +1218,7 @@ export interface CareersSelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   name?: T;
+  showCTA?: T;
   productUrl?: T;
   slug?: T;
   ctaText?: T;
@@ -1214,12 +1249,30 @@ export interface ProductsSelect<T extends boolean = true> {
       };
   implementationTitle?: T;
   implementationDescription?: T;
+  implementationImage?: T;
   implementationSteps?:
     | T
     | {
         title?: T;
         description?: T;
         duration?: T;
+        id?: T;
+      };
+  workflowTitle?: T;
+  workflowDescription?: T;
+  workflowImage?: T;
+  workflowTracks?:
+    | T
+    | {
+        name?: T;
+        description?: T;
+        steps?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              id?: T;
+            };
         id?: T;
       };
   useCases?:

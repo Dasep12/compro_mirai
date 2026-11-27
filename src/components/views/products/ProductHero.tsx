@@ -19,62 +19,73 @@ export default function ProductHero({ product }: ProductHeroProps) {
       : product.name;
 
   return (
-    <section className="w-full relative flex flex-col lg:flex-row items-center justify-between px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-[50px] gap-10 lg:gap-8 bg-[#fdfdfd] text-[#010101]">
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-            @keyframes levitate {
-              0%, 100% { transform: translateY(0); }
-              50% { transform: translateY(-15px); }
-            }
-            .animate-levitate {
-              animation: levitate 4s ease-in-out infinite;
-            }
-          `,
-        }}
+    <section className="relative isolate w-full overflow-hidden bg-[#f7f7f7] px-4 py-12 text-[#010101] sm:px-8 sm:py-16 lg:px-[120px] lg:py-20 2xl:px-[calc(50vw-600px)]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-36 -top-40 h-[420px] w-[420px] rounded-full border border-primary/10 sm:h-[560px] sm:w-[560px]"
       />
-      <div className="flex flex-col items-start gap-4 sm:gap-5 w-full flex-1 lg:max-w-[500px] xl:max-w-[629px] shrink-0 z-10">
-        {product.badge && (
-          <div className="bg-brand-100/25 text-primary rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-semibold leading-[120%] tracking-wide uppercase">
-            {product.badge}
-          </div>
-        )}
-        
-        <h1 className="text-[28px] sm:text-[36px] lg:text-[40px] xl:text-[48px] font-bold leading-[130%] sm:leading-[140%] text-left">
-          {product.headline}
-        </h1>
-        
-        <p className="text-[14px] sm:text-[15px] lg:text-[16px] xl:text-[18px] leading-[160%] sm:leading-[180%] font-medium text-[#010101]/90">
-          {product.description}
-        </p>
+      <div className="relative mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+        <div className="flex flex-col items-start gap-5">
+          {product.badge && (
+            <div className="flex items-center gap-3">
+              <span className="h-[2px] w-8 bg-primary" />
+              <span className="text-[13px] font-semibold uppercase tracking-[0.14em] text-primary sm:text-[14px]">
+                {product.badge}
+              </span>
+            </div>
+          )}
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-2 w-full sm:w-auto">
-          <Link
-            href={product.productUrl || "#"}
-            target="_blank"
-            className="bg-primary text-[#fdfdfd] font-semibold px-6 py-3 rounded-mirai hover:bg-brand-600 transition-colors no-underline flex items-center justify-center w-full sm:w-auto text-center"
-          >
-            <span>{product.ctaText || "Kunjungi Website"}</span>
-          </Link>
+          <h1 className="max-w-[620px] text-[32px] font-bold leading-[120%] sm:text-[40px] lg:text-[50px] xl:text-[56px]">
+            {product.headline}
+          </h1>
+
+          <p className="max-w-[560px] text-[15px] leading-[170%] text-[#010101]/75 sm:text-[16px] lg:text-[18px]">
+            {product.description}
+          </p>
+
+          {product.showCTA !== false && product.productUrl && (
+            <Link
+              href={product.productUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex items-center gap-3 rounded-mirai bg-primary px-6 py-3 font-semibold text-[#fdfdfd] transition-colors hover:bg-brand-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              <span>{product.ctaText || "Kunjungi Website"}</span>
+              <svg
+                aria-hidden="true"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M7 17 17 7M7 7h10v10"
+                />
+              </svg>
+            </Link>
+          )}
         </div>
-      </div>
 
-      <div className="w-full flex-1 relative flex items-center justify-center lg:justify-end mt-4 lg:mt-0 h-[300px] sm:h-[400px] lg:h-[450px] xl:h-[600px] shrink-0">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={imageAlt || "Hero Illustration"}
-            fill
-            priority
-            quality={85}
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover"
-          />
-        ) : (
-          <div className="w-full h-full bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 font-medium">
-            Belum ada gambar Hero
-          </div>
-        )}
+        <div className="relative mt-4 flex h-[300px] w-full flex-1 shrink-0 items-center justify-center sm:h-[400px] lg:mt-0 lg:h-[450px] lg:justify-end xl:h-[600px]">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={imageAlt || "Hero Illustration"}
+              fill
+              priority
+              quality={85}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gray-100 font-medium text-gray-400">
+              Belum ada gambar Hero
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

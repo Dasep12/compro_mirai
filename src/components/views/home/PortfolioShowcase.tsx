@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { Portfolio } from "../../../../payload-types";
 
 interface AutoFitAchievementsProps {
@@ -149,9 +150,7 @@ export default function PortfolioShowcase({
   return (
     <section className="w-full relative flex flex-col items-center bg-[#7eb2fc]/5 px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 gap-8 lg:gap-10 text-[#010101]">
       <div className="flex flex-col items-center gap-4 text-center">
-        <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
-          PORTOFOLIO
-        </div>
+        <SectionLabel align="center">Portofolio</SectionLabel>
 
         <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] max-w-4xl">
           Rekam Jejak Transformasi Digital Klien Kami

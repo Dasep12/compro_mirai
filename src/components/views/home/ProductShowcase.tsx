@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import Link from "next/link";
 import { Product } from "../../../../payload-types";
 
@@ -51,6 +52,8 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
     activeProduct?.image && typeof activeProduct.image === "object"
       ? activeProduct.image.alt
       : activeProduct?.name;
+  const productUrl =
+    activeProduct?.showCTA !== false ? activeProduct?.productUrl : null;
 
   return (
     <section className="w-full relative flex flex-col items-center bg-[#fdfdfd] px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 md:py-[50px] gap-8 md:gap-10 text-[#010101]">
@@ -69,9 +72,7 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
       />
 
       <div className="flex flex-col items-center gap-4 max-w-[900px] text-center">
-        <div className="bg-primary text-[#fdfdfd] rounded-full px-[14px] py-[5px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[180%] 2xl:leading-[140%] tracking-wide uppercase">
-          PRODUK
-        </div>
+        <SectionLabel align="center">Produk</SectionLabel>
 
         <h2 className="text-[28px] sm:text-[32px] md:text-[46px] font-bold leading-[125%]">
           Solusi Software Terintegrasi untuk Bisnis Anda
@@ -221,13 +222,15 @@ export default function ProductShowcase({ products }: ProductShowcaseProps) {
 
       <div className="flex flex-col items-center gap-4 mt-2 md:mt-4 w-full">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 w-full sm:w-auto">
-          <Link
-            href={activeProduct?.productUrl || "#"}
-            target="_blank"
-            className="bg-primary text-[#fdfdfd] font-semibold px-6 py-3 rounded-[10px] hover:bg-brand-600 transition-colors text-center text-[14px] sm:text-[15px]"
-          >
-            Coba Sekarang
-          </Link>
+          {productUrl && (
+            <Link
+              href={productUrl}
+              target="_blank"
+              className="bg-primary text-[#fdfdfd] font-semibold px-6 py-3 rounded-[10px] hover:bg-brand-600 transition-colors text-center text-[14px] sm:text-[15px]"
+            >
+              Coba Sekarang
+            </Link>
+          )}
 
           <Link
             href={`/products/${activeProduct.slug}`}

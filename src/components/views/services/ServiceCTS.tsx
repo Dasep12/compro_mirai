@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Service } from "../../../../payload-types";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 interface ServiceCTAProps {
   service: Service;
@@ -12,6 +13,9 @@ export default function ServiceCTA({ service }: ServiceCTAProps) {
   return (
     <section className="w-full relative flex flex-col items-center justify-center bg-primary px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-14 sm:py-16 lg:py-20 text-center text-[#fdfdfd]">
       <div className="flex flex-col items-center gap-4 max-w-[900px] lg:max-w-[1000px]">
+        <SectionLabel tone="inverse" align="center">
+          Konsultasi
+        </SectionLabel>
         <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] max-w-4xl">
           Jadikan Teknologi Sebagai Keunggulan Kompetitif Anda
         </h2>

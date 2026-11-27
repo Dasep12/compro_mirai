@@ -1,4 +1,5 @@
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { Service } from "../../../../payload-types";
 
 interface ServiceProblemProps {
@@ -15,11 +16,9 @@ export default function ServiceProblem({
   return (
     <section className="w-full relative overflow-hidden flex flex-col items-center px-4 sm:px-8 lg:px-[120px] 2xl:px-[calc(50vw-600px)] py-10 sm:py-14 lg:py-16 gap-8 lg:gap-10 text-[#010101]">
       <div className="flex flex-col items-center gap-4 max-w-[900px] text-center">
-        {problemData.badge && (
-          <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
-            {problemData.badge}
-          </div>
-        )}
+        <SectionLabel align="center">
+          {problemData.badge || "Permasalahan"}
+        </SectionLabel>
 
         <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] max-w-4xl">
           {problemData.title}

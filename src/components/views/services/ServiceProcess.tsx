@@ -1,4 +1,5 @@
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { Service } from "../../../../payload-types"; // Sesuaikan path
 
 interface ServiceProcessProps {
@@ -21,11 +22,9 @@ export default function ServiceProcess({
       {showProcess && processData && processData.steps && (
         <div className="w-full flex flex-col items-center gap-[40px]">
           <div className="flex flex-col items-center gap-4 max-w-[900px] text-center mb-2 lg:mb-4">
-            {processData.badge && (
-              <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
-                {processData.badge}
-              </div>
-            )}
+            <SectionLabel align="center">
+              {processData.badge || "Proses"}
+            </SectionLabel>
             <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] max-w-4xl">
               {processData.title}
             </h2>
@@ -107,6 +106,7 @@ export default function ServiceProcess({
       {showFramework && frameworkData && frameworkData.logos && (
         <div className="w-full flex flex-col items-center gap-8 lg:gap-10 pt-8 lg:pt-10 border-t border-primary/10">
           <div className="flex flex-col items-center gap-4 max-w-[900px] text-center">
+            <SectionLabel align="center">Framework</SectionLabel>
             <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] max-w-4xl">
               {frameworkData.title}
             </h2>

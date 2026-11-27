@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Service } from "../../../../payload-types";
@@ -72,9 +73,7 @@ export default function ServiceShowcase({ services }: ServiceShowcaseProps) {
       />
 
       <div className="flex flex-col items-center gap-4 text-center">
-        <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
-          LAYANAN KAMI
-        </div>
+        <SectionLabel align="center">Layanan Kami</SectionLabel>
 
         <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%]">
           Solusi Teknologi Terintegrasi

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "@/components/ui/Image";
+import SectionLabel from "@/components/ui/SectionLabel";
 import { Faq } from "../../../../payload-types";
 
 interface FaqShowcaseProps {
@@ -42,9 +43,7 @@ export default function FaqShowcase({ faqs }: FaqShowcaseProps) {
       />
 
       <div className="flex flex-col items-center gap-4 max-w-[900px] text-center">
-        <div className="bg-primary text-[#fdfdfd] rounded-full px-[16px] py-[6px] 2xl:px-[20px] 2xl:py-[8px] text-[14px] 2xl:text-[16px] font-medium leading-[120%] tracking-wide uppercase">
-          FAQ
-        </div>
+        <SectionLabel align="center">FAQ</SectionLabel>
 
         <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] xl:text-[46px] font-bold leading-[125%] max-w-4xl">
           <span className="text-primary">Frequently</span>{" "}
