@@ -95,25 +95,25 @@ export default function ProductImplementation({
                 {drawRight && (
                   <>
                     <div className="absolute top-5.75 left-6 w-[calc(100%+48px)] h-0.5 bg-primary/25 -z-10" />
-                    <Arrow className="top-6 left-[calc(100%+24px)]">
+                    {/* <Arrow className="top-6 left-[calc(100%+24px)]">
                       <ChevronRight className="w-4 h-4" />
-                    </Arrow>
+                    </Arrow> */}
                   </>
                 )}
                 {drawLeft && (
                   <>
                     <div className="absolute top-5.75 right-[calc(100%-24px)] w-[calc(100%+48px)] h-0.5 bg-primary/25 -z-10" />
-                    <Arrow className="top-6 -left-6">
+                    {/* <Arrow className="top-6 -left-6">
                       <ChevronLeft className="w-4 h-4" />
-                    </Arrow>
+                    </Arrow> */}
                   </>
                 )}
                 {drawDown && (
                   <>
                     <div className="absolute top-6 left-5.75 h-[calc(100%+60px)] w-0.5 bg-primary/25 -z-10" />
-                    <Arrow className="top-[calc(100%+30px)] left-6">
+                    {/* <Arrow className="top-[calc(100%+30px)] left-6">
                       <ChevronDown className="w-4 h-4" />
-                    </Arrow>
+                    </Arrow> */}
                   </>
                 )}
 
