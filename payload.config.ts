@@ -80,7 +80,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI,
     },
-    push: true,
+    // Set PAYLOAD_DB_PUSH=false agar `npm run dev` tidak menyinkronkan skema ke database.
+    push: process.env.PAYLOAD_DB_PUSH !== "false",
   }),
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
